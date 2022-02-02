@@ -1,4 +1,4 @@
-#' Get the current state of the question
+#' Manage the states of the quiz
 #'
 #' @param store a list formatted like in the example
 #' @param variable one of c('current-question', 'current-answers', 'current-correct-answer', 'next-state', 'current-response')
@@ -23,6 +23,7 @@
 #'   responses = c('yes', NA, NA)
 #' )
 #' get_state(store, 'current-question')
+#' @describeIn get_state a getter function for the state machine
 get_state <- function(store, variable = NULL, state = NULL){
   if (is.null(state)) state <- store$state
   if (is.null(variable)) return(state)
@@ -45,13 +46,23 @@ get_state <- function(store, variable = NULL, state = NULL){
   }
 }
 
-set_response <- function(store, response, state = NULL){
+
+#' @describeIn get_state a setter function for the state machine
+set_state <- function(store, variable, value, state = NULL){
   if (is.null(state)) state <- get_state(store)
-  store$responses[store$states == state] <- response
+  
+  if (variable == 'current-state'){
+    store$state <- value
+  }
+  
+  if (variable == 'current-response'){
+    store$responses[store$states == state] <- value
+  }
   
   return(store)
 }
 
+#' @describeIn get_state check that all recorded answers are correct
 is_all_correct <- function(store){
   isTRUE(all(store$responses[-(length(store$questions)+1)] == store$correct_answers))
 }

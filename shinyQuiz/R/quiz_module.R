@@ -28,8 +28,7 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
       observeEvent(input$submit_button, {
         
         # record answers
-        store <- set_response(store, response = input$answer_buttons)
-        # print(input$answer_buttons)
+        store <- set_state(store, variable = 'current-response', value = input$answer_buttons)
         
         # is the answer correct
         is_correct <- isTRUE(
@@ -46,7 +45,7 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
       
       # reset quiz
       observeEvent(input$restart_button, {
-        store$state <- 'quiz-question-1'
+        store <- set_state(store, variable = 'current-state', value = 'quiz-question-1')
         store$responses <- rep(NA, length(questions) + 1)
       })
       
@@ -76,7 +75,7 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
                          class = 'submit-button')
           )
           
-          # wrap html is a div
+          # wrap html in a div
           html <- div(class = 'quiz-container',
                       html)
         }
