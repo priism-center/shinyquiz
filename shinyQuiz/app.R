@@ -1,11 +1,15 @@
 library(shiny)
 
+# TODO: modularize
+
+# set the basic elements of the quiz
 question_1 <- "This is question 1"
 question_2 <- "This is question 2"
 questions <- list(question_1, question_2)
 answers <- list(c('1a', '1b'), c('2a', '2b'))
 correct_answers <- list(c('1a'), c('2b'))
 
+# the UI to show once the quiz is finished
 ui_background <- tagList(
     p('Quiz finished'),
     sliderInput(inputId = 'test',
@@ -15,21 +19,23 @@ ui_background <- tagList(
                 value = 0.5)
 )
 
+# main UI
 ui <- fluidPage(
     
     includeCSS('www/quiz.css'),
 
     tagList(
         uiOutput(outputId = 'quiz'),
-        actionButton(inputId = 'reload_button',
-                     label = 'Reload')
+        actionButton(inputId = 'restart_button',
+                     label = 'Restart quiz')
     )
 
 )
 
+# main server
 server <- function(input, output, session) {
 
-    # set the current state and potentian values
+    # set the current state and potential values
     store <- reactiveValues(
         state = 'quiz-question-1',
         states = c(paste0('quiz-question-', seq_along(questions)), 'quiz-complete'),
@@ -55,7 +61,7 @@ server <- function(input, output, session) {
     })
     
     # reset quiz
-    observeEvent(input$reload_button, {
+    observeEvent(input$restart_button, {
         store$state <- 'quiz-question-1'
     })
     

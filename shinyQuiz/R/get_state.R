@@ -13,7 +13,8 @@
 #' questions <- list(question_1, question_2)
 #' answers <- list(c('1a', '1b'), c('2a', '2b'))
 #' correct_answers <- list(c('1a'), c('2b'))
-#' store <- reactiveValues(
+#' # use shiny::reactiveValues() in lieu of list()
+#' store <- list( 
 #'   state = 'quiz-question-1',
 #'   states = c(paste0('quiz-question-', seq_along(questions)), 'quiz-complete'),
 #'   questions = questions,
