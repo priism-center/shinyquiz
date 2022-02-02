@@ -34,7 +34,7 @@ question_2 <- tagList(
     p("Lorem ipsum")
 )
 answers_2 <- c('2a', '2b')
-correct_answer_2 <- c('1b')
+correct_answer_2 <- c('2b')
 questions <- list(question_1, question_2)
 answers <- list(answers_1, answers_2)
 correct_answers <- list(correct_answer_1, correct_answer_2)
@@ -44,6 +44,7 @@ correct_answers <- list(correct_answer_1, correct_answer_2)
 
 # the UI to show once the quiz is finished
 ui_background <- tagList(
+    
     p('Quiz finished'),
     sliderInput(inputId = NS('test')('slider_test'),
                 label = 'Another UI element',
@@ -54,7 +55,7 @@ ui_background <- tagList(
 )
 
 # main UI
-ui <- fluidPage(ui_quiz(id = 'test'))
+ui <- fluidPage(includeCSS('www/quiz.css'), ui_quiz(id = 'test'))
 
 
 # server ------------------------------------------------------------------

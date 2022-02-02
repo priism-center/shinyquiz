@@ -1,7 +1,7 @@
 #' Get the current state of the question
 #'
 #' @param store a list formatted like in the example
-#' @param variable one of c('current-question', 'current-answers', 'current-correct-answer', 'next-state')
+#' @param variable one of c('current-question', 'current-answers', 'current-correct-answer', 'next-state', 'current-response')
 #' @param state one of c('quiz-question-1', ..., 'quiz-question')
 #'
 #' @return
@@ -19,7 +19,8 @@
 #'   states = c(paste0('quiz-question-', seq_along(questions)), 'quiz-complete'),
 #'   questions = questions,
 #'   answers = answers,
-#'   correct_answers = correct_answers
+#'   correct_answers = correct_answers,
+#'   responses = c('yes', NA, NA)
 #' )
 #' get_state(store, 'current-question')
 get_state <- function(store, variable = NULL, state = NULL){
@@ -39,4 +40,18 @@ get_state <- function(store, variable = NULL, state = NULL){
   if (variable == 'next-state'){
     return(store$states[min(length(store$questions)+1, match(state, store$states) + 1)])
   }
+  if (variable == 'current-response'){
+    return(store$responses[store$states == state][[1]])
+  }
+}
+
+set_response <- function(store, response, state = NULL){
+  if (is.null(state)) state <- get_state(store)
+  store$responses[store$states == state] <- response
+  
+  return(store)
+}
+
+is_all_correct <- function(store){
+  isTRUE(all(store$responses[-(length(store$questions)+1)] == store$correct_answers))
 }

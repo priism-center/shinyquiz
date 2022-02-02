@@ -20,15 +20,20 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
         states = c(paste0('quiz-question-', seq_along(questions)), 'quiz-complete'),
         questions = questions,
         answers = answers,
-        correct_answers = correct_answers
+        correct_answers = correct_answers,
+        responses = rep(NA, length(questions) + 1)
       )
       
       # on button submit, manage the state
       observeEvent(input$submit_button, {
         
+        # record answers
+        store <- set_response(store, response = input$answer_buttons)
+        # print(input$answer_buttons)
+        
         # is the answer correct
         is_correct <- isTRUE(
-          input$answer_buttons == get_state(store, variable = 'current-correct-answer')
+          get_state(store, variable = 'current-response') == get_state(store, variable = 'current-correct-answer')
         )
         
         # change the state
@@ -42,6 +47,7 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
       # reset quiz
       observeEvent(input$restart_button, {
         store$state <- 'quiz-question-1'
+        store$responses <- rep(NA, length(questions) + 1)
       })
       
       # render the UI
@@ -49,6 +55,11 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
         
         if (get_state(store) == 'quiz-complete'){
           html <- ui_background
+          
+          # add confetti if all answers were correct
+          all_correct <- is_all_correct(store)
+          if (all_correct) html <- tagList(html, add_confetti())
+          
         } else {
           
           # render the questions
@@ -61,11 +72,12 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
               selected = NULL
             ),
             actionButton(inputId = ns('submit_button'),
-                         label = 'Submit')
+                         label = 'Submit',
+                         class = 'submit-button')
           )
           
           # wrap html is a div
-          html <- div(id = 'quiz-container',
+          html <- div(class = 'quiz-container',
                       html)
         }
         
@@ -73,7 +85,8 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
         html <- tagList(
           html,
           actionButton(inputId = ns('restart_button'),
-                       label = 'Restart quiz')
+                       label = 'Restart quiz',
+                       class = 'restart-button')
         )
         
         return(html)
