@@ -23,7 +23,7 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
         correct_answers = correct_answers
       )
       
-      # on submit, manage the state
+      # on button submit, manage the state
       observeEvent(input$submit_button, {
         
         # is the answer correct
@@ -50,6 +50,8 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
         if (get_state(store) == 'quiz-complete'){
           html <- ui_background
         } else {
+          
+          # render the questions
           html <- tagList(
             p(get_state(store, 'current-question')),
             radioButtons(
