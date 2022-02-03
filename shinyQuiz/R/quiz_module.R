@@ -1,8 +1,12 @@
 require(shiny)
+require(shinyjs)
 
 ui_quiz <- function(id) {
   ns <- NS(id)
-  uiOutput(outputId = ns('quiz'))
+  tagList(
+    shinyjs::useShinyjs(),
+    uiOutput(outputId = ns('quiz'))
+  )
 }
 
 server_quiz <- function(id, questions, answers, correct_answers, ui_background) {
@@ -35,11 +39,19 @@ server_quiz <- function(id, questions, answers, correct_answers, ui_background) 
           get_state(store, variable = 'current-response') == get_state(store, variable = 'current-correct-answer')
         )
         
-        # change the state
+        # grade it
         if (is_correct){
-          store$state <- get_state(store, 'next-state')
+          # add UI indicator
+          add_checkmark(ns = ns)
+          
+          # change the state
+          shinyjs::delay(1000, store$state <- get_state(store, 'next-state'))
         } else {
-          store$state <- 'quiz-complete'
+          # add UI indicator
+          add_red_x(ns = ns)
+          
+          # change the state
+          shinyjs::delay(1000, store$state <- 'quiz-complete')
         }
       })
       

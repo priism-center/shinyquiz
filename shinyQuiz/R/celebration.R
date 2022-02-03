@@ -45,7 +45,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 182ms;
         -webkit-animation-duration: 1116ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(2) {
         left: 14%;
@@ -53,7 +53,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 161ms;
         -webkit-animation-duration: 1076ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(3) {
         left: 21%;
@@ -61,7 +61,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 481ms;
         -webkit-animation-duration: 1103ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(4) {
         left: 28%;
@@ -69,7 +69,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 334ms;
         -webkit-animation-duration: 708ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(5) {
         left: 35%;
@@ -77,7 +77,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 302ms;
         -webkit-animation-duration: 776ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(6) {
         left: 42%;
@@ -85,7 +85,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 180ms;
         -webkit-animation-duration: 1168ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(7) {
         left: 49%;
@@ -93,7 +93,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 395ms;
         -webkit-animation-duration: 1200ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(8) {
         left: 56%;
@@ -101,7 +101,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 14ms;
         -webkit-animation-duration: 887ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(9) {
         left: 63%;
@@ -109,7 +109,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 149ms;
         -webkit-animation-duration: 805ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(10) {
         left: 70%;
@@ -117,7 +117,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 351ms;
         -webkit-animation-duration: 1059ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(11) {
         left: 77%;
@@ -125,7 +125,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 307ms;
         -webkit-animation-duration: 1132ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(12) {
         left: 84%;
@@ -133,7 +133,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 464ms;
         -webkit-animation-duration: 776ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(13) {
         left: 91%;
@@ -141,7 +141,7 @@ add_confetti <- function(){
         -webkit-animation: makeItRain 1000ms infinite ease-out;
         -webkit-animation-delay: 429ms;
         -webkit-animation-duration: 818ms;
-        -webkit-animation-iteration-count: 10;
+        -webkit-animation-iteration-count: 3;
     }
     .confetti-piece:nth-child(odd) {
         background: #7431e8;
