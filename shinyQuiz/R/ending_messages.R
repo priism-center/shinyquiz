@@ -1,3 +1,20 @@
+
+add_message_correct <- function(text){
+  # this relies on bootstrap css
+  shiny::div(
+    class = 'alert alert-success',
+    p(text)
+  )
+}
+
+add_message_wrong <- function(text){
+  # this relies on bootstrap css
+  shiny::div(
+    class = 'alert alert-danger',
+    p(text)
+  )
+}
+
 # https://codepen.io/zer0kool/pen/KjZWRW
 add_confetti <- function(){
   

@@ -1,4 +1,4 @@
 # shinyQuiz
 
-A basic quiz generator to overlay an UI within R Shiny.
+A basic quiz generator to overlay a UI within R Shiny.
 
