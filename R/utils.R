@@ -1,3 +1,5 @@
+### general utility functions ###
+
 #' Check to see if value is not in a vector
 #'
 #' This is just a negative of `%in%`

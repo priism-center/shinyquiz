@@ -294,4 +294,3 @@ quiz_ui_question <- function(store, ns){
   
   return(html_content)
 }
-

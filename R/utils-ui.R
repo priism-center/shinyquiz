@@ -1,4 +1,4 @@
-
+### UI-specific utility functions ###
 
 #' Scroll the webpage to a certain div
 #'
