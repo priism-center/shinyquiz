@@ -1,0 +1,7 @@
+^renv$
+^renv\.lock$
+^shinyQuiz\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^dev$
+^\.github$

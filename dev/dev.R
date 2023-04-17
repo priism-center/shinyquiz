@@ -1,0 +1,51 @@
+## this is a meta script to log the commands that create the package ##
+
+# package setup
+# renv::activate()
+# install.packages('devtools')
+usethis::create_package('.')
+usethis::git_vaccinate()
+
+# imports
+usethis::use_package("htmltools", min_version = '0.5.5')
+usethis::use_package("reactable", min_version = '0.4.4')
+usethis::use_package('purrr', min_version = '1.0.1')
+usethis::use_package('renv', min_version = NULL)
+usethis::use_package('glue', min_version = '1.6.2')
+usethis::use_package('cli', min_version = '3.6.1')
+# usethis::use_package('yesno', min_version  = '0.1.2')
+usethis::use_package('testthat', min_version = TRUE, type = 'Suggests')
+# renv::snapshot()
+
+# create function files
+usethis::use_r('state-machine')
+usethis::use_r('shiny-module')
+usethis::use_r('preview-tools')
+usethis::use_r('question-creators')
+
+# create tests
+usethis::use_testthat()
+usethis::use_test('state-machine')
+usethis::use_test('shiny-module')
+usethis::use_test('preview-tools')
+usethis::use_test('question-creators')
+
+# other
+# usethis::use_github_action()
+usethis::use_mit_license()
+
+# pkgdown website
+# usethis::use_pkgdown()
+# created gh-pages branch manually
+# created this file manually: .github/workflows/pkgdown.yaml
+# site site local using pkgdown::build_site(devel = FALSE)
+
+# testing
+devtools::load_all()
+devtools::document()
+
+# build package
+usethis::use_build_ignore('dev')
+usethis::use_build_ignore('.github')
+devtools::check()
+devtools::build()
