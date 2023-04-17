@@ -6,7 +6,7 @@
 
 #' Preview a question in the viewer
 #'
-#' @param question 
+#' @param question question to preview
 #'
 #' @return Called for side effect
 #' @export
@@ -21,4 +21,4 @@ preview_question <- function(question){
 
 # test shiny app ----------------------------------------------------------
 
-
+# this should use the module defined in R/shiny-module.R

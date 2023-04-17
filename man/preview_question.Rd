@@ -7,7 +7,7 @@
 preview_question(question)
 }
 \arguments{
-\item{question}{}
+\item{question}{question to preview}
 }
 \value{
 Called for side effect

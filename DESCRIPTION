@@ -12,11 +12,14 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
     cli (>= 3.6.1),
+    dplyr (>= 1.1.1),
     glue (>= 1.6.2),
     htmltools (>= 0.5.5),
     purrr (>= 1.0.1),
     reactable (>= 0.4.4),
-    renv
+    renv,
+    shiny (>= 1.7.4),
+    shinyjs (>= 2.1.0)
 Suggests: 
     testthat (>= 3.1.7)
 Config/testthat/edition: 3

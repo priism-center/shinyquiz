@@ -7,8 +7,11 @@ usethis::create_package('.')
 usethis::git_vaccinate()
 
 # imports
+usethis::use_package("shiny", min_version = '1.7.4')
+usethis::use_package("dplyr", min_version = '1.1.1')
 usethis::use_package("htmltools", min_version = '0.5.5')
 usethis::use_package("reactable", min_version = '0.4.4')
+usethis::use_package("shinyjs", min_version = '2.1.0')
 usethis::use_package('purrr', min_version = '1.0.1')
 usethis::use_package('renv', min_version = NULL)
 usethis::use_package('glue', min_version = '1.6.2')
@@ -22,6 +25,9 @@ usethis::use_r('state-machine')
 usethis::use_r('shiny-module')
 usethis::use_r('preview-tools')
 usethis::use_r('question-creators')
+usethis::use_r('_classes')
+usethis::use_r('utils-ui')
+usethis::use_r('utils')
 
 # create tests
 usethis::use_testthat()
