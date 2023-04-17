@@ -18,8 +18,6 @@ mod_quiz_ui <- function(id){
   )
 }
 
-#' quiz Server Functions
-#'
 #' @describeIn mod_quiz_ui Server side function
 mod_quiz_server <- function(id, id_parent = character(0), questions, message_correct, message_wrong, message_skipped, embed_quiz = TRUE, sandbox_mode = FALSE){
   shiny::moduleServer( id, function(input, output, session){
