@@ -1,7 +1,7 @@
 # shinyQuiz
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/joemarlo/shinyQuiz/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/joemarlo/shinyQuiz/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/priism-center/shinyQuiz/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/priism-center/shinyQuiz/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **STILL IN TESTING**
