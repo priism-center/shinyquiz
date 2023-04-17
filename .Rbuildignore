@@ -5,3 +5,6 @@
 ^LICENSE\.md$
 ^dev$
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

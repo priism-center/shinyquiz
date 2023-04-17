@@ -35,10 +35,10 @@ usethis::use_test('question-creators')
 usethis::use_mit_license()
 
 # pkgdown website
-# usethis::use_pkgdown()
+usethis::use_pkgdown()
+pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+usethis::use_github_action("pkgdown")
 # created gh-pages branch manually
-# created this file manually: .github/workflows/pkgdown.yaml
-# site site local using pkgdown::build_site(devel = FALSE)
 
 # testing
 devtools::load_all()

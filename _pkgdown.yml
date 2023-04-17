@@ -1,0 +1,13 @@
+#url: https://priism-center.github.io/shinyQuiz
+
+authors:
+  Joseph Marlo:
+    href: https://joemarlo.github.io
+  George Perrett:
+    href: https://gperrett.github.io
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    primary: "#634e53"
