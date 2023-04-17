@@ -31,14 +31,15 @@ usethis::use_test('preview-tools')
 usethis::use_test('question-creators')
 
 # other
-# usethis::use_github_action()
+usethis::use_github_action_check_release("R-CMD-check.yaml")
+usethis::use_github_actions_badge(name = "R-CMD-check.yaml")
 usethis::use_mit_license()
 
 # pkgdown website
 usethis::use_pkgdown()
 pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
 usethis::use_github_action("pkgdown")
-# created gh-pages branch manually
+# go to repo Settings -> Pages -> Source: Deploy from a branch & Branch = 'gh-pages'
 
 # testing
 devtools::load_all()

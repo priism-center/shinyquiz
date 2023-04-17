@@ -11,3 +11,8 @@ template:
   bootswatch: flatly
   bslib:
     primary: "#634e53"
+    bg: "#fcf7f8"
+    fg: "#4a4344"
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
