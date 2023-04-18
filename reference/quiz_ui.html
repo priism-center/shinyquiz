@@ -47,10 +47,7 @@
 <span><span class="fu">quiz_server</span><span class="op">(</span></span>
 <span>  <span class="va">id</span>,</span>
 <span>  id_parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,</span>
-<span>  <span class="va">questions</span>,</span>
-<span>  <span class="va">message_correct</span>,</span>
-<span>  <span class="va">message_wrong</span>,</span>
-<span>  <span class="va">message_skipped</span>,</span>
+<span>  <span class="va">quiz</span>,</span>
 <span>  embed_quiz <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  sandbox_mode <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -66,19 +63,7 @@
 <dd><p>if using within a Shiny module, the id of that module</p></dd>
 
 
-<dt>questions</dt>
-<dd><p>TBD</p></dd>
-
-
-<dt>message_correct</dt>
-<dd><p>TBD</p></dd>
-
-
-<dt>message_wrong</dt>
-<dd><p>TBD</p></dd>
-
-
-<dt>message_skipped</dt>
+<dt>quiz</dt>
 <dd><p>TBD</p></dd>
 
 
@@ -87,7 +72,7 @@
 
 
 <dt>sandbox_mode</dt>
-<dd><p>boolean. Resample <code>questions</code> for quasi infinite mode?</p></dd>
+<dd><p>boolean. Resample questions for quasi infinite mode?</p></dd>
 
 
 <dt>id</dt>

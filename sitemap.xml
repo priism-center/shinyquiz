@@ -25,7 +25,7 @@
     <loc>/reference/add_red_x.html</loc>
   </url>
   <url>
-    <loc>/reference/format_questions.html</loc>
+    <loc>/reference/format_prompts.html</loc>
   </url>
   <url>
     <loc>/reference/grapes-notin-grapes.html</loc>
@@ -38,6 +38,12 @@
   </url>
   <url>
     <loc>/reference/preview_question.html</loc>
+  </url>
+  <url>
+    <loc>/reference/quiz-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/quizMessages-class.html</loc>
   </url>
   <url>
     <loc>/reference/quizQuestion-class.html</loc>
