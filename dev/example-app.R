@@ -90,7 +90,7 @@ grader_1 <- function(user_response){
 
 # create the formal quizQuestion
 question_1 <- new('quizQuestion')
-question_1@question <- question_text_1
+question_1@prompt <- question_text_1
 question_1@answerUser = list(NA)
 question_1@answerUserDisplay <- function(x) {
   tryCatch(
@@ -127,7 +127,7 @@ question_text_2 <- htmltools::div(
 
 # create the formal quizQuestion
 question_2 <- new('quizQuestion')
-question_2@question <- question_text_2
+question_2@prompt <- question_text_2
 question_2@answerUser = list(NA)
 question_2@answerUserDisplay <- function(x) {
   tryCatch(
@@ -164,7 +164,7 @@ question_text_3 <- htmltools::div(
 
 # create the formal quizQuestion
 question_3 <- new('quizQuestion')
-question_3@question <- question_text_3
+question_3@prompt <- question_text_3
 question_3@answerUser = list(NA)
 question_3@answerUserDisplay <- function(x) {
   tryCatch(
@@ -177,11 +177,17 @@ question_3@grader <- function(x) TRUE
 
 verify_question_structure(question_3)
 
-# final objects
-questions <- list(question_1, question_2, question_3)
-message_correct <- "Well done! You got all of them correct. Please read on to learn about the next topic."
-message_wrong <- "Hmmm, bummer! You got at least one wrong."
-message_skipped <- "Quiz skipped. You can restart it using the button below."
+
+# set messages
+messages <- new('quizMessages')
+messages@message_correct <- "Well done! You got all of them correct. Please read on to learn about the next topic."
+messages@message_wrong <- "Hmmm, bummer! You got at least one wrong."
+messages@message_skipped <- "Quiz skipped. You can restart it using the button below."
+
+# final object
+quiz <- new('quiz')
+quiz@questions <- c(question_1, question_2, question_3)
+quiz@messages <- messages
 
 
 # app ---------------------------------------------------------------------
@@ -204,10 +210,7 @@ server <- function(input, output, session) {
   quiz_server(
     id = "quiz", # this should always be quiz
     id_parent = NULL,
-    questions = questions,
-    message_correct = message_correct,
-    message_wrong = message_wrong,
-    message_skipped = message_skipped,
+    quiz = quiz,
     embed_quiz = TRUE,
     sandbox_mode = FALSE
   )

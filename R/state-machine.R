@@ -44,7 +44,7 @@ quiz_get_state <- function(store, variable = NULL, state = NULL){
   if (!(state %in% store$states)) stop('state not in store$states')
   
   if (variable == 'current-question'){
-    return(store$questions[store$states == state][[1]]@question)
+    return(store$questions[store$states == state][[1]]@prompt)
   }
   # if (variable == 'current-answers'){
   #   return(store$question_prompts[store$states == state][[1]])
@@ -142,19 +142,6 @@ quiz_in_sandbox_mode <- function(store){
   isTRUE(quiz_get_state(store, 'sandbox-mode'))
 }
 
-# quiz_format_question_texts <- function(questions){
-#   purrr::map2(questions, seq_along(questions), function(q_text, i) {
-#     htmltools::tagList(
-#       htmltools::h4("Practice what you've learned"),
-#       htmltools::hr(),
-#       htmltools::h3(glue::glue("Question {i}")), # h3 required for checkmark/red x placement
-#       q_text@question
-#     )
-#   })
-# }
-
-
-
 #' Add headers with question numbers to the quiz questions
 #'
 #' @param quiz a quiz; see ...?
@@ -165,23 +152,23 @@ quiz_in_sandbox_mode <- function(store){
 #'
 #' @examples
 #' #TBD
-format_questions <- function(quiz){
+format_prompts <- function(quiz){
   verify_quiz_structure(quiz)
   
-  for (i in seq_along(quiz)){
-    quiz[[i]]@question <- quiz_format_question_text(quiz[[i]]@question, i)
+  for (i in seq_along(quiz@questions)){
+    quiz@questions[[i]]@prompt <- quiz_format_prompt(quiz@questions[[i]]@prompt, i)
   }
   
   return(quiz)
 }
 
-#' @describeIn format_questions Add a header denoting the question number
-quiz_format_question_text <- function(question, i){
+#' @describeIn format_prompts Add a header denoting the question number
+quiz_format_prompt <- function(prompt, i){
   htmltools::div(
     htmltools::h4("Practice what you've learned"),
     htmltools::hr(),
     htmltools::h3(glue::glue("Question {i}")), # h3 required for checkmark/red x placement
-    question
+    prompt
   )
 }
 
@@ -333,26 +320,9 @@ resample_questions_if_sandbox <- function(quiz, sandbox_mode, n = 50){
   verify_quiz_structure(quiz)
   
   if (isTRUE(sandbox_mode)){
-    indices <- sample(seq_along(quiz), size = n, replace = TRUE)
-    quiz <- quiz[indices]
+    indices <- sample(seq_along(quiz@questions), size = n, replace = TRUE)
+    quiz@questions <- quiz@questions[indices]
   }
   
   return(quiz)
-}
-
-#' Verify that a quiz is a quiz
-#'
-#' @param quiz a quiz; see ...? Effecitively a list of questions
-#'
-#' @return invisible TRUE if no errors
-#' @export
-#' @author Joseph Marlo
-#'
-#' @examples
-#' #TBD
-verify_quiz_structure <- function(quiz){
-  if (!is.list(quiz)) cli::cli_abort('quiz must be a list') # TODO: should be a special class in the future?
-  if (inherits(quiz[[1]]@question, 'quizQuestion')) cli::cli_abort("quiz elements are not of class 'quizQuestion'")
-  
-  return(invisible(TRUE))
 }

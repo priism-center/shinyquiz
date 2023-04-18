@@ -4,10 +4,10 @@
 \alias{resample_questions_if_sandbox}
 \title{Create quasi infinite quiz by resampling questions n times}
 \usage{
-resample_questions_if_sandbox(questions, sandbox_mode, n = 50)
+resample_questions_if_sandbox(quiz, sandbox_mode, n = 50)
 }
 \arguments{
-\item{questions}{A list of questions of class 'quizQuestion'}
+\item{quiz}{A list of questions of class 'quizQuestion'}
 
 \item{sandbox_mode}{boolean}
 

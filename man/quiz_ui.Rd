@@ -10,10 +10,7 @@ quiz_ui(id)
 quiz_server(
   id,
   id_parent = character(0),
-  questions,
-  message_correct,
-  message_wrong,
-  message_skipped,
+  quiz,
   embed_quiz = TRUE,
   sandbox_mode = FALSE
 )
@@ -23,17 +20,11 @@ quiz_server(
 
 \item{id_parent}{if using within a Shiny module, the id of that module}
 
-\item{questions}{TBD}
-
-\item{message_correct}{TBD}
-
-\item{message_wrong}{TBD}
-
-\item{message_skipped}{TBD}
+\item{quiz}{TBD}
 
 \item{embed_quiz}{boolean. remove?}
 
-\item{sandbox_mode}{boolean. Resample \code{questions} for quasi infinite mode?}
+\item{sandbox_mode}{boolean. Resample questions for quasi infinite mode?}
 
 \item{id}{a unique string that corresponds that is identical for UI and server}
 }

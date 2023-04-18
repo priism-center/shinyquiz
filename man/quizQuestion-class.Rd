@@ -13,7 +13,7 @@ S4 class for a quiz question
 \section{Slots}{
 
 \describe{
-\item{\code{question}}{shiny.tag.}
+\item{\code{prompt}}{shiny.tag.}
 
 \item{\code{answerUser}}{list.}
 
