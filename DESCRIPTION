@@ -18,8 +18,10 @@ Imports:
     purrr (>= 1.0.1),
     reactable (>= 0.4.4),
     renv,
+    scales (>= 1.2.1),
     shiny (>= 1.7.4),
-    shinyjs (>= 2.1.0)
+    shinyjs (>= 2.1.0),
+    sortable (>= 0.5.0)
 Suggests: 
     testthat (>= 3.1.7)
 Config/testthat/edition: 3

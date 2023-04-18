@@ -9,7 +9,7 @@
 mod_quiz_ui <- function(id){
   ns <- shiny::NS(id)
   htmltools::tagList(
-    # shinyjs::useShinyjs(),
+    shinyjs::useShinyjs(),
     htmltools::div(
       id = ns('quiz-container'),
       class = 'quiz-container',
@@ -91,7 +91,7 @@ mod_quiz_server <- function(id, id_parent = character(0), questions, message_cor
       scroll_to_div(ns = ns, id = 'quiz-container')
       
       # make non-quiz content visible (may be re-hidden depending on final state)
-      shinyjs::show(selector = paste0('.', shiny::NS(id_parent)('learning-content')), asis = TRUE)
+      # shinyjs::show(selector = paste0('.', shiny::NS(id_parent)('learning-content')), asis = TRUE)
       
       # state behavior
       if (store$state == 'quiz-complete'){
@@ -105,18 +105,18 @@ mod_quiz_server <- function(id, id_parent = character(0), questions, message_cor
         )
         
         # unblur the text
-        shinyjs::removeClass(selector = paste0('.', shiny::NS(id_parent)('learning-content-blur')),
-                             asis = TRUE,
-                             class = 'learning-content-blur')
+        # shinyjs::removeClass(selector = paste0('.', shiny::NS(id_parent)('learning-content-blur')),
+        #                      asis = TRUE,
+        #                      class = 'learning-content-blur')
         
       } else {
         # determine the UI
         store$ui_html <- quiz_ui_question(store, ns = ns)
         
         # hide non-quiz content
-        if (!isTRUE(embed_quiz)){
-          shinyjs::hide(selector = paste0('.', shiny::NS(id_parent)('learning-content')), asis = TRUE)
-        }
+        # if (!isTRUE(embed_quiz)){
+        #   shinyjs::hide(selector = paste0('.', shiny::NS(id_parent)('learning-content')), asis = TRUE)
+        # }
       }
     })
     
