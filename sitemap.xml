@@ -40,9 +40,15 @@
     <loc>/reference/preview_question.html</loc>
   </url>
   <url>
+    <loc>/reference/quizQuestion-class.html</loc>
+  </url>
+  <url>
     <loc>/reference/quiz_get_state.html</loc>
   </url>
   <url>
     <loc>/reference/scroll_to_div.html</loc>
+  </url>
+  <url>
+    <loc>/reference/verify_question_structure.html</loc>
   </url>
 </urlset>
