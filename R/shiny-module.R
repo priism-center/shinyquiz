@@ -6,7 +6,7 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #' @author Joseph Marlo
-mod_quiz_ui <- function(id){
+quiz_ui <- function(id){
   ns <- shiny::NS(id)
   htmltools::tagList(
     shinyjs::useShinyjs(),
@@ -19,8 +19,17 @@ mod_quiz_ui <- function(id){
   )
 }
 
-#' @describeIn mod_quiz_ui Server side function
-mod_quiz_server <- function(id, id_parent = character(0), questions, message_correct, message_wrong, message_skipped, embed_quiz = TRUE, sandbox_mode = FALSE){
+#' @param id a unique string that corresponds that is identical for UI and server
+#' @param id_parent if using within a Shiny module, the id of that module
+#' @param questions TBD
+#' @param message_correct TBD
+#' @param message_wrong TBD
+#' @param message_skipped TBD
+#' @param embed_quiz boolean. remove?
+#' @param sandbox_mode boolean. Resample `questions` for quasi infinite mode? 
+#'
+#' @describeIn quiz_ui Server side function
+quiz_server <- function(id, id_parent = character(0), questions, message_correct, message_wrong, message_skipped, embed_quiz = TRUE, sandbox_mode = FALSE){
   shiny::moduleServer( id, function(input, output, session){
     # ns <- session$ns
     ns <- shiny::NS(shiny::NS(id_parent)(id))
@@ -31,27 +40,14 @@ mod_quiz_server <- function(id, id_parent = character(0), questions, message_cor
     # TODO: keep this embedding mode?
     if (isTRUE(embed_quiz)) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
     
-    # resample the questions if in sandbox mode
-    # TODO: move to function
-    if (isTRUE(sandbox_mode)){
-      # number of questions
-      n <- 50L
-      
-      # sample indices for replicating the questions
-      indices <- sample(seq_along(questions), size = n, replace = TRUE)
-      questions <- questions[indices]
-      # question_prompts <- question_prompts[indices]
-      # correct_answers <- correct_answers[indices]
-    }
-    
     # add headers to question texts
-    # TODO: move to function
-    # question_texts <- quiz_format_question_texts(questions)
-    for (i in seq_along(questions)){
-      questions[[i]]@question <- quiz_format_question_text(questions[[i]]@question, i)
-    }
+    questions <- format_questions(questions)
+
+    # resample the questions if in sandbox mode
+    questions <- resample_questions_if_sandbox(questions, sandbox_mode, n = 50)
     
     # set the current state and potential values
+    # this is the core object that owns the state(s)
     store <- shiny::reactiveValues(
       state = 'quiz-question-1',
       states = c(paste0('quiz-question-', seq_along(questions)), 'quiz-complete'),
@@ -61,17 +57,17 @@ mod_quiz_server <- function(id, id_parent = character(0), questions, message_cor
       skipped = FALSE,
       sandbox_mode = isTRUE(sandbox_mode)
     )
+    store_orig <- store
     
     # reset quiz
     shiny::observeEvent(input$restart_button, {
-      # reset the state to the first question
-      store <- quiz_set_state(store, variable = 'current-state', value = 'quiz-question-1')
       
-      # remove any responses
-      # store$responses <- rep(NA, length(questions) + 1)
-      store$questions <- questions
-      store <- quiz_set_state(store, variable = 'quiz-skipped', value = FALSE)
-      store$is_correct <- rep(FALSE, length(questions))
+      # reset entire store
+      store <- store_orig
+
+      # reset the state to the first question
+      # this is needed to trigger reactivity
+      store <- quiz_set_state(store, variable = 'current-state', value = 'quiz-question-1')
     })
     
     # skip quiz / finish quiz

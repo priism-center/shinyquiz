@@ -8,7 +8,6 @@
 \alias{quiz_check_is_each_correct}
 \alias{quiz_is_all_correct}
 \alias{quiz_in_sandbox_mode}
-\alias{quiz_format_question_text}
 \alias{quiz_ui_quiz_complete}
 \alias{quiz_ui_quiz_complete_report}
 \alias{quiz_ui_question}
@@ -27,8 +26,6 @@ quiz_check_is_each_correct(store)
 quiz_is_all_correct(store)
 
 quiz_in_sandbox_mode(store)
-
-quiz_format_question_text(question, i)
 
 quiz_ui_quiz_complete(
   store,
@@ -74,8 +71,6 @@ See the post-treatment learning module for a working example.
 \item \code{quiz_is_all_correct()}: check that all recorded answers are correct
 
 \item \code{quiz_in_sandbox_mode()}: Check if the quiz in sandbox mode
-
-\item \code{quiz_format_question_text()}: Add a header denoting the question number
 
 \item \code{quiz_ui_quiz_complete()}: UI to show once the quiz is completed
 

@@ -194,14 +194,14 @@ ui <- shiny::fluidPage(
   ),
   htmltools::div(
     style = "width: 700px",
-    mod_quiz_ui(id = 'quiz')
+    quiz_ui(id = 'quiz')
   )
 )
 
 server <- function(input, output, session) {
 
   # run the quiz
-  mod_quiz_server(
+  quiz_server(
     id = "quiz", # this should always be quiz
     id_parent = NULL,
     questions = questions,

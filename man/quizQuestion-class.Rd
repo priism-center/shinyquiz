@@ -25,7 +25,7 @@ S4 class for a quiz question
 }}
 
 \examples{
-TBD
+# TBD
 }
 \author{
 Joseph Marlo

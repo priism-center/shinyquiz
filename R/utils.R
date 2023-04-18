@@ -82,6 +82,7 @@ if(getRversion() >= "2.15.1") {
 #'
 #' @return invisible TRUE if all tests passed
 #' @export
+#' @author Joseph Marlo
 #'
 #' @examples
 #' # TBD
@@ -96,9 +97,25 @@ verify_question_structure <- function(question){
   if (!isTRUE(inherits(question@answerCorrectDisplay, 'character'))) cli::cli_abort('`answerCorrectDisplay` must be a character.')
   if (!isTRUE(inherits(question@grader, 'function'))) cli::cli_abort('`grader` must be a function that accepts one argument and returns a boolean')
   
-  # TODO: verify args
+  # if (!isTRUE(question@question))) cli::cli_abort('`grader` must be a function that accepts one argument and returns a boolean')
+  
+  # check to see if there is an input with id "answers"
+  # TODO: this is a bit fragile
+  id_detected <- question@question |> as.character() |> stringr::str_detect("\\banswers\\b")
+  if (!isTRUE(id_detected)) cli::cli_abort("'`question` must contain an input with id = 'answers'. This is used to extract the user's answer.")
+  
+  # verify number of args in functions
+  verify_n_args(question@answerUserDisplay, 1)
+  verify_n_args(question@grader, 1)
   
   
+  return(invisible(TRUE))
+}
+
+#' @describeIn verify_question_structure Verify a function has n arguments
+verify_n_args <- function(fn, n) {
+  is_true <- isTRUE(length(formals(fn)) == n)
+  if (!is_true) cli::cli_abort('{deparse(substitute(fn))} must have {n} arguments')
   return(invisible(TRUE))
 }
 

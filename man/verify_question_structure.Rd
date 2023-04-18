@@ -2,9 +2,12 @@
 % Please edit documentation in R/utils.R
 \name{verify_question_structure}
 \alias{verify_question_structure}
+\alias{verify_n_args}
 \title{Verify a quiz question is the correct format}
 \usage{
 verify_question_structure(question)
+
+verify_n_args(fn, n)
 }
 \arguments{
 \item{question}{TBD}
@@ -15,6 +18,14 @@ invisible TRUE if all tests passed
 \description{
 Verify a quiz question is the correct format
 }
+\section{Functions}{
+\itemize{
+\item \code{verify_n_args()}: Verify a function has n arguments
+
+}}
 \examples{
 # TBD
+}
+\author{
+Joseph Marlo
 }

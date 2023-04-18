@@ -124,7 +124,7 @@ quiz_is_current_correct <- function(store){
     # TODO: depreacted?
     is_correct <- quiz_is_answer_correct(current_response, current_correct_answer)
   }
-  return(is_correct)
+  return(isTRUE(is_correct))
 }
 
 #' @describeIn quiz_get_state check that recorded answers are correct and return a boolean vector
@@ -153,7 +153,29 @@ quiz_in_sandbox_mode <- function(store){
 #   })
 # }
 
-#' @describeIn quiz_get_state Add a header denoting the question number
+
+
+#' Add headers with question numbers to the quiz questions
+#'
+#' @param quiz a quiz; see ...?
+#'
+#' @return quiz
+#' @export
+#' @author Joseph Marlo
+#'
+#' @examples
+#' #TBD
+format_questions <- function(quiz){
+  verify_quiz_structure(quiz)
+  
+  for (i in seq_along(quiz)){
+    quiz[[i]]@question <- quiz_format_question_text(quiz[[i]]@question, i)
+  }
+  
+  return(quiz)
+}
+
+#' @describeIn format_questions Add a header denoting the question number
 quiz_format_question_text <- function(question, i){
   htmltools::div(
     htmltools::h4("Practice what you've learned"),
@@ -292,4 +314,45 @@ quiz_ui_question <- function(store, ns){
   )
   
   return(html_content)
+}
+
+#' Create quasi infinite quiz by resampling questions n times
+#'
+#' @param quiz A list of questions of class 'quizQuestion'
+#' @param sandbox_mode boolean
+#' @param n Number of resamples to make
+#'
+#' @return questions
+#' @export
+#' @author Joseph Marlo
+#'
+#' @examples
+#' #TBD
+resample_questions_if_sandbox <- function(quiz, sandbox_mode, n = 50){
+  if (!(is.numeric(n) && n > 0)) cli::cli_abort('n must be positive integer')
+  verify_quiz_structure(quiz)
+  
+  if (isTRUE(sandbox_mode)){
+    indices <- sample(seq_along(quiz), size = n, replace = TRUE)
+    quiz <- quiz[indices]
+  }
+  
+  return(quiz)
+}
+
+#' Verify that a quiz is a quiz
+#'
+#' @param quiz a quiz; see ...? Effecitively a list of questions
+#'
+#' @return invisible TRUE if no errors
+#' @export
+#' @author Joseph Marlo
+#'
+#' @examples
+#' #TBD
+verify_quiz_structure <- function(quiz){
+  if (!is.list(quiz)) cli::cli_abort('quiz must be a list') # TODO: should be a special class in the future?
+  if (inherits(quiz[[1]]@question, 'quizQuestion')) cli::cli_abort("quiz elements are not of class 'quizQuestion'")
+  
+  return(invisible(TRUE))
 }
