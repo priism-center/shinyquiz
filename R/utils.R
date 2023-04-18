@@ -110,12 +110,12 @@ verify_question_structure <- function(question){
 #' @slot answerCorrectDisplay character. 
 #' @slot grader function. 
 #'
-#' @return
+#' @return none, sets a class
 #' @export
 #' @author Joseph Marlo
 #'
 #' @examples
-#' TBD
+#' # TBD
 setClass('quizQuestion', slots = list(
   question = 'shiny.tag',
   answerUser = 'list',

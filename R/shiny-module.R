@@ -10,6 +10,7 @@ mod_quiz_ui <- function(id){
   ns <- shiny::NS(id)
   htmltools::tagList(
     shinyjs::useShinyjs(),
+    htmltools::includeCSS(system.file('shinyQuiz.css', package = "shinyQuiz")),
     htmltools::div(
       id = ns('quiz-container'),
       class = 'quiz-container',
@@ -26,13 +27,12 @@ mod_quiz_server <- function(id, id_parent = character(0), questions, message_cor
     
     # message(paste0('The quiz module has a namespace id of: ', id))
     
-    # validate(need(length(questions) == length(answers),
-    #               'length(questions) must equal length(answers)'))
-    
     # add css class to the quiz container if embedding
+    # TODO: keep this embedding mode?
     if (isTRUE(embed_quiz)) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
     
     # resample the questions if in sandbox mode
+    # TODO: move to function
     if (isTRUE(sandbox_mode)){
       # number of questions
       n <- 50L
@@ -45,9 +45,9 @@ mod_quiz_server <- function(id, id_parent = character(0), questions, message_cor
     }
     
     # add headers to question texts
+    # TODO: move to function
     # question_texts <- quiz_format_question_texts(questions)
     for (i in seq_along(questions)){
-      # print(questions[[i]]@question)
       questions[[i]]@question <- quiz_format_question_text(questions[[i]]@question, i)
     }
     
@@ -56,10 +56,6 @@ mod_quiz_server <- function(id, id_parent = character(0), questions, message_cor
       state = 'quiz-question-1',
       states = c(paste0('quiz-question-', seq_along(questions)), 'quiz-complete'),
       questions = questions,
-      # question_prompts = question_prompts,
-      # correct_answers = correct_answers,
-      # graders = graders,
-      # responses = rep(NA, length(question_texts) + 1),
       is_correct = rep(FALSE, length(questions)),
       ui_html = NULL,
       skipped = FALSE,
@@ -105,6 +101,7 @@ mod_quiz_server <- function(id, id_parent = character(0), questions, message_cor
         )
         
         # unblur the text
+        # TODO: remove this functionality
         # shinyjs::removeClass(selector = paste0('.', shiny::NS(id_parent)('learning-content-blur')),
         #                      asis = TRUE,
         #                      class = 'learning-content-blur')
@@ -114,6 +111,7 @@ mod_quiz_server <- function(id, id_parent = character(0), questions, message_cor
         store$ui_html <- quiz_ui_question(store, ns = ns)
         
         # hide non-quiz content
+        # TODO: remove this functionality
         # if (!isTRUE(embed_quiz)){
         #   shinyjs::hide(selector = paste0('.', shiny::NS(id_parent)('learning-content')), asis = TRUE)
         # }

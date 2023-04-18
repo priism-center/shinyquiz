@@ -1,8 +1,8 @@
 ## this is a meta script to log the commands that create the package ##
 
 # package setup
-# renv::activate()
-# install.packages('devtools')
+renv::activate()
+install.packages('devtools')
 usethis::create_package('.')
 usethis::git_vaccinate()
 

@@ -6,7 +6,7 @@
 
 **STILL IN TESTING**
 
-shinyQuiz is an R package for creating quizzes within R Shiny.
+shinyQuiz is an R package for creating flexible quizzes within R Shiny.
 
 
 ## Installation

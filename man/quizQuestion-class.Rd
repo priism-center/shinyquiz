@@ -4,6 +4,9 @@
 \name{quizQuestion-class}
 \alias{quizQuestion-class}
 \title{S4 class for a quiz question}
+\value{
+none, sets a class
+}
 \description{
 S4 class for a quiz question
 }

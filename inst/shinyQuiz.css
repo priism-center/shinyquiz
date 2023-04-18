@@ -1,6 +1,10 @@
  
  /* other CSS to go here */
- /* quiz frame? */
+ 
+ /* container for the entire quiz */
+ .quiz-container {
+   margin: 1rem;
+ }
  
  
  

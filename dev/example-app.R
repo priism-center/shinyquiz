@@ -192,8 +192,10 @@ ui <- shiny::fluidPage(
     style = 'color: #fff; background: black; padding: 0.5rem; margin-bottom: 5rem; text-align: center;',
     htmltools::h1("EXAMPLE APP")
   ),
-  
-  mod_quiz_ui(id = 'quiz')
+  htmltools::div(
+    style = "width: 700px",
+    mod_quiz_ui(id = 'quiz')
+  )
 )
 
 server <- function(input, output, session) {

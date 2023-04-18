@@ -103,6 +103,7 @@ quiz_set_state <- function(store, variable, value, state = NULL){
 
 #' @describeIn quiz_get_state Backup function to check that an answer matches a response, agnostic of ordering
 quiz_is_answer_correct <- function(answer, key){
+  # TODO: depreacted?
   if (length(answer) != length(key)) return(FALSE)
   if(!is.numeric(answer)) is_correct <- purrr::map2_lgl(answer, key, function(resp, key) base::setequal(resp, key))
   if(is.numeric(answer)) is_correct <-  purrr::map2_lgl(answer, key, function(resp, key) dplyr::between(resp, key-.1, key+.1))
@@ -120,6 +121,7 @@ quiz_is_current_correct <- function(store){
   if (is_truthy(current_grader)){
     is_correct <- current_grader(current_response)
   } else {
+    # TODO: depreacted?
     is_correct <- quiz_is_answer_correct(current_response, current_correct_answer)
   }
   return(is_correct)
@@ -139,7 +141,6 @@ quiz_is_all_correct <- function(store) {
 quiz_in_sandbox_mode <- function(store){
   isTRUE(quiz_get_state(store, 'sandbox-mode'))
 }
-
 
 # quiz_format_question_texts <- function(questions){
 #   purrr::map2(questions, seq_along(questions), function(q_text, i) {
@@ -220,22 +221,23 @@ quiz_ui_quiz_complete_report <- function(store){
   # format question labels
   question_label <- paste0('Question ', seq_along(store$questions))
   
-  # calculate score and format user's answers
+  # calculate score and format the score
   # if in sandbox mode, score is only for non skipped items
   answers_user_print <- purrr::map(store$questions, ~.x@answerUserDisplay(.x@answerUser[[1]]))
   answers_user_na <- purrr::map(store$questions, ~.x@answerUser[[1]]) |> is.na() # assumes NAs are skipped questions
-  
   score <- ifelse(
     in_sandbox,
     mean(answers[!answers_user_na]),
     mean(answers)
   )
   if(is.na(score)) score <- 0
+  score <- scales::percent_format()(score)
+  
+  # add skipped label to skipped questions
   skip_label <- '[skipped]'
   answers_user_print[answers_user_na] <- skip_label
   
-  
-  # format correct answers
+  # get formatted correct answers
   answers_correct_print <- purrr::map_chr(store$questions, ~.x@answerCorrectDisplay)
   
   # put everything in a table
@@ -258,7 +260,7 @@ quiz_ui_quiz_complete_report <- function(store){
   # add score to top of table
   grade_report <- htmltools::tagList(
     htmltools::br(),
-    htmltools::h4(glue::glue('Score: {scales::percent_format()(score)}')),
+    htmltools::h4(glue::glue('Score: {score}')),
     grade_tbl
   )
   
@@ -271,11 +273,8 @@ quiz_ui_question <- function(store, ns){
   # render the questions
   html_content <- htmltools::tagList(
     
-    # question text
+    # question content
     quiz_get_state(store, 'current-question'),
-    
-    # question answer UI (e.g. radiobuttons, sortable divs, etc.)
-    # quiz_get_state(store, 'current-answers'),
     
     # button to submit answer
     shiny::actionButton(

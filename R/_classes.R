@@ -1,5 +1,7 @@
 ### define S4 classes ###
 # TODO: is this the appropriate place?
+# roxygen has trouble with this file so something preceding it is likely wrong
+# temporarily moved functions to bottom of utils.R
 
 # TODO: how to export classes?
 # setClass('quizQuestion', slots = list(
@@ -10,7 +12,6 @@
 #   grader = 'function' # function that compares user answer to the correct answer
 # ))
 
-# roxygen has trouble with this so something preceding it is wrong
 #' #' @title Verify a quiz question is the correct format
 #' #'
 #' #' @param question TBD
