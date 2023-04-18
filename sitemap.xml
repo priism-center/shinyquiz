@@ -25,6 +25,9 @@
     <loc>/reference/add_red_x.html</loc>
   </url>
   <url>
+    <loc>/reference/format_questions.html</loc>
+  </url>
+  <url>
     <loc>/reference/grapes-notin-grapes.html</loc>
   </url>
   <url>
@@ -32,9 +35,6 @@
   </url>
   <url>
     <loc>/reference/is_truthy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mod_quiz_ui.html</loc>
   </url>
   <url>
     <loc>/reference/preview_question.html</loc>
@@ -46,9 +46,18 @@
     <loc>/reference/quiz_get_state.html</loc>
   </url>
   <url>
+    <loc>/reference/quiz_ui.html</loc>
+  </url>
+  <url>
+    <loc>/reference/resample_questions_if_sandbox.html</loc>
+  </url>
+  <url>
     <loc>/reference/scroll_to_div.html</loc>
   </url>
   <url>
     <loc>/reference/verify_question_structure.html</loc>
+  </url>
+  <url>
+    <loc>/reference/verify_quiz_structure.html</loc>
   </url>
 </urlset>
