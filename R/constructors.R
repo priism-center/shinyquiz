@@ -69,7 +69,7 @@ construct_messages <- function(message_correct, message_wrong, message_skipped){
 #' Verify a quiz elements are the correct format
 #'
 #' @param question TBD
-#'
+#' @keywords internal
 #' @return invisible TRUE if all tests passed
 #' @author Joseph Marlo
 #'
@@ -99,6 +99,7 @@ verify_question_structure <- function(question){
   return(invisible(TRUE))
 }
 
+#' @keywords internal
 #' @describeIn verify_question_structure Verify a function has n arguments
 verify_n_args <- function(fn, n) {
   is_true <- isTRUE(length(formals(fn)) == n)
@@ -106,6 +107,7 @@ verify_n_args <- function(fn, n) {
   return(invisible(TRUE))
 }
 
+#' @keywords internal
 #' @describeIn verify_question_structure Verify the messages are the correct structure
 verify_messages_structure <- function(messages){
   if (!isTRUE(inherits(messages, 'quizMessages'))) cli::cli_abort("`messages` be of class 'quizMessages'")
@@ -113,6 +115,7 @@ verify_messages_structure <- function(messages){
   return(invisible(TRUE))
 }
 
+#' @keywords internal
 #' @describeIn verify_question_structure Verify a quiz is the correct structure
 verify_quiz_structure <- function(quiz){
   if (!inherits(quiz, 'quiz')) cli::cli_abort('quiz must be of class quiz')

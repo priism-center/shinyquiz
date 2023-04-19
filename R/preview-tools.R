@@ -1,12 +1,14 @@
-### tools to help users preview their quizes ###
+### tools to help users preview their quizzes ###
 
 
 
 # html preview ------------------------------------------------------------
 
-#' Tools for previewing quizes
+#' Tools for previewing quizzes
 #'
-#' @param question question to preview
+#' Launch a viewer to preview the html structure of the questions in a quiz.
+#'
+#' @param quiz an object of class 'quiz' to preview
 #'
 #' @return Called for side effect
 #' @export
@@ -14,6 +16,7 @@
 #'
 #' @examples
 #' # TBD
+#' @describeIn preview_quiz Preview a quiz
 preview_quiz <- function(quiz){
   verify_quiz_structure(quiz)
   panels <- shiny::fluidPage(
@@ -32,6 +35,7 @@ preview_quiz <- function(quiz){
   htmltools::html_print(panels)
 }
 
+#' @param question an object of class 'quizQuestion' to preview
 #' @export
 #' @describeIn preview_quiz Preview a single question
 preview_question <- function(question){

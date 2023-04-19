@@ -3,23 +3,27 @@
 \name{preview_quiz}
 \alias{preview_quiz}
 \alias{preview_question}
-\title{Tools for previewing quizes}
+\title{Tools for previewing quizzes}
 \usage{
 preview_quiz(quiz)
 
 preview_question(question)
 }
 \arguments{
-\item{question}{question to preview}
+\item{quiz}{an object of class 'quiz' to preview}
+
+\item{question}{an object of class 'quizQuestion' to preview}
 }
 \value{
 Called for side effect
 }
 \description{
-Tools for previewing quizes
+Launch a viewer to preview the html structure of the questions in a quiz.
 }
 \section{Functions}{
 \itemize{
+\item \code{preview_quiz()}: Preview a quiz
+
 \item \code{preview_question()}: Preview a single question
 
 }}
