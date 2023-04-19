@@ -8,9 +8,9 @@
 
 shinyQuiz is an R package for creating flexible quizzes within R Shiny.
 
-## Preview app
+## Example app
 
-There is a preview application in `dev/preview-app.R`
+There is a example application in `dev/example-app.R`
 
 ## Installation
 
