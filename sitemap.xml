@@ -19,6 +19,12 @@
     <loc>/reference/add_checkmark.html</loc>
   </url>
   <url>
+    <loc>/reference/add_confetti.html</loc>
+  </url>
+  <url>
+    <loc>/reference/add_external_resources.html</loc>
+  </url>
+  <url>
     <loc>/reference/add_message_correct.html</loc>
   </url>
   <url>
@@ -26,9 +32,6 @@
   </url>
   <url>
     <loc>/reference/construct_quiz.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_prompts.html</loc>
   </url>
   <url>
     <loc>/reference/grapes-notin-grapes.html</loc>
@@ -40,7 +43,7 @@
     <loc>/reference/is_truthy.html</loc>
   </url>
   <url>
-    <loc>/reference/preview_question.html</loc>
+    <loc>/reference/preview_quiz.html</loc>
   </url>
   <url>
     <loc>/reference/quiz-class.html</loc>
@@ -52,16 +55,16 @@
     <loc>/reference/quizQuestion-class.html</loc>
   </url>
   <url>
-    <loc>/reference/quiz_get_state.html</loc>
-  </url>
-  <url>
     <loc>/reference/quiz_ui.html</loc>
   </url>
   <url>
-    <loc>/reference/resample_questions_if_sandbox.html</loc>
+    <loc>/reference/scroll_to_div.html</loc>
   </url>
   <url>
-    <loc>/reference/scroll_to_div.html</loc>
+    <loc>/reference/sm_get_state.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sm_ui_format_prompts.html</loc>
   </url>
   <url>
     <loc>/reference/verify_question_structure.html</loc>
