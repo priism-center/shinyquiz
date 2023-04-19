@@ -1,5 +1,7 @@
 ### core logic for controlling the quiz ###
 
+# TODO: all functions that start with 'quiz_' should start with 'sm_'
+
 #' @title Functions for managing the states of the quiz
 #'
 #' @description The quiz has states for each question and a final state for once the quiz ends. Only one state can be active at a time and the question text and answers shown depend on what state is active.
@@ -19,6 +21,7 @@
 #'
 #' @examples
 #' \dontrun{
+#' #TODO: this is the deprecated method; need to update
 #' question_1 <- "This is question 1"
 #' question_2 <- "This is question 2"
 #' question_texts <- list(question_1, question_2)
@@ -103,7 +106,7 @@ quiz_set_state <- function(store, variable, value, state = NULL){
 
 #' @describeIn quiz_get_state Backup function to check that an answer matches a response, agnostic of ordering
 quiz_is_answer_correct <- function(answer, key){
-  # TODO: depreacted?
+  # TODO: deprecated?
   if (length(answer) != length(key)) return(FALSE)
   if(!is.numeric(answer)) is_correct <- purrr::map2_lgl(answer, key, function(resp, key) base::setequal(resp, key))
   if(is.numeric(answer)) is_correct <-  purrr::map2_lgl(answer, key, function(resp, key) dplyr::between(resp, key-.1, key+.1))
@@ -121,7 +124,7 @@ quiz_is_current_correct <- function(store){
   if (is_truthy(current_grader)){
     is_correct <- current_grader(current_response)
   } else {
-    # TODO: depreacted?
+    # TODO: deprecated?
     is_correct <- quiz_is_answer_correct(current_response, current_correct_answer)
   }
   return(isTRUE(is_correct))
@@ -177,7 +180,9 @@ quiz_ui_quiz_complete <- function(store, ns, message_correct, message_wrong, mes
   
   # render ending message based on if answers are correct
   all_correct <- quiz_is_all_correct(store)
-  if (quiz_get_state(store, variable = 'quiz-skipped')){
+  is_skipped <- quiz_get_state(store, variable = 'quiz-skipped')
+  
+  if (is_skipped){
     html_content <- htmltools::tagList(
       htmltools::br(), 
       add_message_skipped(message_skipped)

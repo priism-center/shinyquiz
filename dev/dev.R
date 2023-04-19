@@ -23,7 +23,7 @@ usethis::use_package('testthat', min_version = TRUE, type = 'Suggests')
 # renv::snapshot()
 
 # create function files
-usethis::use_r('_classes')
+usethis::use_r('constructors')
 usethis::use_r('question-creators')
 usethis::use_r('state-machine')
 usethis::use_r('shiny-module')

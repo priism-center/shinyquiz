@@ -8,6 +8,7 @@ library(shiny)
 
 # content -----------------------------------------------------------------
 
+# TODO: can the namespace be handled in a more user-friendly way?
 ns_quiz <- shiny::NS('quiz')
 
 # set the text for question 1
@@ -88,20 +89,17 @@ grader_1 <- function(user_response){
   return(is_correct)
 }
 
-# create the formal quizQuestion
-question_1 <- new('quizQuestion')
-question_1@prompt <- question_text_1
-question_1@answerUser = list(NA)
-question_1@answerUserDisplay <- function(x) {
+answerUserDisplay_1 <- function(x) {
   tryCatch(
     paste0(x[[2]], collapse = ', '),
     error = function(e) 'Cannot print user response'
   )
 }
-question_1@answerCorrectDisplay <- paste0(c('bp_baseline', 'sex', 'height'), collapse = ', ')
-question_1@grader <- grader_1
+answerCorrectDisplay_1 <- paste0(c('bp_baseline', 'sex', 'height'), collapse = ', ')
 
-verify_question_structure(question_1)
+# format into a forma question
+question_1 <- construct_question(question_text_1, answerUserDisplay_1, answerCorrectDisplay_1, grader_1)
+
 
 
 # question 2 --------------------------------------------------------------
@@ -125,20 +123,18 @@ question_text_2 <- htmltools::div(
   )
 )
 
-# create the formal quizQuestion
-question_2 <- new('quizQuestion')
-question_2@prompt <- question_text_2
-question_2@answerUser = list(NA)
-question_2@answerUserDisplay <- function(x) {
+
+answerUserDisplay_2 <- function(x) {
   tryCatch(
     paste0(x[[2]], collapse = ', '),
     error = function(e) 'Cannot print user response'
   )
 }
-question_2@answerCorrectDisplay <- 'test2'
-question_2@grader <- function(x) TRUE
+answerCorrectDisplay_2 <- 'test2'
+grader_2 <- function(x) TRUE
 
-verify_question_structure(question_2)
+# format into a forma question
+question_2 <- construct_question(question_text_2, answerUserDisplay_2, answerCorrectDisplay_2, grader_2)
 
 
 
@@ -162,32 +158,27 @@ question_text_3 <- htmltools::div(
   )
 )
 
-# create the formal quizQuestion
-question_3 <- new('quizQuestion')
-question_3@prompt <- question_text_3
-question_3@answerUser = list(NA)
-question_3@answerUserDisplay <- function(x) {
+answerUserDisplay_3 <- function(x) {
   tryCatch(
     paste0(x[[2]], collapse = ', '),
     error = function(e) 'Cannot print user response'
   )
 }
-question_3@answerCorrectDisplay <- 'test2'
-question_3@grader <- function(x) TRUE
+answerCorrectDisplay_3 <- 'test3'
+grader_3 <- function(x) TRUE
 
-verify_question_structure(question_3)
-
+# format into a forma question
+question_3 <- construct_question(question_text_3, answerUserDisplay_3, answerCorrectDisplay_3, grader_3)
 
 # set messages
-messages <- new('quizMessages')
-messages@message_correct <- "Well done! You got all of them correct. Please read on to learn about the next topic."
-messages@message_wrong <- "Hmmm, bummer! You got at least one wrong."
-messages@message_skipped <- "Quiz skipped. You can restart it using the button below."
+messages <- construct_messages(
+  message_correct = "Well done! You got all of them correct. Please read on to learn about the next topic.",
+  message_wrong = "Hmmm, bummer! You got at least one wrong.",
+  message_skipped = "Quiz skipped. You can restart it using the button below."
+)
 
-# final object
-quiz <- new('quiz')
-quiz@questions <- c(question_1, question_2, question_3)
-quiz@messages <- messages
+# create quiz object
+quiz <- construct_quiz(c(question_1, question_2, question_3), messages)
 
 
 # app ---------------------------------------------------------------------

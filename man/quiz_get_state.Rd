@@ -81,6 +81,7 @@ See the post-treatment learning module for a working example.
 }}
 \examples{
 \dontrun{
+#TODO: this is the deprecated method; need to update
 question_1 <- "This is question 1"
 question_2 <- "This is question 2"
 question_texts <- list(question_1, question_2)

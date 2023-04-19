@@ -31,7 +31,7 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
     # ns <- session$ns
     ns <- shiny::NS(shiny::NS(id_parent)(id))
     
-    # verify_quiz_structure(quiz)
+    verify_quiz_structure(quiz)
     
     # message(paste0('The quiz module has a namespace id of: ', id))
     
