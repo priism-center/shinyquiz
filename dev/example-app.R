@@ -1,4 +1,4 @@
-### full working example app ###
+### fully working example app ###
 
 # purrr::walk(list.files('R', full.names = TRUE), source)
 devtools::load_all()
@@ -99,7 +99,7 @@ answerCorrectDisplay_1 <- paste0(c('bp_baseline', 'sex', 'height'), collapse = '
 
 # format into a forma question
 question_1 <- construct_question(question_text_1, answerUserDisplay_1, answerCorrectDisplay_1, grader_1)
-
+# preview_question(question_1)
 
 
 # question 2 --------------------------------------------------------------
@@ -122,7 +122,7 @@ question_text_2 <- htmltools::div(
     selected = NULL
   )
 )
-
+# preview: htmltools::html_print(question_text_2)
 
 answerUserDisplay_2 <- function(x) {
   tryCatch(
@@ -135,7 +135,6 @@ grader_2 <- function(x) TRUE
 
 # format into a forma question
 question_2 <- construct_question(question_text_2, answerUserDisplay_2, answerCorrectDisplay_2, grader_2)
-
 
 
 # question 3 --------------------------------------------------------------
@@ -179,6 +178,7 @@ messages <- construct_messages(
 
 # create quiz object
 quiz <- construct_quiz(c(question_1, question_2, question_3), messages)
+# preview_quiz(quiz)
 
 
 # app ---------------------------------------------------------------------
