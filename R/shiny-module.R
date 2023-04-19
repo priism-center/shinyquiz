@@ -1,13 +1,15 @@
 ### shiny module that implements the state machine ###
 
-#' quiz module
+#' Run a quiz in R Shiny
 #'
-#' @description A shiny Module to implement the quiz
+#' @description A shiny Module to implement a quiz
 #'
-#' @param id,input,output,session Internal parameters for {shiny}.
+#' @param id a unique string that is identical across UI and server
 #' @author Joseph Marlo
 #' @export
+#' @describeIn quiz_ui UI side function
 quiz_ui <- function(id){
+  # shouldn't this also have and id_parent argument?
   ns <- shiny::NS(id)
   htmltools::tagList(
     add_external_resources(),
@@ -19,7 +21,7 @@ quiz_ui <- function(id){
   )
 }
 
-#' @param id a unique string that corresponds that is identical for UI and server
+#' @param id a unique string that is identical across UI and server
 #' @param id_parent if using within a Shiny module, the id of that module
 #' @param quiz TBD
 #' @param embed_quiz boolean. remove?
@@ -31,7 +33,7 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
   
   verify_quiz_structure(quiz)
   
-  shiny::moduleServer( id, function(input, output, session){
+  shiny::moduleServer(id, function(input, output, session){
     # ns <- session$ns
     ns <- shiny::NS(shiny::NS(id_parent)(id))
     
@@ -159,6 +161,7 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
 #' Examples include `shinyjs::useShinyjs` or `fontawesome::fa_html_dependency`. These objects are raised to the head of html document.
 #'
 #' @return an invisible object of class shiny.tag
+#' @noRd
 #' @author Joseph Marlo
 add_external_resources <- function(){
   htmltools::tags$head(

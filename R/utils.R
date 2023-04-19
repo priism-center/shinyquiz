@@ -9,6 +9,7 @@
 #' @return boolean
 #' @author Joseph Marlo
 #' @return NULL
+#' @keywords internal
 #' 
 #' @examples
 #' 1 %notin% 2:4
@@ -26,6 +27,7 @@
 #'
 #' @author Joseph Marlo
 #' @seealso [shiny::isTruthy()]
+#' @keywords internal
 #'
 #' @examples
 #' is_truthy(TRUE)

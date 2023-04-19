@@ -18,8 +18,8 @@ S4 class for a quiz
 \item{\code{messages}}{quizMessages.}
 }}
 
-\examples{
-# TBD
+\seealso{
+\code{\link[=construct_quiz]{construct_quiz()}}
 }
 \author{
 Joseph Marlo

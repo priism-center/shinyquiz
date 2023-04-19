@@ -9,7 +9,7 @@
 #' @param store a list formatted like in the example
 #' @param variable one of c('current-question', 'current-correct-answer', 'next-state', 'current-response')
 #' @param state one of c('quiz-question-1', ..., 'quiz-question')
-#'
+#' @keywords internal
 #' @return depends on function
 #'
 #' @author Joseph Marlo
@@ -63,6 +63,7 @@ sm_get_state <- function(store, variable = NULL, state = NULL){
   }
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state Setter function for the state machine
 sm_set_state <- function(store, variable, value, state = NULL){
   
@@ -89,6 +90,7 @@ sm_set_state <- function(store, variable, value, state = NULL){
   return(store)
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state Backup function to check that an answer matches a response, agnostic of ordering. Deprecated?
 sm_is_answer_correct <- function(answer, key){
   # TODO: deprecated?
@@ -99,6 +101,7 @@ sm_is_answer_correct <- function(answer, key){
   return(is_correct)
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state Check that current-response is correct
 sm_is_current_correct <- function(store){
   current_response <- unname(sm_get_state(store, variable = 'current-response'))
@@ -115,21 +118,25 @@ sm_is_current_correct <- function(store){
   return(isTRUE(is_correct))
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state Check that each recorded answer is correct and return a boolean vector
 sm_check_is_each_correct <- function(store){
   return(store$is_correct)
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state Check that all recorded answers are correct
 sm_is_all_correct <- function(store) {
   return(isTRUE(all(sm_check_is_each_correct(store))))
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state Check if the quiz in sandbox mode
 sm_quiz_in_sandbox_mode <- function(store){
   isTRUE(sm_get_state(store, 'sandbox-mode'))
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state Add headers containing the question number to all the questions in a quiz
 sm_ui_format_prompts <- function(quiz){
   verify_quiz_structure(quiz)
@@ -141,6 +148,7 @@ sm_ui_format_prompts <- function(quiz){
   return(quiz)
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state Add a header denoting the question number
 sm_ui_format_prompt <- function(prompt, i){
   htmltools::div(
@@ -151,6 +159,7 @@ sm_ui_format_prompt <- function(prompt, i){
   )
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state UI to show once the quiz is completed
 sm_ui_quiz_complete <- function(store, ns, messages){
   
@@ -199,6 +208,7 @@ sm_ui_quiz_complete <- function(store, ns, messages){
   return(html_content)
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state UI to show the score and table of correct answers to display at the end
 sm_ui_complete_report <- function(store){
   
@@ -267,6 +277,7 @@ sm_ui_complete_report <- function(store){
   return(grade_report)
 }
 
+#' @keywords internal
 #' @describeIn sm_get_state UI to show for the current question
 sm_ui_question <- function(store, ns){
   
@@ -294,6 +305,7 @@ sm_ui_question <- function(store, ns){
   return(html_content)
 }
 
+#' @keywords internal
 #' @param quiz A list of questions of class 'quizQuestion'
 #' @param sandbox_mode boolean
 #' @param n Number of resamples to make
@@ -316,7 +328,7 @@ sm_resample_questions_if_sandbox <- function(quiz, sandbox_mode, n = 50){
   return(quiz)
 }
 
-
+#' @keywords internal
 #' @param quiz an object of class 'quiz'
 #' @param sandbox_mode boolean
 #' 

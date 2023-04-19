@@ -24,8 +24,8 @@ S4 class for a quiz question
 \item{\code{grader}}{function.}
 }}
 
-\examples{
-# TBD
+\seealso{
+\code{\link[=construct_question]{construct_question()}}
 }
 \author{
 Joseph Marlo

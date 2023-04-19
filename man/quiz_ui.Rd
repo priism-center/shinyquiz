@@ -3,7 +3,7 @@
 \name{quiz_ui}
 \alias{quiz_ui}
 \alias{quiz_server}
-\title{quiz module}
+\title{Run a quiz in R Shiny}
 \usage{
 quiz_ui(id)
 
@@ -16,7 +16,7 @@ quiz_server(
 )
 }
 \arguments{
-\item{id, input, output, session}{Internal parameters for {shiny}.}
+\item{id}{a unique string that is identical across UI and server}
 
 \item{id_parent}{if using within a Shiny module, the id of that module}
 
@@ -25,14 +25,14 @@ quiz_server(
 \item{embed_quiz}{boolean. remove?}
 
 \item{sandbox_mode}{boolean. Resample questions for quasi infinite mode?}
-
-\item{id}{a unique string that corresponds that is identical for UI and server}
 }
 \description{
-A shiny Module to implement the quiz
+A shiny Module to implement a quiz
 }
 \section{Functions}{
 \itemize{
+\item \code{quiz_ui()}: UI side function
+
 \item \code{quiz_server()}: Server side function
 
 }}

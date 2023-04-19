@@ -13,25 +13,41 @@ construct_question(prompt, answerUserDisplay, answerCorrectDisplay, grader)
 construct_messages(message_correct, message_wrong, message_skipped)
 }
 \arguments{
+\item{questions}{a list with objects of class 'quizQuestions'}
+
+\item{messages}{an object of class 'quizMessages'}
+
 \item{prompt}{an htmltools::div that represents a quiz question}
 
-\item{answerUserDisplay}{a function that takes the user answer and prints it neatly}
+\item{answerUserDisplay}{a function that takes the user answer and prints it neatly. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} to catch any errors.}
 
 \item{answerCorrectDisplay}{a character that prints the correct answer neatly}
 
-\item{grader}{a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE}
+\item{grader}{a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} to catch any errors.}
+
+\item{message_correct}{a string to be shown at the end of the quiz when the user gets all questions correct}
+
+\item{message_wrong}{a string to be shown at the end of the quiz when the user gets at least one question wrong}
+
+\item{message_skipped}{a string to be shown at the end of the quiz when the user skips the quiz or ends it early}
 }
 \value{
-TBD
+an object of class 'quiz'
+
+an object of class 'quizQuestion'
+
+an object of class 'quizMessages'
 }
 \description{
 This should probably used only on the backend
 }
 \section{Functions}{
 \itemize{
-\item \code{construct_question()}: Construct the question object
+\item \code{construct_quiz()}: Construct a quiz object
 
-\item \code{construct_messages()}: Construct the messages object
+\item \code{construct_question()}: Construct a question object
+
+\item \code{construct_messages()}: Construct a messages object
 
 }}
 \examples{

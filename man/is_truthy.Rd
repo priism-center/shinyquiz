@@ -34,3 +34,4 @@ is_truthy(data.frame(x = 1))
 \author{
 Joseph Marlo
 }
+\keyword{internal}

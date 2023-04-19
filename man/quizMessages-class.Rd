@@ -20,8 +20,8 @@ S4 class for a quiz messages to display at the end
 \item{\code{message_skipped}}{character.}
 }}
 
-\examples{
-# TBD
+\seealso{
+\code{\link[=construct_messages]{construct_messages()}}
 }
 \author{
 Joseph Marlo

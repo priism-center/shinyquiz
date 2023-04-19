@@ -21,3 +21,4 @@ add_confetti()
 \author{
 Joseph Marlo
 }
+\keyword{internal}

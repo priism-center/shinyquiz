@@ -7,6 +7,7 @@
 #'
 #' @return called for side effect
 #' @author Joseph Marlo
+#' @keywords internal
 #'
 #' @examples
 #' # TBD
@@ -24,6 +25,7 @@ scroll_to_div <- function(ns = NULL, id = 'quiz-container'){
 #'
 #' @return called for side effect
 #' @author Joseph Marlo
+#' @keywords internal
 #'
 #' @examples
 #' #TBD
@@ -55,6 +57,7 @@ add_checkmark <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
 #'
 #' @return called for side effect
 #' @author Joseph Marlo
+#' @keywords internal
 #'
 #' @examples
 #' #TBD
@@ -84,6 +87,7 @@ add_red_x <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
 #'
 #' @return called for side effect
 #' @author Joseph Marlo
+#' @keywords internal
 #'
 #' @examples
 #' #TBD
@@ -96,6 +100,7 @@ add_message_correct <- function(text){
   )
 }
 
+#' @keywords internal
 #' @describeIn add_message_correct Message to display when user is wrong
 add_message_wrong <- function(text){
   # this relies on bootstrap css
@@ -105,6 +110,7 @@ add_message_wrong <- function(text){
   )
 }
 
+#' @keywords internal
 #' @describeIn add_message_correct Message to display when user skipped the quiz
 add_message_skipped <- function(text){
   # this relies on bootstrap css
@@ -122,6 +128,7 @@ add_message_skipped <- function(text){
 #' @return div containing divs of class "confetti-piece"
 #' @author Joseph Marlo
 #' @seealso [https://codepen.io/zer0kool/pen/KjZWRW]
+#' @keywords internal
 #'
 #' @examples
 #' add_confetti()

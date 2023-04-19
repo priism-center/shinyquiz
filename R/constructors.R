@@ -4,17 +4,16 @@
 #'
 #' This should probably used only on the backend
 #'
-#' @param prompt an htmltools::div that represents a quiz question
-#' @param answerUserDisplay a function that takes the user answer and prints it neatly
-#' @param answerCorrectDisplay a character that prints the correct answer neatly
-#' @param grader a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE
+#' @param questions a list with objects of class 'quizQuestions'
+#' @param messages an object of class 'quizMessages'
 #'
-#' @return TBD
+#' @return an object of class 'quiz'
 #' @export
 #' @author Joseph Marlo
 #'
 #' @examples
 #' #TBD
+#' @describeIn construct_quiz Construct a quiz object
 construct_quiz <- function(questions, messages){
   if (!is.list(questions)) cli::cli_abort("`questions` should be of class 'list'")
   is_all_class_question <- isTRUE(all(purrr::map_lgl(questions, ~inherits(.x, 'quizQuestion'))))
@@ -30,8 +29,13 @@ construct_quiz <- function(questions, messages){
   return(quiz)
 }
 
+#' @param prompt an htmltools::div that represents a quiz question
+#' @param answerUserDisplay a function that takes the user answer and prints it neatly. This is wrapped with [purrr::possibly()] to catch any errors.
+#' @param answerCorrectDisplay a character that prints the correct answer neatly
+#' @param grader a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE. This is wrapped with [purrr::possibly()] to catch any errors.
+#' @return an object of class 'quizQuestion'
 #' @export
-#' @describeIn construct_quiz Construct the question object
+#' @describeIn construct_quiz Construct a question object
 construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, grader){
   # TODO: add cli messages for arg types
   
@@ -47,8 +51,12 @@ construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, 
   return(question)
 }
 
+#' @param message_correct a string to be shown at the end of the quiz when the user gets all questions correct
+#' @param message_wrong a string to be shown at the end of the quiz when the user gets at least one question wrong
+#' @param message_skipped a string to be shown at the end of the quiz when the user skips the quiz or ends it early
+#' @return an object of class 'quizMessages'
 #' @export
-#' @describeIn construct_quiz Construct the messages object
+#' @describeIn construct_quiz Construct a messages object
 construct_messages <- function(message_correct, message_wrong, message_skipped){
   messages <- methods::new('quizMessages')
   messages@message_correct <- message_correct
@@ -128,8 +136,7 @@ verify_quiz_structure <- function(quiz){
 #' @export
 #' @author Joseph Marlo
 #'
-#' @examples
-#' # TBD
+#' @seealso [construct_question()]
 setClass('quizQuestion', slots = list(
   prompt = 'shiny.tag', #TODO: figure out how to remove warning caused by this
   answerUser = 'list',
@@ -149,8 +156,7 @@ setClass('quizQuestion', slots = list(
 #' @export
 #' @author Joseph Marlo
 #'
-#' @examples
-#' # TBD
+#' @seealso [construct_messages()]
 setClass('quizMessages', slots = list(
   message_correct = 'character',
   message_wrong = 'character',
@@ -166,9 +172,8 @@ setClass('quizMessages', slots = list(
 #' @return none, sets a class
 #' @export
 #' @author Joseph Marlo
-#'
-#' @examples
-#' # TBD
+#' 
+#' @seealso [construct_quiz()]
 setClass('quiz', slots = list(
   questions = 'list',
   messages = 'quizMessages'
