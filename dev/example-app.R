@@ -90,10 +90,7 @@ grader_1 <- function(user_response){
 }
 
 answerUserDisplay_1 <- function(x) {
-  tryCatch(
-    paste0(x[[2]], collapse = ', '),
-    error = function(e) 'Cannot print user response'
-  )
+  paste0(x[[2]], collapse = ', ')
 }
 answerCorrectDisplay_1 <- paste0(c('bp_baseline', 'sex', 'height'), collapse = ', ')
 
@@ -108,12 +105,7 @@ question_text_2 <- htmltools::div(
   htmltools::p("Variable X is the only confounder. Given the overlap of X, select all the estimands we could estimate without violating the overlap assumption."),
   htmltools::p("Filler text 1"),
   
-  # shiny::renderImage({
-  #   list(src = app_sys('app', 'www/learn/estimands2/plots/p21.png'),
-  #        contentType = 'image/png',
-  #        width = 600,
-  #        height = 400)
-  # }, deleteFile = F),
+  shiny::renderPlot(plot(rnorm(10), rnorm(10))),
   
   shiny::selectInput(
     inputId = ns_quiz('answers'),
@@ -124,14 +116,9 @@ question_text_2 <- htmltools::div(
 )
 # preview: htmltools::html_print(question_text_2)
 
-answerUserDisplay_2 <- function(x) {
-  tryCatch(
-    paste0(x[[2]], collapse = ', '),
-    error = function(e) 'Cannot print user response'
-  )
-}
-answerCorrectDisplay_2 <- 'test2'
-grader_2 <- function(x) TRUE
+answerUserDisplay_2 <- function(x) x
+answerCorrectDisplay_2 <- 'ATE'
+grader_2 <- function(x) x == 'ATE'
 
 # format into a forma question
 question_2 <- construct_question(question_text_2, answerUserDisplay_2, answerCorrectDisplay_2, grader_2)
@@ -158,10 +145,7 @@ question_text_3 <- htmltools::div(
 )
 
 answerUserDisplay_3 <- function(x) {
-  tryCatch(
-    paste0(x[[2]], collapse = ', '),
-    error = function(e) 'Cannot print user response'
-  )
+  paste0(x[[2]], collapse = ', ')
 }
 answerCorrectDisplay_3 <- 'test3'
 grader_3 <- function(x) TRUE

@@ -5,9 +5,9 @@
 #' This should probably used only on the backend
 #'
 #' @param prompt 
-#' @param answerUserDisplay 
-#' @param answerCorrectDisplay 
-#' @param grader 
+#' @param answerUserDisplay a function that takes the user answer and prints it neatly
+#' @param answerCorrectDisplay a character that prints the correct answer neatly
+#' @param grader a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE
 #'
 #' @return TBD
 #' @export
@@ -37,9 +37,9 @@ construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, 
   question <- new('quizQuestion')
   question@prompt <- prompt
   question@answerUser = list(NA)
-  question@answerUserDisplay <- answerUserDisplay
+  question@answerUserDisplay <- purrr::possibly(answerUserDisplay, otherwise = '{Unable to print user response}')
   question@answerCorrectDisplay <- answerCorrectDisplay
-  question@grader <- grader
+  question@grader <- purrr::possibly(grader, otherwise = FALSE)
   
   verify_question_structure(question)
   
@@ -87,7 +87,6 @@ verify_question_structure <- function(question){
   verify_n_args(question@answerUserDisplay, 1)
   verify_n_args(question@grader, 1)
   
-  
   return(invisible(TRUE))
 }
 
@@ -100,6 +99,8 @@ verify_n_args <- function(fn, n) {
 
 verify_messages_structure <- function(messages){
   if (!isTRUE(inherits(messages, 'quizMessages'))) cli::cli_abort("`messages` be of class 'quizMessages'")
+  
+  return(invisible(TRUE))
 }
 
 #' Verify that a quiz is a quiz
@@ -142,7 +143,8 @@ setClass('quizQuestion', slots = list(
   answerUserDisplay = 'function', # how to print the user answer in the report
   answerCorrectDisplay = 'character', # how to print the correct answer in the report
   grader = 'function' # function that compares user answer to the correct answer
-))
+  )
+)
 
 #' S4 class for a quiz messages to display at the end
 #'
@@ -160,7 +162,8 @@ setClass('quizMessages', slots = list(
   message_correct = 'character',
   message_wrong = 'character',
   message_skipped = 'character'
-))
+  )
+)
 
 #' S4 class for a quiz
 #'
@@ -176,4 +179,5 @@ setClass('quizMessages', slots = list(
 setClass('quiz', slots = list(
   questions = 'list',
   messages = 'quizMessages'
-))
+  )
+)

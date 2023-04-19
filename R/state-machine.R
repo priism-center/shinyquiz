@@ -2,7 +2,7 @@
 
 #' Functions for managing the quiz state machine
 #'
-#' This quiz is implemented via a state machine framework. It has states for each question and a final state for once the quiz ends. Only one state can be active at a time. The question text and answers shown depend on what state is active.
+#' The quiz is implemented via a state machine framework. It has states for each question and a final state for once the quiz ends. Only one state can be active at a time. The question text and answers shown depend on what state is active.
 #'
 #' These are `get` and `set` functions for retrieving state values and setting values. The states are originally created via a `reactiveValues` call within Shiny server (or `list` outside of Shiny; see example below).
 #'
@@ -209,7 +209,7 @@ sm_ui_quiz_complete <- function(store, ns, messages){
   return(html_content)
 }
 
-#' @describeIn sm_get_state UI to show the score and table of correct answers to show at the end
+#' @describeIn sm_get_state UI to show the score and table of correct answers to display at the end
 sm_ui_complete_report <- function(store){
   
   in_sandbox <- sm_quiz_in_sandbox_mode(store)
@@ -241,8 +241,7 @@ sm_ui_complete_report <- function(store){
   
   # get formatted correct answers
   answers_correct_print <- purrr::map_chr(store$questions, ~.x@answerCorrectDisplay)
-  
-  # browser()
+  answers_correct_print[answers_user_na] <- skip_label
   
   # put everything in a table
   grade_tbl <- tibble::tibble(
@@ -250,16 +249,23 @@ sm_ui_complete_report <- function(store){
     label = question_label,
     `Your Answer` = answers_user_print,
     `Correct Answer` = answers_correct_print
-  ) |>
-    dplyr::filter(`Your Answer` != skip_label) |>
-    reactable::reactable(
-      columns = list(
-        icon = reactable::colDef(name = '', html = TRUE, width = 40),
-        label = reactable::colDef(name = '', width = 115),
-        `Your Answer` = reactable::colDef(align = 'right'),
-        `Correct Answer` = reactable::colDef(align = 'right')
-      )
+  )
+  
+  # remove skipped rows if in sandbox mode
+  if (sm_quiz_in_sandbox_mode(store)){
+    grade_tbl <- dplyr::filter(grade_tbl,`Your Answer` != skip_label)
+  }
+  
+  # convert to reactable
+  grade_tbl <- reactable::reactable(
+    grade_tbl,
+    columns = list(
+      icon = reactable::colDef(name = '', html = TRUE, width = 40),
+      label = reactable::colDef(name = '', width = 115),
+      `Your Answer` = reactable::colDef(align = 'right'),
+      `Correct Answer` = reactable::colDef(align = 'right')
     )
+  )
   
   # add score to top of table
   grade_report <- htmltools::tagList(
