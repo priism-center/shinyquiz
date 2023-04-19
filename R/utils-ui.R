@@ -118,10 +118,20 @@ add_message_skipped <- function(text){
   )
 }
 
-# TODO: this no longer works?
+
+#' Add confetti celebration animation
+#' 
+#' Requires confetti.css to be in the www/css folder
+#'
+#' @return div containing divs of class "confetti-piece"
+#' @export
+#' @author Joseph Marlo
+#' @seealso [https://codepen.io/zer0kool/pen/KjZWRW]
+#'
+#' @examples
+#' add_confetti()
 add_confetti <- function(){
-  # https://codepen.io/zer0kool/pen/KjZWRW
-  # requires confetti.css to be in the www/css folder
+
   confetti_pieces <- htmltools::div(
     class = 'confetti',
     htmltools::div(class = 'confetti-piece'),

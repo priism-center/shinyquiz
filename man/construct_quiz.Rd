@@ -25,7 +25,7 @@ construct_messages(message_correct, message_wrong, message_skipped)
 TBD
 }
 \description{
-This should probably used on the backend
+This should probably used only on the backend
 }
 \section{Functions}{
 \itemize{

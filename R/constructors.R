@@ -16,7 +16,11 @@
 #' @examples
 #' #TBD
 construct_quiz <- function(questions, messages){
-  if (!is.list(questions)) cli::cli_abort('`questions` should be of class list')
+  if (!is.list(questions)) cli::cli_abort("`questions` should be of class 'list'")
+  is_all_class_question <- isTRUE(all(purrr::map_lgl(questions, ~inherits(.x, 'quizQuestion'))))
+  if (!is_all_class_question) cli::cli_abort("All items in `questions` should be of class 'quizQuestion'")
+  if (!inherits(messages, 'quizMessages')) cli::cli_abort("`messages` should be of class 'quizMessages'")
+  
   quiz <- new('quiz')
   quiz@questions <- questions
   quiz@messages <- messages
@@ -28,6 +32,8 @@ construct_quiz <- function(questions, messages){
 
 #' @describeIn construct_quiz Construct the question object
 construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, grader){
+  # TODO: add cli messages for arg types
+  
   question <- new('quizQuestion')
   question@prompt <- prompt
   question@answerUser = list(NA)
@@ -62,8 +68,7 @@ construct_messages <- function(message_correct, message_wrong, message_skipped){
 #' # TBD
 verify_question_structure <- function(question){
   
-  if (!isTRUE(isS4(question))) cli::cli_abort('Must be an S4 object')
-  if (!isTRUE(inherits(question, 'quizQuestion'))) cli::cli_abort('Must be an S4 object with class quizQuestion')
+  if (!isTRUE(inherits(question, 'quizQuestion'))) cli::cli_abort('`question` must be an S4 object with class quizQuestion')
   
   if (!isTRUE(inherits(question@prompt, 'shiny.tag'))) cli::cli_abort('`question` must be of class shiny.tag. Preferably generated from htmltools::div().')
   
@@ -93,6 +98,10 @@ verify_n_args <- function(fn, n) {
   return(invisible(TRUE))
 }
 
+verify_messages_structure <- function(messages){
+  if (!isTRUE(inherits(messages, 'quizMessages'))) cli::cli_abort("`messages` be of class 'quizMessages'")
+}
+
 #' Verify that a quiz is a quiz
 #'
 #' @param quiz a quiz; see ...? Effectively a list of questions
@@ -107,6 +116,8 @@ verify_quiz_structure <- function(quiz){
   if (!inherits(quiz, 'quiz')) cli::cli_abort('quiz must be of class quiz')
   if (!isTRUE(length(quiz@questions) > 0)) cli::cli_abort('No questions found')
   # if (!isTRUE(length(quiz@messages) > 0)) cli::cli_abort('No questions found')
+  
+  verify_messages_structure(quiz@messages)
   
   return(invisible(TRUE))
 }
@@ -126,7 +137,7 @@ verify_quiz_structure <- function(quiz){
 #' @examples
 #' # TBD
 setClass('quizQuestion', slots = list(
-  prompt = 'shiny.tag',
+  prompt = 'shiny.tag', #TODO: figure out how to remove warning caused by this
   answerUser = 'list',
   answerUserDisplay = 'function', # how to print the user answer in the report
   answerCorrectDisplay = 'character', # how to print the correct answer in the report

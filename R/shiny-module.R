@@ -9,8 +9,7 @@
 quiz_ui <- function(id){
   ns <- shiny::NS(id)
   htmltools::tagList(
-    shinyjs::useShinyjs(),
-    htmltools::includeCSS(system.file('shinyQuiz.css', package = "shinyQuiz")),
+    add_external_resources(),
     htmltools::div(
       id = ns('quiz-container'),
       class = 'quiz-container',
@@ -27,11 +26,12 @@ quiz_ui <- function(id){
 #'
 #' @describeIn quiz_ui Server side function
 quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, sandbox_mode = FALSE){
+  
+  verify_quiz_structure(quiz)
+  
   shiny::moduleServer( id, function(input, output, session){
     # ns <- session$ns
     ns <- shiny::NS(shiny::NS(id_parent)(id))
-    
-    verify_quiz_structure(quiz)
     
     # message(paste0('The quiz module has a namespace id of: ', id))
     
@@ -40,43 +40,30 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
     if (isTRUE(embed_quiz)) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
     
     # resample the questions if in sandbox mode
-    quiz <- resample_questions_if_sandbox(quiz, sandbox_mode, n = 50)
+    quiz <- sm_resample_questions_if_sandbox(quiz, sandbox_mode, n = 50)
     
     # add headers to question texts
-    quiz <- format_prompts(quiz)
-    
-    # TODO: remove
-    questions <- quiz@questions
+    quiz <- sm_ui_format_prompts(quiz)
     
     # set the current state and potential values
-    # this is the core object that owns the state(s)
-    store <- shiny::reactiveValues(
-      state = 'quiz-question-1',
-      states = c(paste0('quiz-question-', seq_along(questions)), 'quiz-complete'),
-      questions = questions,
-      is_correct = rep(FALSE, length(questions)),
-      ui_html = NULL,
-      skipped = FALSE,
-      sandbox_mode = isTRUE(sandbox_mode)
-    )
-    store_orig <- store
+    store <- sm_create_reactive_store(quiz, sandbox_mode)
     
     # reset quiz
     shiny::observeEvent(input$restart_button, {
       
       # reset the state to the first question
-      store <- quiz_set_state(store, variable = 'current-state', value = 'quiz-question-1')
+      store <- sm_set_state(store, variable = 'current-state', value = 'quiz-question-1')
       
       # remove any responses
-      store$questions <- questions
-      store <- quiz_set_state(store, variable = 'quiz-skipped', value = FALSE)
-      store$is_correct <- rep(FALSE, length(questions))
+      store$questions <- quiz@questions
+      store <- sm_set_state(store, variable = 'quiz-skipped', value = FALSE)
+      store$is_correct <- rep(FALSE, length(quiz@questions))
     })
     
     # skip quiz / finish quiz
     shiny::observeEvent(input$skip_button, {
-      store <- quiz_set_state(store, variable = 'current-state', value = 'quiz-complete')
-      store <- quiz_set_state(store, variable = 'quiz-skipped', value = TRUE)
+      store <- sm_set_state(store, variable = 'current-state', value = 'quiz-complete')
+      store <- sm_set_state(store, variable = 'quiz-skipped', value = TRUE)
     })
     
     # control state behavior
@@ -91,12 +78,10 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
       # state behavior
       if (store$state == 'quiz-complete'){
         # determine the UI
-        store$ui_html <- quiz_ui_quiz_complete(
+        store$ui_html <- sm_ui_quiz_complete(
           store,
           ns = ns,
-          message_correct = quiz@messages@message_correct,
-          message_wrong = quiz@messages@message_wrong,
-          message_skipped = quiz@messages@message_skipped
+          messages = quiz@messages
         )
         
         # unblur the text
@@ -107,7 +92,7 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
         
       } else {
         # determine the UI
-        store$ui_html <- quiz_ui_question(store, ns = ns)
+        store$ui_html <- sm_ui_question(store, ns = ns)
         
         # hide non-quiz content
         # TODO: remove this functionality
@@ -127,11 +112,11 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
       scroll_to_div(ns = ns, id = 'quiz-container')
       
       # record answers
-      store <- quiz_set_state(store, variable = 'current-response', value = input$answers)
+      store <- sm_set_state(store, variable = 'current-response', value = input$answers)
       
       # is the answer correct and record it
-      is_correct <- quiz_is_current_correct(store)
-      store <- quiz_set_state(store, 'current-correct', is_correct)
+      is_correct <- sm_is_current_correct(store)
+      store <- sm_set_state(store, 'current-correct', is_correct)
       
       # grade it
       delay_in_ms <- 2000
@@ -141,8 +126,8 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
         
         # change the state
         shinyjs::delay(delay_in_ms, {
-          new_state <- quiz_get_state(store, variable = 'next-state')
-          store <- quiz_set_state(store, variable = 'current-state', value = new_state)
+          new_state <- sm_get_state(store, variable = 'next-state')
+          store <- sm_set_state(store, variable = 'current-state', value = new_state)
         })
         
       } else {
@@ -152,11 +137,11 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
         # change the state
         # if in sandbox mode, go to next question otherwise end here
         shinyjs::delay(delay_in_ms, {
-          if (quiz_in_sandbox_mode(store)){
-            new_state <- quiz_get_state(store, variable = 'next-state')
-            store <- quiz_set_state(store, variable = 'current-state', value = new_state)
+          if (sm_quiz_in_sandbox_mode(store)){
+            new_state <- sm_get_state(store, variable = 'next-state')
+            store <- sm_set_state(store, variable = 'current-state', value = new_state)
           } else {
-            store <- quiz_set_state(store, variable = 'current-state', value = 'quiz-complete')
+            store <- sm_set_state(store, variable = 'current-state', value = 'quiz-complete')
           }
         })
       }
@@ -165,4 +150,18 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
     # render the UI
     output$UI_quiz <- shiny::renderUI(store$ui_html)
   })
+}
+
+#' External resources to include in the app 
+#'
+#' Examples include `shinyjs::useShinyjs` or `fontawesome::fa_html_dependency`. These objects are raised to the head of html document.
+#'
+#' @return an invisible object of class shiny.tag
+#' @author Joseph Marlo
+add_external_resources <- function(){
+  htmltools::tags$head(
+    shinyjs::useShinyjs(),
+    fontawesome::fa_html_dependency(),
+    htmltools::includeCSS(system.file('shinyQuiz.css', package = "shinyQuiz")),
+  )
 }

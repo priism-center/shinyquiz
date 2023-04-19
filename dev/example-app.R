@@ -139,7 +139,7 @@ question_2 <- construct_question(question_text_2, answerUserDisplay_2, answerCor
 
 # question 3 --------------------------------------------------------------
 question_text_3 <- htmltools::div(
-  htmltools::p("Variable X is the only confounder. Given the overlap of X, select all the estimands we could estimate without violating the overlap assumption."),
+  htmltools::p("Variable Y is the only confounder. Given the overlap of Y, select all the estimands we could estimate without violating the overlap assumption."),
   htmltools::p("Filler text 1"),
   
   # shiny::renderImage({
@@ -171,7 +171,7 @@ question_3 <- construct_question(question_text_3, answerUserDisplay_3, answerCor
 
 # set messages
 messages <- construct_messages(
-  message_correct = "Well done! You got all of them correct. Please read on to learn about the next topic.",
+  message_correct = "Well done! You got all of them correct.",
   message_wrong = "Hmmm, bummer! You got at least one wrong.",
   message_skipped = "Quiz skipped. You can restart it using the button below."
 )
@@ -190,19 +190,19 @@ ui <- shiny::fluidPage(
     htmltools::h1("EXAMPLE APP")
   ),
   htmltools::div(
-    style = "width: 700px",
+    style = "max-width: 700px",
     quiz_ui(id = 'quiz')
-  )
+  ),
 )
 
 server <- function(input, output, session) {
 
   # run the quiz
   quiz_server(
-    id = "quiz", # this should always be quiz
+    id = "quiz", # TODO: this should always be quiz? does it need to match ns_quiz()?
     id_parent = NULL,
     quiz = quiz,
-    embed_quiz = TRUE,
+    embed_quiz = FALSE, # TODO: remove?
     sandbox_mode = FALSE
   )
 }

@@ -13,6 +13,7 @@ RoxygenNote: 7.2.3
 Imports: 
     cli (>= 3.6.1),
     dplyr (>= 1.1.1),
+    fontawesome (>= 0.5.0),
     glue (>= 1.6.2),
     htmltools (>= 0.5.5),
     purrr (>= 1.0.1),
