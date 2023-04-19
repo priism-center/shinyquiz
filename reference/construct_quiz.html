@@ -51,12 +51,20 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>prompt</dt>
+    <dl><dt>questions</dt>
+<dd><p>a list with objects of class 'quizQuestions'</p></dd>
+
+
+<dt>messages</dt>
+<dd><p>an object of class 'quizMessages'</p></dd>
+
+
+<dt>prompt</dt>
 <dd><p>an htmltools::div that represents a quiz question</p></dd>
 
 
 <dt>answerUserDisplay</dt>
-<dd><p>a function that takes the user answer and prints it neatly</p></dd>
+<dd><p>a function that takes the user answer and prints it neatly. This is wrapped with <code><a href="https://purrr.tidyverse.org/reference/possibly.html" class="external-link">purrr::possibly()</a></code> to catch any errors.</p></dd>
 
 
 <dt>answerCorrectDisplay</dt>
@@ -64,20 +72,39 @@
 
 
 <dt>grader</dt>
-<dd><p>a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE</p></dd>
+<dd><p>a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE. This is wrapped with <code><a href="https://purrr.tidyverse.org/reference/possibly.html" class="external-link">purrr::possibly()</a></code> to catch any errors.</p></dd>
+
+
+<dt>message_correct</dt>
+<dd><p>a string to be shown at the end of the quiz when the user gets all questions correct</p></dd>
+
+
+<dt>message_wrong</dt>
+<dd><p>a string to be shown at the end of the quiz when the user gets at least one question wrong</p></dd>
+
+
+<dt>message_skipped</dt>
+<dd><p>a string to be shown at the end of the quiz when the user skips the quiz or ends it early</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>TBD</p>
+<p>an object of class 'quiz'</p>
+
+
+<p>an object of class 'quizQuestion'</p>
+
+
+<p>an object of class 'quizMessages'</p>
     </div>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
-<ul><li><p><code>construct_question()</code>: Construct the question object</p></li>
-<li><p><code>construct_messages()</code>: Construct the messages object</p></li>
+<ul><li><p><code>construct_quiz()</code>: Construct a quiz object</p></li>
+<li><p><code>construct_question()</code>: Construct a question object</p></li>
+<li><p><code>construct_messages()</code>: Construct a messages object</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
