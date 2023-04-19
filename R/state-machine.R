@@ -2,7 +2,7 @@
 
 #' Functions for managing the quiz state machine
 #'
-#' The quiz is implemented via a state machine framework. It has states for each question and a final state for once the quiz ends. Only one state can be active at a time. The question text and answers shown depend on what state is active.
+#' The quiz is implemented via a state machine framework. It has states for each question and a final state for once the quiz ends. Only one state can be active at a time. The question text and answers shown depend on which state is active.
 #'
 #' These are `get` and `set` functions for retrieving state values and setting values. The states are originally created via a `reactiveValues` call within Shiny server (or `list` outside of Shiny; see example below).
 #'
@@ -11,7 +11,6 @@
 #' @param state one of c('quiz-question-1', ..., 'quiz-question')
 #'
 #' @return depends on function
-#' @export
 #'
 #' @author Joseph Marlo
 #'
@@ -131,16 +130,7 @@ sm_quiz_in_sandbox_mode <- function(store){
   isTRUE(sm_get_state(store, 'sandbox-mode'))
 }
 
-#' Add headers with question numbers to the quiz questions
-#'
-#' @param quiz a quiz; see ...?
-#'
-#' @return quiz
-#' @export
-#' @author Joseph Marlo
-#'
-#' @examples
-#' #TBD
+#' @describeIn sm_get_state Add headers containing the question number to all the questions in a quiz
 sm_ui_format_prompts <- function(quiz){
   verify_quiz_structure(quiz)
   
@@ -151,7 +141,7 @@ sm_ui_format_prompts <- function(quiz){
   return(quiz)
 }
 
-#' @describeIn sm_ui_format_prompts Add a header denoting the question number
+#' @describeIn sm_get_state Add a header denoting the question number
 sm_ui_format_prompt <- function(prompt, i){
   htmltools::div(
     htmltools::h4("Practice what you've learned"),
@@ -309,7 +299,6 @@ sm_ui_question <- function(store, ns){
 #' @param n Number of resamples to make
 #'
 #' @return questions
-#' @export
 #' @author Joseph Marlo
 #'
 #' @examples
@@ -334,7 +323,6 @@ sm_resample_questions_if_sandbox <- function(quiz, sandbox_mode, n = 50){
 #' @seealso [shiny::reactiveValues()]
 #'
 #' @return reactiveValues
-#' @export
 #' @author Joseph Marlo
 #' 
 #' @describeIn sm_get_state Create the main store object that handles the state(s)

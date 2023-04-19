@@ -6,7 +6,6 @@
 #' @param id id of the div
 #'
 #' @return called for side effect
-#' @export
 #' @author Joseph Marlo
 #'
 #' @examples
@@ -24,7 +23,6 @@ scroll_to_div <- function(ns = NULL, id = 'quiz-container'){
 #' @param element element within the div to place the checkmark
 #'
 #' @return called for side effect
-#' @export
 #' @author Joseph Marlo
 #'
 #' @examples
@@ -56,7 +54,6 @@ add_checkmark <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
 #' @param element element within the div to place the X
 #'
 #' @return called for side effect
-#' @export
 #' @author Joseph Marlo
 #'
 #' @examples
@@ -86,7 +83,6 @@ add_red_x <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
 #' @param text Message to display
 #'
 #' @return called for side effect
-#' @export
 #' @author Joseph Marlo
 #'
 #' @examples
@@ -124,7 +120,6 @@ add_message_skipped <- function(text){
 #' Requires confetti.css to be in the www/css folder
 #'
 #' @return div containing divs of class "confetti-piece"
-#' @export
 #' @author Joseph Marlo
 #' @seealso [https://codepen.io/zer0kool/pen/KjZWRW]
 #'

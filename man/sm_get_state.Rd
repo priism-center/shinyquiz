@@ -8,6 +8,8 @@
 \alias{sm_check_is_each_correct}
 \alias{sm_is_all_correct}
 \alias{sm_quiz_in_sandbox_mode}
+\alias{sm_ui_format_prompts}
+\alias{sm_ui_format_prompt}
 \alias{sm_ui_quiz_complete}
 \alias{sm_ui_complete_report}
 \alias{sm_ui_question}
@@ -29,7 +31,11 @@ sm_is_all_correct(store)
 
 sm_quiz_in_sandbox_mode(store)
 
-sm_ui_quiz_complete(store, ns, message_correct, message_wrong, message_skipped)
+sm_ui_format_prompts(quiz)
+
+sm_ui_format_prompt(prompt, i)
+
+sm_ui_quiz_complete(store, ns, messages)
 
 sm_ui_complete_report(store)
 
@@ -60,7 +66,7 @@ questions
 reactiveValues
 }
 \description{
-This quiz is implemented via a state machine framework. It has states for each question and a final state for once the quiz ends. Only one state can be active at a time. The question text and answers shown depend on what state is active.
+The quiz is implemented via a state machine framework. It has states for each question and a final state for once the quiz ends. Only one state can be active at a time. The question text and answers shown depend on which state is active.
 }
 \details{
 These are \code{get} and \code{set} functions for retrieving state values and setting values. The states are originally created via a \code{reactiveValues} call within Shiny server (or \code{list} outside of Shiny; see example below).
@@ -81,9 +87,13 @@ These are \code{get} and \code{set} functions for retrieving state values and se
 
 \item \code{sm_quiz_in_sandbox_mode()}: Check if the quiz in sandbox mode
 
+\item \code{sm_ui_format_prompts()}: Add headers containing the question number to all the questions in a quiz
+
+\item \code{sm_ui_format_prompt()}: Add a header denoting the question number
+
 \item \code{sm_ui_quiz_complete()}: UI to show once the quiz is completed
 
-\item \code{sm_ui_complete_report()}: UI to show the score and table of correct answers to show at the end
+\item \code{sm_ui_complete_report()}: UI to show the score and table of correct answers to display at the end
 
 \item \code{sm_ui_question()}: UI to show for the current question
 

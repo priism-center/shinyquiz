@@ -6,6 +6,7 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #' @author Joseph Marlo
+#' @export
 quiz_ui <- function(id){
   ns <- shiny::NS(id)
   htmltools::tagList(
@@ -23,7 +24,8 @@ quiz_ui <- function(id){
 #' @param quiz TBD
 #' @param embed_quiz boolean. remove?
 #' @param sandbox_mode boolean. Resample questions for quasi infinite mode? 
-#'
+#' @export
+#' 
 #' @describeIn quiz_ui Server side function
 quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, sandbox_mode = FALSE){
   

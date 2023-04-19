@@ -4,7 +4,7 @@
 #'
 #' This should probably used only on the backend
 #'
-#' @param prompt 
+#' @param prompt an htmltools::div that represents a quiz question
 #' @param answerUserDisplay a function that takes the user answer and prints it neatly
 #' @param answerCorrectDisplay a character that prints the correct answer neatly
 #' @param grader a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE
@@ -21,7 +21,7 @@ construct_quiz <- function(questions, messages){
   if (!is_all_class_question) cli::cli_abort("All items in `questions` should be of class 'quizQuestion'")
   if (!inherits(messages, 'quizMessages')) cli::cli_abort("`messages` should be of class 'quizMessages'")
   
-  quiz <- new('quiz')
+  quiz <- methods::new('quiz')
   quiz@questions <- questions
   quiz@messages <- messages
   
@@ -30,14 +30,15 @@ construct_quiz <- function(questions, messages){
   return(quiz)
 }
 
+#' @export
 #' @describeIn construct_quiz Construct the question object
 construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, grader){
   # TODO: add cli messages for arg types
   
-  question <- new('quizQuestion')
+  question <- methods::new('quizQuestion')
   question@prompt <- prompt
   question@answerUser = list(NA)
-  question@answerUserDisplay <- purrr::possibly(answerUserDisplay, otherwise = '{Unable to print user response}')
+  question@answerUserDisplay <- purrr::possibly(answerUserDisplay, otherwise = '[Unable to print user response]')
   question@answerCorrectDisplay <- answerCorrectDisplay
   question@grader <- purrr::possibly(grader, otherwise = FALSE)
   
@@ -46,9 +47,10 @@ construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, 
   return(question)
 }
 
+#' @export
 #' @describeIn construct_quiz Construct the messages object
 construct_messages <- function(message_correct, message_wrong, message_skipped){
-  messages <- new('quizMessages')
+  messages <- methods::new('quizMessages')
   messages@message_correct <- message_correct
   messages@message_wrong <- message_wrong
   messages@message_skipped <- message_skipped
@@ -56,12 +58,11 @@ construct_messages <- function(message_correct, message_wrong, message_skipped){
   return(messages)
 }
 
-#' @title Verify a quiz question is the correct format
+#' Verify a quiz elements are the correct format
 #'
 #' @param question TBD
 #'
 #' @return invisible TRUE if all tests passed
-#' @export
 #' @author Joseph Marlo
 #'
 #' @examples
@@ -97,22 +98,14 @@ verify_n_args <- function(fn, n) {
   return(invisible(TRUE))
 }
 
+#' @describeIn verify_question_structure Verify the messages are the correct structure
 verify_messages_structure <- function(messages){
   if (!isTRUE(inherits(messages, 'quizMessages'))) cli::cli_abort("`messages` be of class 'quizMessages'")
   
   return(invisible(TRUE))
 }
 
-#' Verify that a quiz is a quiz
-#'
-#' @param quiz a quiz; see ...? Effectively a list of questions
-#'
-#' @return invisible TRUE if no errors
-#' @export
-#' @author Joseph Marlo
-#'
-#' @examples
-#' #TBD
+#' @describeIn verify_question_structure Verify a quiz is the correct structure
 verify_quiz_structure <- function(quiz){
   if (!inherits(quiz, 'quiz')) cli::cli_abort('quiz must be of class quiz')
   if (!isTRUE(length(quiz@questions) > 0)) cli::cli_abort('No questions found')

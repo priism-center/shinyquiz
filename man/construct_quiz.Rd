@@ -13,13 +13,13 @@ construct_question(prompt, answerUserDisplay, answerCorrectDisplay, grader)
 construct_messages(message_correct, message_wrong, message_skipped)
 }
 \arguments{
-\item{prompt}{}
+\item{prompt}{an htmltools::div that represents a quiz question}
 
-\item{answerUserDisplay}{}
+\item{answerUserDisplay}{a function that takes the user answer and prints it neatly}
 
-\item{answerCorrectDisplay}{}
+\item{answerCorrectDisplay}{a character that prints the correct answer neatly}
 
-\item{grader}{}
+\item{grader}{a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE}
 }
 \value{
 TBD

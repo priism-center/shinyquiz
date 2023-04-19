@@ -3,11 +3,17 @@
 \name{verify_question_structure}
 \alias{verify_question_structure}
 \alias{verify_n_args}
-\title{Verify a quiz question is the correct format}
+\alias{verify_messages_structure}
+\alias{verify_quiz_structure}
+\title{Verify a quiz elements are the correct format}
 \usage{
 verify_question_structure(question)
 
 verify_n_args(fn, n)
+
+verify_messages_structure(messages)
+
+verify_quiz_structure(quiz)
 }
 \arguments{
 \item{question}{TBD}
@@ -16,11 +22,15 @@ verify_n_args(fn, n)
 invisible TRUE if all tests passed
 }
 \description{
-Verify a quiz question is the correct format
+Verify a quiz elements are the correct format
 }
 \section{Functions}{
 \itemize{
 \item \code{verify_n_args()}: Verify a function has n arguments
+
+\item \code{verify_messages_structure()}: Verify the messages are the correct structure
+
+\item \code{verify_quiz_structure()}: Verify a quiz is the correct structure
 
 }}
 \examples{

@@ -31,6 +31,7 @@ preview_quiz <- function(quiz){
   )
   htmltools::html_print(panels)
 }
+#' @export
 #' @describeIn preview_quiz Preview a single question
 preview_question <- function(question){
   verify_question_structure(question)

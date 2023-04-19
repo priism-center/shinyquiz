@@ -9,7 +9,6 @@
 #' @return boolean
 #' @author Joseph Marlo
 #' @return NULL
-#' @export
 #' 
 #' @examples
 #' 1 %notin% 2:4
@@ -26,7 +25,6 @@
 #' @return boolean
 #'
 #' @author Joseph Marlo
-#' @export
 #' @seealso [shiny::isTruthy()]
 #'
 #' @examples
