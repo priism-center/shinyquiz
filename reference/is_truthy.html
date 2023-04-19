@@ -73,21 +73,21 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">is_truthy</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is_truthy(TRUE):</span> could not find function "is_truthy"</span>
 <span class="r-in"><span><span class="fu">is_truthy</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is_truthy(FALSE):</span> could not find function "is_truthy"</span>
 <span class="r-in"><span><span class="fu">is_truthy</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is_truthy(1):</span> could not find function "is_truthy"</span>
 <span class="r-in"><span><span class="fu">is_truthy</span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is_truthy(0):</span> could not find function "is_truthy"</span>
 <span class="r-in"><span><span class="fu">is_truthy</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is_truthy(NULL):</span> could not find function "is_truthy"</span>
 <span class="r-in"><span><span class="fu">is_truthy</span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is_truthy(NA):</span> could not find function "is_truthy"</span>
 <span class="r-in"><span><span class="fu">is_truthy</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is_truthy(data.frame()):</span> could not find function "is_truthy"</span>
 <span class="r-in"><span><span class="fu">is_truthy</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is_truthy(data.frame(x = 1)):</span> could not find function "is_truthy"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
