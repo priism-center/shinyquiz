@@ -15,9 +15,6 @@ boolean
 \description{
 This is just a negative of \code{\%in\%}
 }
-\examples{
-1 \%notin\% 2:4
-}
 \author{
 Joseph Marlo
 }

@@ -127,20 +127,13 @@ question_2 <- construct_question(
 
 # question 3 --------------------------------------------------------------
 question_text_3 <- htmltools::div(
-  htmltools::p("Variable Y is the only confounder. Given the overlap of Y, select all the estimands we could estimate without violating the overlap assumption."),
-  htmltools::p("Filler text 1"),
-  
-  # shiny::renderImage({
-  #   list(src = app_sys('app', 'www/learn/estimands2/plots/p22.png'),
-  #        contentType = 'image/png',
-  #        width = 600,
-  #        height = 400)
-  # }, deleteFile = F),
+  htmltools::p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+  htmltools::p("Tristique et egestas quis ipsum suspendisse ultrices gravida. Adipiscing enim eu turpis egestas pretium aenean pharetra. Urna porttitor rhoncus dolor purus. Turpis egestas pretium aenean pharetra magna. Proin fermentum leo vel orci. Volutpat odio facilisis mauris sit."),
   
   shiny::selectInput(
     inputId = ns_quiz('answers'),
-    label = NULL,
-    choices = c('', 'ATE', 'ATT', 'ATC'),
+    label = 'Pick any',
+    choices = c('', 'lorem', 'ipsum', 'dolem'),
     selected = NULL
   )
 )
@@ -155,8 +148,10 @@ question_3 <- construct_question(
 
 # create quiz object
 quiz <- construct_quiz(
-  c(question_1, question_2, question_3), 
-  options = set_quiz_options()
+  question_1, 
+  question_2, 
+  question_3, 
+  options = set_quiz_options(sandbox = TRUE)
 )
 # preview_quiz(quiz)
 

@@ -19,14 +19,14 @@ A value is truthy unless it is FALSE, NA, NULL, an empty data.frame, or empty li
 Modified from shiny::isTruthy
 }
 \examples{
-is_truthy(TRUE)
-is_truthy(FALSE)
-is_truthy(1)
-is_truthy(0)
-is_truthy(NULL)
-is_truthy(NA)
-is_truthy(data.frame())
-is_truthy(data.frame(x = 1))
+shinyQuiz:::is_truthy(TRUE)
+shinyQuiz:::is_truthy(FALSE)
+shinyQuiz:::is_truthy(1)
+shinyQuiz:::is_truthy(0)
+shinyQuiz:::is_truthy(NULL)
+shinyQuiz:::is_truthy(NA)
+shinyQuiz:::is_truthy(data.frame())
+shinyQuiz:::is_truthy(data.frame(x = 1))
 }
 \seealso{
 \code{\link[shiny:isTruthy]{shiny::isTruthy()}}

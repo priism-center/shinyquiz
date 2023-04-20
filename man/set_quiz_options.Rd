@@ -2,9 +2,12 @@
 % Please edit documentation in R/constructors.R
 \name{set_quiz_options}
 \alias{set_quiz_options}
+\alias{construct_messages}
 \title{Set the options for the quiz}
 \usage{
 set_quiz_options(messages, sandbox = FALSE, embed = FALSE, ...)
+
+construct_messages(message_correct, message_wrong, message_skipped)
 }
 \arguments{
 \item{messages}{an object of class \code{quizMessages} containing the messages to show at the end. If not provided, defaults are used.}
@@ -14,13 +17,28 @@ set_quiz_options(messages, sandbox = FALSE, embed = FALSE, ...)
 \item{embed}{boolean. TBD TODO: remove?}
 
 \item{...}{other named options to pass to \code{quiz}}
+
+\item{message_correct}{a string to be shown at the end of the quiz when the user gets all questions correct}
+
+\item{message_wrong}{a string to be shown at the end of the quiz when the user gets at least one question wrong}
+
+\item{message_skipped}{a string to be shown at the end of the quiz when the user skips the quiz or ends it early}
 }
 \value{
 a list
+
+an object of class \code{quizMessages}
 }
 \description{
 These are options to be passed to a \code{quiz}.
 }
+\section{Functions}{
+\itemize{
+\item \code{set_quiz_options()}: Sets the options for a \code{quiz}
+
+\item \code{construct_messages()}: Construct a messages object
+
+}}
 \seealso{
-\code{\link[=construct_quiz]{construct_quiz()}}
+\code{\link[=construct_quiz]{construct_quiz()}}, \code{\link[=construct_messages]{construct_messages()}}
 }

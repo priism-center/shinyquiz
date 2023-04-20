@@ -109,6 +109,7 @@ sm_is_current_correct <- function(store){
   
   # if there is a grader function, use it. Otherwise use the generic one defined above
   current_grader <- sm_get_state(store, 'current-grader')
+  current_grader <- purrr::possibly(current_grader, otherwise = FALSE)
   if (is_truthy(current_grader)){
     is_correct <- current_grader(current_response)
   } else {
@@ -225,7 +226,10 @@ sm_ui_complete_report <- function(store){
   
   # calculate score and format the score
   # if in sandbox mode, score is only for non skipped items
-  answers_user_print <- purrr::map(store$questions, ~.x@answerUserDisplay(.x@answerUser[[1]]))
+  answers_user_print <- purrr::map(store$questions, ~{
+    printer <- purrr::possibly(.x@answerUserDisplay, otherwise = '[Unable to print user response]')
+    printer(.x@answerUser[[1]])
+    })
   answers_user_na <- purrr::map(store$questions, ~.x@answerUser[[1]]) |> is.na() # assumes NAs are skipped questions
   score <- ifelse(
     in_sandbox,

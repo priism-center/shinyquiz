@@ -2,16 +2,16 @@
 
 #' Constructors for the quiz
 #'
-#' Construct a quiz, question, or messages object. 
+#' Construct a quiz or quiz question 
 #' 
 #' See dev/example-app.R for current example.
 #' 
 #' TODO: This should probably used only on the backend and be internal only?
 #'
-#' @param questions a list with objects of class 'quizQuestions'
-#' @param messages an object of class 'quizMessages'
+#' @param ... objects of class 'quizQuestions'. See [construct_question()]
+#' @param options a list of options generated from [set_quiz_options()]
 #' 
-#' @seealso [set_quiz_options()]
+#' @seealso [construct_question()], [set_quiz_options()], [construct_messages()]
 #'
 #' @return an object of class `quiz`
 #' @export
@@ -20,15 +20,15 @@
 #' @examples
 #' #TBD
 #' @describeIn construct_quiz Construct a quiz object
-construct_quiz <- function(questions, options = set_quiz_options()){
-  if (!is.list(questions)) cli::cli_abort("`questions` should be of class 'list'")
-  is_all_class_question <- isTRUE(all(purrr::map_lgl(questions, ~inherits(.x, 'quizQuestion'))))
+construct_quiz <- function(..., options = set_quiz_options()){
+  is_all_class_question <- isTRUE(all(purrr::map_lgl(c(...), ~inherits(.x, 'quizQuestion'))))
   if (!is_all_class_question) cli::cli_abort("All items in `questions` should be of class 'quizQuestion'")
-  # TODO: verify quiz options?
+  
+  verify_options_structure(options)
   
   # make quiz
   quiz <- methods::new('quiz')
-  quiz@questions <- questions
+  quiz@questions <- c(...) #questions
   quiz@options <- options
   
   verify_quiz_structure(quiz)
@@ -45,14 +45,15 @@ construct_quiz <- function(questions, options = set_quiz_options()){
 #' @param embed boolean. TBD TODO: remove?
 #' @param ... other named options to pass to `quiz`
 #' 
-#' @seealso [construct_quiz()]
+#' @seealso [construct_quiz()], [construct_messages()]
 #'
 #' @return a list
 #' @export
+#' @describeIn set_quiz_options Sets the options for a `quiz`
 set_quiz_options <- function(messages, sandbox = FALSE, embed = FALSE, ...){
   
   # set the default messages
-  if (!hasArg(messages)) {
+  if (!methods::hasArg(messages)) {
     messages <- construct_messages(
       message_correct = "Well done! You got all of them correct.",
       message_wrong = "Hmmm, bummer! You got at least one wrong.",
@@ -68,7 +69,29 @@ set_quiz_options <- function(messages, sandbox = FALSE, embed = FALSE, ...){
     ...
   )
   
+  verify_options_structure(quiz_options)
+  
   return(quiz_options)
+}
+
+#' @keywords internal
+#' @describeIn verify_question_structure Verify the options is the right structure
+verify_options_structure <- function(options){
+  
+  if (!is.list(options)) cli::cli_abort("`options` must be a list")
+  
+  # check if all required options exist
+  req_items <- c('messages', 'sandbox', 'embed')
+  req_items_in_options <- req_items %in% names(options)
+  all_req_items_exist <- isTRUE(all(req_items_in_options))
+  if (!all_req_items_exist) cli::cli_abort('Missing in options: {req_items[!req_items_in_options]}')
+  
+  # check data types
+  if (!inherits(options$messages, 'quizMessages')) cli::cli_abort('`messages` should be of class `quizMessages`')
+  if (!isTRUE(is.logical(options$sandbox))) cli::cli_abort('`sandbox` should be of class `logical`')
+  if (!isTRUE(is.logical(options$embed))) cli::cli_abort('`embed` should be of class `logical`')
+  
+  return(invisible(TRUE))
 }
 
 #' @param prompt an [htmltools::div] that represents a quiz question
@@ -84,9 +107,9 @@ construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, 
   question <- methods::new('quizQuestion')
   question@prompt <- prompt
   question@answerUser = list(NA)
-  question@answerUserDisplay <- purrr::possibly(answerUserDisplay, otherwise = '[Unable to print user response]')
+  question@answerUserDisplay <- answerUserDisplay
   question@answerCorrectDisplay <- answerCorrectDisplay
-  question@grader <- purrr::possibly(grader, otherwise = FALSE)
+  question@grader <- grader
   
   verify_question_structure(question)
   
@@ -98,7 +121,7 @@ construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, 
 #' @param message_skipped a string to be shown at the end of the quiz when the user skips the quiz or ends it early
 #' @return an object of class `quizMessages`
 #' @export
-#' @describeIn construct_quiz Construct a messages object
+#' @describeIn set_quiz_options Construct a messages object
 construct_messages <- function(message_correct, message_wrong, message_skipped){
   messages <- methods::new('quizMessages')
   messages@message_correct <- message_correct
@@ -108,7 +131,7 @@ construct_messages <- function(message_correct, message_wrong, message_skipped){
   return(messages)
 }
 
-#' Verify a quiz elements are the correct format
+#' Verify quiz elements are the correct format
 #'
 #' @param question TBD
 #' @keywords internal
@@ -117,6 +140,7 @@ construct_messages <- function(message_correct, message_wrong, message_skipped){
 #'
 #' @examples
 #' # TBD
+#' @describeIn verify_question_structure Verify a question is the right structure
 verify_question_structure <- function(question){
   
   if (!isTRUE(inherits(question, 'quizQuestion'))) cli::cli_abort('`question` must be an S4 object with class quizQuestion')
@@ -135,6 +159,8 @@ verify_question_structure <- function(question){
   if (!isTRUE(id_detected)) cli::cli_abort("'`question` must contain an input with id = 'answers'. This is used to extract the user's answer.")
   
   # verify number of args in functions
+  # TODO: for some reason the formals get passed through as ... making this useless
+  # probably due to purrr::possibly
   verify_n_args(question@answerUserDisplay, 1)
   verify_n_args(question@grader, 1)
   
@@ -221,7 +247,6 @@ setClass('quizMessages', slots = list(
 #' @seealso [construct_quiz()]
 setClass('quiz', slots = list(
   questions = 'list',
-  # messages = 'quizMessages',
   options = 'list'
   )
 )

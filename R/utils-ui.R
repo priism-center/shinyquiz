@@ -129,9 +129,6 @@ add_message_skipped <- function(text){
 #' @author Joseph Marlo
 #' @seealso [https://codepen.io/zer0kool/pen/KjZWRW]
 #' @keywords internal
-#'
-#' @examples
-#' add_confetti()
 add_confetti <- function(){
 
   confetti_pieces <- htmltools::div(

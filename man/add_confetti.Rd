@@ -12,9 +12,6 @@ div containing divs of class "confetti-piece"
 \description{
 Requires confetti.css to be in the www/css folder
 }
-\examples{
-add_confetti()
-}
 \seealso{
 \link{https://codepen.io/zer0kool/pen/KjZWRW}
 }

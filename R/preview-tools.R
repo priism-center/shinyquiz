@@ -33,6 +33,7 @@ preview_quiz <- function(quiz){
     )
   )
   htmltools::html_print(panels)
+  cli::cli_alert_warning('Note `render` functions such as `shiny::renderPlot` may not show correctly in preview mode')
 }
 
 #' @param question an object of class 'quizQuestion' to preview
