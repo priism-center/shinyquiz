@@ -24,7 +24,13 @@
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/priism-center/shinyQuiz/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -32,7 +38,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Functions for managing the quiz state machine</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/priism-center/shinyQuiz/blob/HEAD/R/state-machine.R" class="external-link"><code>R/state-machine.R</code></a></small>
       <div class="d-none name"><code>sm_get_state.Rd</code></div>
     </div>
 
@@ -66,9 +72,9 @@
 <span></span>
 <span><span class="fu">sm_ui_question</span><span class="op">(</span><span class="va">store</span>, <span class="va">ns</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sm_resample_questions_if_sandbox</span><span class="op">(</span><span class="va">quiz</span>, <span class="va">sandbox_mode</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span><span class="fu">sm_resample_questions_if_sandbox</span><span class="op">(</span><span class="va">quiz</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sm_create_reactive_store</span><span class="op">(</span><span class="va">quiz</span>, <span class="va">sandbox_mode</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">sm_create_reactive_store</span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -87,10 +93,6 @@
 
 <dt>quiz</dt>
 <dd><p>an object of class 'quiz'</p></dd>
-
-
-<dt>sandbox_mode</dt>
-<dd><p>boolean</p></dd>
 
 
 <dt>n</dt>

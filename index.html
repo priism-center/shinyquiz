@@ -46,7 +46,14 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/priism-center/shinyQuiz/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 
     
@@ -77,12 +84,20 @@
 <div class="section level2">
 <h2 id="dev-notes">Dev notes<a class="anchor" aria-label="anchor" href="#dev-notes"></a>
 </h2>
-<p>The quiz is managed via a state machine framework. The framework requires an object of S4 class ‘quiz’. These are constructed using <code>construct_quiz</code> and consist of objects of S4 class <code>question</code> and <code>messages</code>. These have constructor functions as well.</p>
-<p>The ‘quiz’ object is created outside of Shiny and passed to a Shiny module. The Shiny module manages the state of the quiz through the central reactive object <code>store</code>. The <code>store</code> is created via <code>sm_create_reactive_store</code> function. The state machine functions (prefixed with <code>sm_*</code>) <code>get</code> or <code>set</code> states. The changing of the <code>store</code> object facilitates downstream effects via the Shiny reactive framework.</p>
-<p>For example, the quiz UI is determined by an object in the <code>store</code> object. The current state is observed via a <code>shiny::observeEvent(store$state)</code>. When the current state changes then a function modifies <code>store$ui_html</code>. The UI is rendered via <code>shiny::renderUI(store$ui_html)</code> which watches this <code>ui_html</code> slot.</p>
+<p>A quiz is managed via a state machine framework. The framework requires an object of S4 class <code>quiz</code>. These are constructed using <code>construct_quiz</code> and consist of objects of S4 class <code>question</code> and <code>messages</code>. These have constructor functions as well.</p>
+<p>A <code>quiz</code> object is created outside of Shiny and passed to a Shiny module. The Shiny module manages the state of the quiz through the central reactive object <code>store</code>. The <code>store</code> is created via <code>sm_create_reactive_store</code> function. The state machine functions (prefixed with <code>sm_*</code>) <code>get</code> or <code>set</code> states. The changing of the <code>store</code> object facilitates downstream effects via the Shiny reactive framework.</p>
+<p>For example, the quiz UI is determined by an object in the <code>store</code> object. The current state is observed via a <code>shiny::observeEvent(store$state)</code>. When the current state changes then a function modifies <code>store$ui_html</code>. The UI is rendered via <code>shiny::renderUI(store$ui_html)</code> which watches this <code>ui_html</code> object.</p>
 </div>
 </div>
-  </main><aside class="col-md-3"><div class="license">
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/priism-center/shinyQuiz/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/priism-center/shinyQuiz/issues" class="external-link">Report a bug</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
