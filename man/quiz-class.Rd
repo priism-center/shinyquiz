@@ -13,9 +13,9 @@ S4 class for a quiz
 \section{Slots}{
 
 \describe{
-\item{\code{questions}}{list. A list of quizQuestions}
+\item{\code{questions}}{list. A list of \code{quizQuestion}s}
 
-\item{\code{messages}}{quizMessages.}
+\item{\code{options}}{TBD.}
 }}
 
 \seealso{

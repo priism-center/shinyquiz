@@ -307,7 +307,6 @@ sm_ui_question <- function(store, ns){
 
 #' @keywords internal
 #' @param quiz A list of questions of class 'quizQuestion'
-#' @param sandbox_mode boolean
 #' @param n Number of resamples to make
 #'
 #' @return questions
@@ -316,11 +315,11 @@ sm_ui_question <- function(store, ns){
 #' @examples
 #' #TBD
 #' @describeIn sm_get_state Create quasi infinite quiz by resampling questions n times
-sm_resample_questions_if_sandbox <- function(quiz, sandbox_mode, n = 50){
+sm_resample_questions_if_sandbox <- function(quiz, n = 50){
   if (!(is.numeric(n) && n > 0)) cli::cli_abort('n must be positive integer')
   verify_quiz_structure(quiz)
   
-  if (isTRUE(sandbox_mode)){
+  if (quiz@options$sandbox){
     indices <- sample(seq_along(quiz@questions), size = n, replace = TRUE)
     quiz@questions <- quiz@questions[indices]
   }
@@ -330,7 +329,6 @@ sm_resample_questions_if_sandbox <- function(quiz, sandbox_mode, n = 50){
 
 #' @keywords internal
 #' @param quiz an object of class 'quiz'
-#' @param sandbox_mode boolean
 #' 
 #' @seealso [shiny::reactiveValues()]
 #'
@@ -338,7 +336,7 @@ sm_resample_questions_if_sandbox <- function(quiz, sandbox_mode, n = 50){
 #' @author Joseph Marlo
 #' 
 #' @describeIn sm_get_state Create the main store object that handles the state(s)
-sm_create_reactive_store <- function(quiz, sandbox_mode){
+sm_create_reactive_store <- function(quiz){
   verify_quiz_structure(quiz)
   
   # use a static list if not in reactive context (i.e. Shiny)
@@ -352,7 +350,7 @@ sm_create_reactive_store <- function(quiz, sandbox_mode){
     is_correct = rep(FALSE, length(quiz@questions)),
     ui_html = NULL,
     skipped = FALSE,
-    sandbox_mode = isTRUE(sandbox_mode)
+    sandbox_mode = quiz@options$sandbox
   )
   
   return(store)

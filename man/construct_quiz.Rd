@@ -6,7 +6,7 @@
 \alias{construct_messages}
 \title{Constructors for the quiz}
 \usage{
-construct_quiz(questions, messages)
+construct_quiz(questions, options = set_quiz_options())
 
 construct_question(prompt, answerUserDisplay, answerCorrectDisplay, grader)
 
@@ -15,9 +15,7 @@ construct_messages(message_correct, message_wrong, message_skipped)
 \arguments{
 \item{questions}{a list with objects of class 'quizQuestions'}
 
-\item{messages}{an object of class 'quizMessages'}
-
-\item{prompt}{an htmltools::div that represents a quiz question}
+\item{prompt}{an \link[htmltools:builder]{htmltools::div} that represents a quiz question}
 
 \item{answerUserDisplay}{a function that takes the user answer and prints it neatly. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} to catch any errors.}
 
@@ -30,16 +28,23 @@ construct_messages(message_correct, message_wrong, message_skipped)
 \item{message_wrong}{a string to be shown at the end of the quiz when the user gets at least one question wrong}
 
 \item{message_skipped}{a string to be shown at the end of the quiz when the user skips the quiz or ends it early}
+
+\item{messages}{an object of class 'quizMessages'}
 }
 \value{
-an object of class 'quiz'
+an object of class \code{quiz}
 
-an object of class 'quizQuestion'
+an object of class \code{quizQuestion}
 
-an object of class 'quizMessages'
+an object of class \code{quizMessages}
 }
 \description{
-This should probably used only on the backend
+Construct a quiz, question, or messages object.
+}
+\details{
+See dev/example-app.R for current example.
+
+TODO: This should probably used only on the backend and be internal only?
 }
 \section{Functions}{
 \itemize{
@@ -52,6 +57,9 @@ This should probably used only on the backend
 }}
 \examples{
 #TBD
+}
+\seealso{
+\code{\link[=set_quiz_options]{set_quiz_options()}}
 }
 \author{
 Joseph Marlo

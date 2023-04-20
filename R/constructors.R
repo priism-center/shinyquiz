@@ -2,38 +2,80 @@
 
 #' Constructors for the quiz
 #'
-#' This should probably used only on the backend
+#' Construct a quiz, question, or messages object. 
+#' 
+#' See dev/example-app.R for current example.
+#' 
+#' TODO: This should probably used only on the backend and be internal only?
 #'
 #' @param questions a list with objects of class 'quizQuestions'
 #' @param messages an object of class 'quizMessages'
+#' 
+#' @seealso [set_quiz_options()]
 #'
-#' @return an object of class 'quiz'
+#' @return an object of class `quiz`
 #' @export
 #' @author Joseph Marlo
 #'
 #' @examples
 #' #TBD
 #' @describeIn construct_quiz Construct a quiz object
-construct_quiz <- function(questions, messages){
+construct_quiz <- function(questions, options = set_quiz_options()){
   if (!is.list(questions)) cli::cli_abort("`questions` should be of class 'list'")
   is_all_class_question <- isTRUE(all(purrr::map_lgl(questions, ~inherits(.x, 'quizQuestion'))))
   if (!is_all_class_question) cli::cli_abort("All items in `questions` should be of class 'quizQuestion'")
-  if (!inherits(messages, 'quizMessages')) cli::cli_abort("`messages` should be of class 'quizMessages'")
+  # TODO: verify quiz options?
   
+  # make quiz
   quiz <- methods::new('quiz')
   quiz@questions <- questions
-  quiz@messages <- messages
+  quiz@options <- options
   
   verify_quiz_structure(quiz)
   
   return(quiz)
 }
 
-#' @param prompt an htmltools::div that represents a quiz question
+#' Set the options for the quiz
+#' 
+#' These are options to be passed to a `quiz`.
+#'
+#' @param messages an object of class `quizMessages` containing the messages to show at the end. If not provided, defaults are used.
+#' @param sandbox boolean. TBD
+#' @param embed boolean. TBD TODO: remove?
+#' @param ... other named options to pass to `quiz`
+#' 
+#' @seealso [construct_quiz()]
+#'
+#' @return a list
+#' @export
+set_quiz_options <- function(messages, sandbox = FALSE, embed = FALSE, ...){
+  
+  # set the default messages
+  if (!hasArg(messages)) {
+    messages <- construct_messages(
+      message_correct = "Well done! You got all of them correct.",
+      message_wrong = "Hmmm, bummer! You got at least one wrong.",
+      message_skipped = "Quiz skipped. You can restart it using the button below."
+    )
+  }
+  if (!inherits(messages, 'quizMessages')) cli::cli_abort("`messages` should be of class 'quizMessages'")
+  
+  quiz_options <- list(
+    messages = messages,
+    sandbox = isTRUE(sandbox),
+    embed = isTRUE(embed),
+    ...
+  )
+  
+  return(quiz_options)
+}
+
+#' @param prompt an [htmltools::div] that represents a quiz question
 #' @param answerUserDisplay a function that takes the user answer and prints it neatly. This is wrapped with [purrr::possibly()] to catch any errors.
 #' @param answerCorrectDisplay a character that prints the correct answer neatly
 #' @param grader a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE. This is wrapped with [purrr::possibly()] to catch any errors.
-#' @return an object of class 'quizQuestion'
+#' @return an object of class `quizQuestion`
 #' @export
 #' @describeIn construct_quiz Construct a question object
 construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, grader){
@@ -54,7 +96,7 @@ construct_question <- function(prompt, answerUserDisplay, answerCorrectDisplay, 
 #' @param message_correct a string to be shown at the end of the quiz when the user gets all questions correct
 #' @param message_wrong a string to be shown at the end of the quiz when the user gets at least one question wrong
 #' @param message_skipped a string to be shown at the end of the quiz when the user skips the quiz or ends it early
-#' @return an object of class 'quizMessages'
+#' @return an object of class `quizMessages`
 #' @export
 #' @describeIn construct_quiz Construct a messages object
 construct_messages <- function(message_correct, message_wrong, message_skipped){
@@ -122,7 +164,7 @@ verify_quiz_structure <- function(quiz){
   if (!isTRUE(length(quiz@questions) > 0)) cli::cli_abort('No questions found')
   # if (!isTRUE(length(quiz@messages) > 0)) cli::cli_abort('No questions found')
   
-  verify_messages_structure(quiz@messages)
+  verify_messages_structure(quiz@options$messages)
   
   return(invisible(TRUE))
 }
@@ -133,7 +175,7 @@ verify_quiz_structure <- function(quiz){
 #' @slot answerUser list. 
 #' @slot answerUserDisplay function. 
 #' @slot answerCorrectDisplay character. 
-#' @slot grader function. 
+#' @slot grader function.
 #'
 #' @return none, sets a class
 #' @export
@@ -142,7 +184,7 @@ verify_quiz_structure <- function(quiz){
 #' @seealso [construct_question()]
 setClass('quizQuestion', slots = list(
   prompt = 'shiny.tag', #TODO: figure out how to remove warning caused by this
-  answerUser = 'list',
+  answerUser = 'list', # initially empty slot that will hold user answerss
   answerUserDisplay = 'function', # how to print the user answer in the report
   answerCorrectDisplay = 'character', # how to print the correct answer in the report
   grader = 'function' # function that compares user answer to the correct answer
@@ -169,8 +211,8 @@ setClass('quizMessages', slots = list(
 
 #' S4 class for a quiz
 #'
-#' @slot questions list. A list of quizQuestions
-#' @slot messages quizMessages. 
+#' @slot questions list. A list of `quizQuestion`s
+#' @slot options TBD.
 #'
 #' @return none, sets a class
 #' @export
@@ -179,6 +221,7 @@ setClass('quizMessages', slots = list(
 #' @seealso [construct_quiz()]
 setClass('quiz', slots = list(
   questions = 'list',
-  messages = 'quizMessages'
+  # messages = 'quizMessages',
+  options = 'list'
   )
 )

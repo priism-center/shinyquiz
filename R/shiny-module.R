@@ -23,13 +23,13 @@ quiz_ui <- function(id){
 
 #' @param id a unique string that is identical across UI and server
 #' @param id_parent if using within a Shiny module, the id of that module
-#' @param quiz TBD
-#' @param embed_quiz boolean. remove?
-#' @param sandbox_mode boolean. Resample questions for quasi infinite mode? 
+#' @param quiz an object of class `quiz`. See [construct_quiz()]
 #' @export
 #' 
+#' @seealso [construct_quiz()]
+#' 
 #' @describeIn quiz_ui Server side function
-quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, sandbox_mode = FALSE){
+quiz_server <- function(id, id_parent = character(0), quiz){
   
   verify_quiz_structure(quiz)
   
@@ -41,16 +41,16 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
     
     # add css class to the quiz container if embedding
     # TODO: keep this embedding mode?
-    if (isTRUE(embed_quiz)) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
+    if (quiz@options$embed) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
     
     # resample the questions if in sandbox mode
-    quiz <- sm_resample_questions_if_sandbox(quiz, sandbox_mode, n = 50)
+    quiz <- sm_resample_questions_if_sandbox(quiz, n = 50)
     
     # add headers to question texts
     quiz <- sm_ui_format_prompts(quiz)
     
     # set the current state and potential values
-    store <- sm_create_reactive_store(quiz, sandbox_mode)
+    store <- sm_create_reactive_store(quiz)
     
     # reset quiz
     shiny::observeEvent(input$restart_button, {
@@ -85,7 +85,7 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
         store$ui_html <- sm_ui_quiz_complete(
           store,
           ns = ns,
-          messages = quiz@messages
+          messages = quiz@options$messages
         )
         
         # unblur the text
@@ -100,7 +100,7 @@ quiz_server <- function(id, id_parent = character(0), quiz, embed_quiz = TRUE, s
         
         # hide non-quiz content
         # TODO: remove this functionality
-        # if (!isTRUE(embed_quiz)){
+        # if (!quiz@options$embed){
         #   shinyjs::hide(selector = paste0('.', shiny::NS(id_parent)('learning-content')), asis = TRUE)
         # }
       }

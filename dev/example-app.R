@@ -89,13 +89,13 @@ grader_1 <- function(user_response){
   return(is_correct)
 }
 
-answerUserDisplay_1 <- function(x) {
-  paste0(x[[2]], collapse = ', ')
-}
-answerCorrectDisplay_1 <- paste0(c('bp_baseline', 'sex', 'height'), collapse = ', ')
-
-# format into a forma question
-question_1 <- construct_question(question_text_1, answerUserDisplay_1, answerCorrectDisplay_1, grader_1)
+# format into a formal question
+question_1 <- construct_question(
+  prompt = question_text_1,
+  answerUserDisplay = function(x) paste0(x[[2]], collapse = ', '),
+  answerCorrectDisplay = paste0(c('bp_baseline', 'sex', 'height'), collapse = ', '),
+  grader = grader_1
+)
 # preview_question(question_1)
 
 
@@ -116,12 +116,13 @@ question_text_2 <- htmltools::div(
 )
 # preview: htmltools::html_print(question_text_2)
 
-answerUserDisplay_2 <- function(x) x
-answerCorrectDisplay_2 <- 'ATE'
-grader_2 <- function(x) x == 'ATE'
-
-# format into a forma question
-question_2 <- construct_question(question_text_2, answerUserDisplay_2, answerCorrectDisplay_2, grader_2)
+# format into a formal question
+question_2 <- construct_question(
+  prompt = question_text_2,
+  answerUserDisplay = function(x) x,
+  answerCorrectDisplay = 'ATE',
+  grader = function(x) x == 'ATE'
+)
 
 
 # question 3 --------------------------------------------------------------
@@ -144,24 +145,19 @@ question_text_3 <- htmltools::div(
   )
 )
 
-answerUserDisplay_3 <- function(x) {
-  paste0(x[[2]], collapse = ', ')
-}
-answerCorrectDisplay_3 <- 'test3'
-grader_3 <- function(x) TRUE
-
-# format into a forma question
-question_3 <- construct_question(question_text_3, answerUserDisplay_3, answerCorrectDisplay_3, grader_3)
-
-# set messages
-messages <- construct_messages(
-  message_correct = "Well done! You got all of them correct.",
-  message_wrong = "Hmmm, bummer! You got at least one wrong.",
-  message_skipped = "Quiz skipped. You can restart it using the button below."
+# format into a formal question
+question_3 <- construct_question(
+  prompt = question_text_3,
+  answerUserDisplay = function(x) paste0(x[[2]], collapse = ', '),
+  answerCorrectDisplay = 'test3',
+  grader = function(x) TRUE
 )
 
 # create quiz object
-quiz <- construct_quiz(c(question_1, question_2, question_3), messages)
+quiz <- construct_quiz(
+  c(question_1, question_2, question_3), 
+  options = set_quiz_options()
+)
 # preview_quiz(quiz)
 
 
@@ -176,7 +172,7 @@ ui <- shiny::fluidPage(
   htmltools::div(
     style = "max-width: 700px",
     quiz_ui(id = 'quiz')
-  ),
+  )
 )
 
 server <- function(input, output, session) {
@@ -185,9 +181,7 @@ server <- function(input, output, session) {
   quiz_server(
     id = "quiz", # TODO: this should always be quiz? does it need to match ns_quiz()?
     id_parent = NULL,
-    quiz = quiz,
-    embed_quiz = FALSE, # TODO: remove?
-    sandbox_mode = FALSE
+    quiz = quiz
   )
 }
 

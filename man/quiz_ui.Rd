@@ -7,24 +7,14 @@
 \usage{
 quiz_ui(id)
 
-quiz_server(
-  id,
-  id_parent = character(0),
-  quiz,
-  embed_quiz = TRUE,
-  sandbox_mode = FALSE
-)
+quiz_server(id, id_parent = character(0), quiz)
 }
 \arguments{
 \item{id}{a unique string that is identical across UI and server}
 
 \item{id_parent}{if using within a Shiny module, the id of that module}
 
-\item{quiz}{TBD}
-
-\item{embed_quiz}{boolean. remove?}
-
-\item{sandbox_mode}{boolean. Resample questions for quasi infinite mode?}
+\item{quiz}{an object of class \code{quiz}. See \code{\link[=construct_quiz]{construct_quiz()}}}
 }
 \description{
 A shiny Module to implement a quiz
@@ -36,6 +26,9 @@ A shiny Module to implement a quiz
 \item \code{quiz_server()}: Server side function
 
 }}
+\seealso{
+\code{\link[=construct_quiz]{construct_quiz()}}
+}
 \author{
 Joseph Marlo
 }

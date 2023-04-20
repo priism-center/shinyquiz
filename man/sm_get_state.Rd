@@ -41,9 +41,9 @@ sm_ui_complete_report(store)
 
 sm_ui_question(store, ns)
 
-sm_resample_questions_if_sandbox(quiz, sandbox_mode, n = 50)
+sm_resample_questions_if_sandbox(quiz, n = 50)
 
-sm_create_reactive_store(quiz, sandbox_mode)
+sm_create_reactive_store(quiz)
 }
 \arguments{
 \item{store}{a list formatted like in the example}
@@ -53,8 +53,6 @@ sm_create_reactive_store(quiz, sandbox_mode)
 \item{state}{one of c('quiz-question-1', ..., 'quiz-question')}
 
 \item{quiz}{an object of class 'quiz'}
-
-\item{sandbox_mode}{boolean}
 
 \item{n}{Number of resamples to make}
 }
