@@ -47,6 +47,7 @@ usethis::use_test('question-creators')
 # other
 usethis::use_github_action_check_release("R-CMD-check.yaml")
 usethis::use_github_actions_badge(name = "R-CMD-check.yaml")
+usethis::use_lifecycle_badge(stage = 'experimental')
 usethis::use_mit_license()
 
 # pkgdown website
