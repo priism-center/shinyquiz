@@ -10,8 +10,9 @@ set_quiz_options(
   messages,
   sandbox = FALSE,
   sandbox_resample_n = 50,
+  end_on_first_wrong = !sandbox,
   embed = FALSE,
-  show_progress = !sandbox,
+  progress_bar = !sandbox,
   progress_bar_color = "#609963",
   ...
 )
@@ -29,7 +30,7 @@ create_messages(message_correct, message_wrong, message_skipped)
 
 \item{embed}{boolean. TBD TODO: remove?}
 
-\item{show_progress}{boolean. Show the progress bar UI at the top of the quiz}
+\item{progress_bar}{boolean. Show the progress bar UI at the top of the quiz}
 
 \item{progress_bar_color}{Color code for the progress bar background}
 
@@ -56,6 +57,12 @@ These are options to be passed to a \code{quiz}.
 \item \code{create_messages()}: Create a messages object
 
 }}
+\examples{
+\dontrun{
+quiz <- create_quiz(..., options = set_quiz_options(sandbox = TRUE))
+quiz@options <- set_quiz_options(sandbox = FALSE)
+}
+}
 \seealso{
 \code{\link[=construct_quiz]{construct_quiz()}}, \code{\link[=construct_messages]{construct_messages()}}
 }

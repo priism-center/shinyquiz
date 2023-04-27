@@ -37,11 +37,7 @@ quiz_server <- function(quiz){
   id <- ns(NULL)
   
   shiny::moduleServer(id, function(input, output, session){
-    # ns <- session$ns
-    # ns <- shiny::NS(shiny::NS(id_parent)(id))
-    
-    # message(paste0('The quiz module has a namespace id of: ', id))
-    
+
     # add css class to the quiz container if embedding
     # TODO: keep this embedding mode?
     if (quiz@options$embed) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
@@ -64,7 +60,7 @@ quiz_server <- function(quiz){
       # remove any responses
       store$questions <- quiz@questions
       store <- sm_set_state(store, variable = 'quiz-skipped', value = FALSE)
-      store$is_correct <- rep(FALSE, length(quiz@questions))
+      store$is_correct <- rep(NA, length(quiz@questions))
     })
     
     # skip quiz / finish quiz
@@ -144,11 +140,11 @@ quiz_server <- function(quiz){
         # change the state
         # if in sandbox mode, go to next question otherwise end here
         shinyjs::delay(delay_in_ms, {
-          if (sm_quiz_in_sandbox_mode(store)){
+          if (sm_logic_end_on_first_wrong(store)){
+            store <- sm_set_state(store, variable = 'current-state', value = 'quiz-complete')
+          } else {
             new_state <- sm_get_state(store, variable = 'next-state')
             store <- sm_set_state(store, variable = 'current-state', value = new_state)
-          } else {
-            store <- sm_set_state(store, variable = 'current-state', value = 'quiz-complete')
           }
         })
       }

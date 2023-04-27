@@ -1,0 +1,23 @@
+---
+title: "Creating Infinite Questions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating Infinite Questions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r warning=FALSE, message=FALSE, include=FALSE}
+pkgload::load_all()
+```
+
+```{r setup}
+library(shinyQuiz)
+```

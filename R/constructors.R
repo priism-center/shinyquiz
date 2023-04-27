@@ -43,7 +43,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' @param sandbox boolean. TBD
 #' @param sandbox_resample_n The number of question resamples when in sandbox mode
 #' @param embed boolean. TBD TODO: remove?
-#' @param show_progress boolean. Show the progress bar UI at the top of the quiz
+#' @param progress_bar boolean. Show the progress bar UI at the top of the quiz
 #' @param progress_bar_color Color code for the progress bar background
 #' @param ... other named options to pass to `quiz`
 #' 
@@ -51,15 +51,21 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #'
 #' @return a list
 #' @export
+#' 
+#' @examples 
+#' \dontrun{
+#' quiz <- create_quiz(..., options = set_quiz_options(sandbox = TRUE))
+#' quiz@options <- set_quiz_options(sandbox = FALSE)
+#' }
 #' @describeIn set_quiz_options Sets the options for a `quiz`
-set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, sandbox_resample_n = 50, embed = FALSE, show_progress = !sandbox, progress_bar_color = '#609963', ...){
-  
+set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, sandbox_resample_n = 50, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
+
   # set the default messages
   if (!methods::hasArg(messages)) {
     messages <- construct_messages(
       message_correct = "Well done! You got all of them correct.",
       message_wrong = "Hmmm, bummer! You got at least one wrong.",
-      message_skipped = "Quiz skipped. You can restart it using the button below."
+      message_skipped = "Quiz ended early You can restart it using the button below."
     )
   }
   if (!inherits(messages, 'quizMessages')) cli::cli_abort("`messages` should be of class 'quizMessages'")
@@ -69,8 +75,9 @@ set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, 
     messages = messages,
     sandbox = isTRUE(sandbox),
     sandbox_resample_n = as.integer(sandbox_resample_n),
+    logic_end_on_first_wrong = isTRUE(end_on_first_wrong),
     embed = isTRUE(embed),
-    show_progress = isTRUE(show_progress),
+    progress_bar = isTRUE(progress_bar),
     progress_bar_color = progress_bar_color,
     ...
   )
@@ -277,4 +284,31 @@ setClass('quiz', slots = list(
   questions = 'list',
   options = 'list'
   )
+)
+
+
+# print methods -----------------------------------------------------------
+
+setMethod(
+  f = "show",
+  signature = "quizQuestion",
+  definition = function(object){
+    if (shiny::isRunning()){
+      return(invisible(NULL))
+    } else {
+      preview_question(object)
+    }
+  }
+)
+
+setMethod(
+  f = "show",
+  signature = "quiz",
+  definition = function(object){
+    if (shiny::isRunning()){
+      return(invisible(NULL))
+      } else {
+        preview_quiz(object)
+      }
+  }
 )

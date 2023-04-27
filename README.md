@@ -7,9 +7,7 @@
 
 shinyQuiz is an R package for creating flexible quizzes within R Shiny.
 
-## Example app
-
-There is a example application in `dev/example-app.R`
+<br>
 
 ## Installation
 
@@ -20,6 +18,7 @@ shinyQuiz is currently in development and is available to test by installing via
 # install.packages("remotes")
 remotes::install_github('priism-center/shinyQuiz')
 ```
+<br>
 
 ## Usage
 
@@ -47,6 +46,8 @@ quiz <- create_quiz(
 
 preview_app(quiz)
 ```
+
+<br>
 
 ## Dev notes
 

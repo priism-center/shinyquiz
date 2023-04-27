@@ -25,6 +25,7 @@ usethis::use_package('tibble', min_version = '3.2.1')
 usethis::use_package("sortable", min_version = '0.5.0', type = 'Suggests')
 usethis::use_package('renv', type = 'Suggests')
 usethis::use_package('testthat', min_version = TRUE, type = 'Suggests')
+usethis::use_package('pkgload', type = 'Suggests')
 # renv::snapshot()
 
 # create function files
@@ -43,6 +44,11 @@ usethis::use_test('state-machine')
 usethis::use_test('shiny-module')
 usethis::use_test('preview-tools')
 usethis::use_test('creators')
+
+# vignettes
+usethis::use_vignette('get_started', title = 'Get Started')
+usethis::use_vignette('custom_questions', title = 'Customizing Questions')
+usethis::use_vignette('infinite_questions', title = 'Creating Infinite Questions')
 
 # other
 usethis::use_github_action_check_release("R-CMD-check.yaml")

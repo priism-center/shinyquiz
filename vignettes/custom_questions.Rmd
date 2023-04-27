@@ -1,0 +1,53 @@
+---
+title: "Customizing Questions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Customizing Questions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r warning=FALSE, message=FALSE, include=FALSE}
+pkgload::load_all()
+```
+
+
+```{r setup}
+library(shinyQuiz)
+```
+
+## Customizing prompts
+
+`create_question` can take html but `create_question_raw` is even more flexible.
+
+```{r eval=FALSE}
+create_question(
+  htmltools::div(
+    htmltools::p("A custom question with a plot"),
+    shiny::renderPlot(plot(rnorm(100), rnorm(100))),
+  ),
+  add_slider(10, 50, 30, correct = 20),
+  label = 'Select 20'
+)
+```
+
+```{r eval=FALSE}
+create_question_raw
+```
+
+<br>
+
+## Customizing inputs
+
+
+<br>
+
+## Customizing grading
+

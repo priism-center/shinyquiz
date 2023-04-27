@@ -149,7 +149,7 @@ quiz <- construct_quiz(
   question_1, 
   question_2, 
   question_3
-  # options = set_quiz_options(show_progress = T, sandbox = T)
+  # options = set_quiz_options(progress_bar = T, sandbox = T)
 )
 # preview_quiz(quiz)
 
@@ -204,9 +204,17 @@ quiz <- create_quiz(
     correct_answer_pretty = 'a, b'
   )
   # options = set_quiz_options(sandbox = TRUE, sandbox_resample_n = 10)
+  # options = set_quiz_options(end_on_first_wrong = FALSE)
 )
 
 
 # app ---------------------------------------------------------------------
 
 preview_app(quiz)
+
+
+# module in module --------------------------------------------------------
+
+# TODO
+
+

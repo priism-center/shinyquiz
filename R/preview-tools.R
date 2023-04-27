@@ -48,7 +48,7 @@ preview_app <- function(quiz, launch_browser = TRUE){
 
 # html preview ------------------------------------------------------------
 
-#' @export
+#' @keywords internal
 #' @describeIn preview_app Quick preview a quiz 
 preview_quiz <- function(quiz, launch_browser = FALSE){
   verify_quiz_structure(quiz)
@@ -72,11 +72,11 @@ preview_quiz <- function(quiz, launch_browser = FALSE){
     )
   )
   htmltools::html_print(panels, viewer = viewer)
-  cli::cli_alert_warning('Some items like `shiny::renderPlot` may not show correctly in preview mode')
+  cli::cli_alert_warning('Some items like `shiny::renderPlot` may not show correctly in the viewer')
 }
 
 #' @param question an object of class 'quizQuestion' to preview
-#' @export
+#' @keywords internal
 #' @describeIn preview_app Quick preview a single question
 preview_question <- function(question, launch_browser = FALSE){
   verify_question_structure(question)
@@ -87,4 +87,5 @@ preview_question <- function(question, launch_browser = FALSE){
   )
   
   htmltools::html_print(question@prompt, viewer = viewer)
+  cli::cli_alert_warning('Some items like sliders may not show correctly in the viewer')
 }

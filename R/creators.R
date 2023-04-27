@@ -14,7 +14,6 @@ setClass('quizChoice', slots = list(
   )
 )
 
-
 #' S4 class for a quiz sliders
 #'
 #' @slot min numeric. 

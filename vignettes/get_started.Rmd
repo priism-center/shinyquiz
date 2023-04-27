@@ -1,0 +1,95 @@
+---
+title: "Get Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r warning=FALSE, message=FALSE, include=FALSE}
+pkgload::load_all()
+```
+
+
+```{r setup}
+library(shinyQuiz)
+```
+
+
+## Creating questions
+
+{ show the different question types }
+
+```{r}
+
+q1 <- create_question(
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ornare augue, fringilla molestie metus. Donec eget tortor tincidunt, sagittis dui volutpat, finibus est. Select nulla.',
+  add_choice('Nulla vel'),
+  add_choice('auctor nulla'),
+  add_choice('nulla', correct = TRUE)
+)
+
+q2 <- create_question(
+  'Molestie metus. Maecenas tincidunt maximus viverra. Sed non gravida quam. Phasellus at iaculis leo. Mauris congue aliquet dui, ut dapibus lorem porttitor sed.',
+  add_choice(500),
+  add_choice('600', correct = TRUE),
+  add_choice('six hundred'),
+  type = 'multiple',
+  label = 'Select 600'
+)
+
+q3 <- create_question(
+  'Sed non gravida quam. Phasellus at iaculis leo.',
+  add_slider(10, 50, 30, correct = 20),
+  label = 'Select 20'
+)
+```
+
+<br>
+
+## Forming a quiz
+
+```{r eval=FALSE}
+quiz <- create_quiz(q1, q2, q3)
+quiz
+```
+
+Preview as a light Shiny app
+
+```{r eval=FALSE}
+preview_app(quiz)
+```
+
+<br>
+
+## Integrating into your Shiny application
+
+{ show example Shiny app here }
+
+```{r}
+
+```
+
+{ show module output }
+
+
+## Adjusting options
+
+{ illustrate adjusting `set_quiz_options`: quiz logic, namespace, messages}
+
+```{r}
+
+```
+
+<br>
+
+### Placing the quiz in a Shiny module
+

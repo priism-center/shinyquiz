@@ -122,7 +122,9 @@ sm_is_current_correct <- function(store){
 #' @keywords internal
 #' @describeIn sm_get_state Check that each recorded answer is correct and return a boolean vector
 sm_check_is_each_correct <- function(store){
-  return(store$is_correct)
+  answers <- store$is_correct
+  answers[is.na(answers)] <- FALSE
+  return(answers)
 }
 
 #' @keywords internal
@@ -141,6 +143,12 @@ sm_quiz_in_sandbox_mode <- function(store){
 #' @describeIn sm_get_state Check if the quiz is complete
 sm_quiz_is_complete <- function(store){
   isTRUE(sm_get_state(store) == 'quiz-complete')
+}
+
+#' @keywords internal
+#' @describeIn sm_get_state Check if the quiz should end early if user fails a question
+sm_logic_end_on_first_wrong <- function(store){
+  isTRUE(store$quiz_obj@options$logic_end_on_first_wrong)
 }
 
 #' @keywords internal
@@ -235,23 +243,19 @@ sm_ui_complete_report <- function(store){
   answers_user_print <- purrr::map(store$questions, ~{
     printer <- purrr::possibly(.x@answerUserPrettifier, otherwise = '[Unable to print user response]')
     printer(.x@answerUser[[1]])
-    })
-  answers_user_na <- purrr::map(store$questions, ~.x@answerUser[[1]]) |> is.na() # assumes NAs are skipped questions
-  score <- ifelse(
-    in_sandbox,
-    mean(answers[!answers_user_na]),
-    mean(answers)
-  )
-  if(is.na(score)) score <- 0
+  })
+  # answers_user_na <- purrr::map(store$questions, ~.x@answerUser[[1]]) |> is.na() # assumes NAs are skipped questions
+  score <- sm_score_quiz(store)
   score <- scales::percent_format()(score)
   
   # add skipped label to skipped questions
+  q_not_answered <- is.na(store$is_correct)
   skip_label <- '[skipped]'
-  answers_user_print[answers_user_na] <- skip_label
+  answers_user_print[q_not_answered] <- skip_label
   
   # get formatted correct answers
   answers_correct_print <- purrr::map_chr(store$questions, ~.x@answerCorrectPretty)
-  answers_correct_print[answers_user_na] <- skip_label
+  answers_correct_print[q_not_answered] <- skip_label
   
   # put everything in a table
   grade_tbl <- tibble::tibble(
@@ -324,7 +328,7 @@ sm_show_progress <- function(store){
   progress_bar <- htmltools::tagList()
   
   # show_progress_and_not_sandbox <- isTRUE(quiz_options$show_progress) && !quiz_options$sandbox
-  show_progress <- isTRUE(quiz_options$show_progress)
+  show_progress <- isTRUE(quiz_options$progress_bar)
   if(show_progress){
     current_question <- which(store$state == store$states) - 1
     total_questions <- length(store$states) - 1
@@ -377,7 +381,7 @@ sm_create_reactive_store <- function(quiz){
     state = 'quiz-question-1',
     states = c(paste0('quiz-question-', seq_along(quiz@questions)), 'quiz-complete'),
     questions = quiz@questions,
-    is_correct = rep(FALSE, length(quiz@questions)),
+    is_correct = rep(NA, length(quiz@questions)),
     ui_html = NULL,
     skipped = FALSE,
     sandbox_mode = quiz@options$sandbox,
@@ -387,16 +391,31 @@ sm_create_reactive_store <- function(quiz){
   return(store)
 }
 
+sm_score_quiz <- function(store){
+  # if not in sandbox mode, then NAs should be treated as incorrect
+
+  in_sandbox <- sm_quiz_in_sandbox_mode(store)
+  answers <- store$is_correct
+  
+  score <- ifelse(
+    in_sandbox,
+    mean(answers, na.rm = TRUE), # this excludes NAs from the calculation
+    mean(local({answers[is.na(answers)] <- FALSE; answers})) # this recodes NAs as FALSE
+  )
+  
+  if(is.na(score)) score <- 0
+  
+  return(score)
+}
+
 sm_summary <- function(store, quiz){
-  # TODO: this should format the quiz so the output of the module is useful
-  # should it rely on quiz or store?
+  score <- sm_score_quiz(store)
   list(
-    score = scales::percent_format()(mean(store$is_correct)),
-    score_raw = mean(store$is_correct),
+    score = scales::percent_format()(score),
+    score_raw = score,
     which_correct = store$is_correct,
     skipped_quiz = store$skipped,
     quiz_complete = sm_quiz_is_complete(store),
     quiz_orig_obj = quiz
   )
-  # purrr::map_chr(quiz@questions, ~.x@answerUser[[1]])
 }

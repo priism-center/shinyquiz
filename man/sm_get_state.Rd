@@ -9,6 +9,7 @@
 \alias{sm_is_all_correct}
 \alias{sm_quiz_in_sandbox_mode}
 \alias{sm_quiz_is_complete}
+\alias{sm_logic_end_on_first_wrong}
 \alias{sm_ui_format_prompts}
 \alias{sm_ui_format_prompt}
 \alias{sm_ui_quiz_complete}
@@ -34,6 +35,8 @@ sm_is_all_correct(store)
 sm_quiz_in_sandbox_mode(store)
 
 sm_quiz_is_complete(store)
+
+sm_logic_end_on_first_wrong(store)
 
 sm_ui_format_prompts(quiz)
 
@@ -92,6 +95,8 @@ These are \code{get} and \code{set} functions for retrieving state values and se
 \item \code{sm_quiz_in_sandbox_mode()}: Check if the quiz in sandbox mode
 
 \item \code{sm_quiz_is_complete()}: Check if the quiz is complete
+
+\item \code{sm_logic_end_on_first_wrong()}: Check if the quiz should end early
 
 \item \code{sm_ui_format_prompts()}: Add headers containing the question number to all the questions in a quiz
 

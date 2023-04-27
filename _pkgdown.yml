@@ -14,5 +14,18 @@ template:
     bg: "#fcf7f8"
     fg: "#4a4344"
     base_font: {google: "Roboto"}
-    heading_font: {google: "Roboto Slab"}
+    heading_font: {google: "Roboto Condensed"}
     code_font: {google: "JetBrains Mono"}
+
+navbar:
+  components:
+   articles:
+    text: Articles
+    menu:
+    - text: Getting Started
+      href: articles/get_started.html
+    - text: -------
+    - text: Customizing Questions
+      href: articles/custom_questions.html
+    - text: Creating Infinite Questions
+      href: articles/infinite_questions.html
