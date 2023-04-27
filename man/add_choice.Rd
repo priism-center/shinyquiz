@@ -13,6 +13,12 @@ add_slider(min = 0, max = 1, default = 0.5, correct)
 \item{text}{Text of the choice answer}
 
 \item{correct}{Boolean denoting if this \code{choice} is correct; numeric for \code{slider}}
+
+\item{min}{the minimum value of the slider range}
+
+\item{max}{the maximum value of the slider range}
+
+\item{default}{the default value the slider should take}
 }
 \value{
 an object of class 'quizChoice'
@@ -32,7 +38,7 @@ Create a choice for a question
 \examples{
 add_choice('39')
 add_choice('39', TRUE)
-slider(0, 1, 0.5, 0.8)
+add_slider(0, 1, 0.5, 0.8)
 
 }
 \seealso{

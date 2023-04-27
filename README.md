@@ -36,7 +36,6 @@ quiz <- create_quiz(
     add_choice('ATT'),
     add_choice('ATE', correct = TRUE),
     add_choice('ATC', correct = TRUE),
-    type = 'multiple',
     label = 'Select ATE and ATC'
   ),
   create_question(

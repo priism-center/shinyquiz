@@ -203,7 +203,7 @@ quiz <- create_quiz(
       )
     ), 
     grader = \(x) setequal(x, c('a', 'b')),
-    correct_answer_pretty = 'a'
+    correct_answer_pretty = 'a, b'
   )
   # options = set_quiz_options(sandbox = TRUE, sandbox_resample_n = 10)
 )

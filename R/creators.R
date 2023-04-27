@@ -47,7 +47,7 @@ setClass('quizChoiceSlider', slots = list(
 #' @examples
 #' add_choice('39')
 #' add_choice('39', TRUE)
-#' slider(0, 1, 0.5, 0.8)
+#' add_slider(0, 1, 0.5, 0.8)
 #' 
 #' @describeIn add_choice Create a discrete choice
 add_choice <- function(text, correct = FALSE){
@@ -62,6 +62,9 @@ add_choice <- function(text, correct = FALSE){
   return(choice)
 }
 
+#' @param min the minimum value of the slider range
+#' @param max the maximum value of the slider range
+#' @param default the default value the slider should take
 #' @return an object of class 'quizChoiceSlider'
 #' @export
 #' @describeIn add_choice Create a slider choice
@@ -86,8 +89,8 @@ add_slider <- function(min = 0, max = 1, default = 0.5, correct){
 #' @param ... Objects of class 'quizChoice' generated from [add_choice()] or [add_slider()]. Named options to [shiny::selectInput] or [shiny::checkboxGroupInput] can be passed as well.
 #' @param type One of c('auto', 'single', 'multiple'). How many answers are allowed
 #' @param input One of c('auto', 'select', 'checkbox')
-#' @param is Namespace of the module. Defaults to 'quiz'. This only needs to modified if there are multiple quizzes.
-#' @param is_parent Namespace of the parent module, if any. This only needs to modified if the quiz sits within a shiny module.
+#' @param id Namespace of the module. Defaults to 'quiz'. This only needs to modified if there are multiple quizzes.
+#' @param id_parent Namespace of the parent module, if any. This only needs to modified if the quiz sits within a shiny module.
 #'
 #' @return an object of class 'quizQuestion'
 #' @export

@@ -28,7 +28,7 @@ preview_app <- function(quiz, launch_browser = TRUE){
       quiz_ui(id = 'quiz'),
       htmltools::br(),
       shiny::checkboxInput('show', 'Show output'),
-      shiny::conditionalPanel("input.show == true", verbatimTextOutput('quizSummary')) 
+      shiny::conditionalPanel("input.show == true", shiny::verbatimTextOutput('quizSummary')) 
     )
     
   )
@@ -42,7 +42,7 @@ preview_app <- function(quiz, launch_browser = TRUE){
     )
     
     # display the available output
-    output$quizSummary <- renderPrint(quiz_summary())
+    output$quizSummary <- shiny::renderPrint(quiz_summary())
   }
   
   shiny::shinyApp(ui, server, options = list(launch.browser = isTRUE(launch_browser)))

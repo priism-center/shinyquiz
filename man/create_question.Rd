@@ -22,9 +22,9 @@ create_question(
 
 \item{input}{One of c('auto', 'select', 'checkbox')}
 
-\item{is}{Namespace of the module. Defaults to 'quiz'. This only needs to modified if there are multiple quizzes.}
+\item{id}{Namespace of the module. Defaults to 'quiz'. This only needs to modified if there are multiple quizzes.}
 
-\item{is_parent}{Namespace of the parent module, if any. This only needs to modified if the quiz sits within a shiny module.}
+\item{id_parent}{Namespace of the parent module, if any. This only needs to modified if the quiz sits within a shiny module.}
 }
 \value{
 an object of class 'quizQuestion'
