@@ -28,6 +28,8 @@ create_messages(message_correct, message_wrong, message_skipped)
 
 \item{sandbox_resample_n}{The number of question resamples when in sandbox mode}
 
+\item{end_on_first_wrong}{Should the quiz immediately end once the user gets one question wrong?}
+
 \item{embed}{boolean. TBD TODO: remove?}
 
 \item{progress_bar}{boolean. Show the progress bar UI at the top of the quiz}

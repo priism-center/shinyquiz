@@ -42,6 +42,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' @param messages an object of class `quizMessages` generated from [create_messages()] containing the messages to show at the end. If not provided, defaults are used.
 #' @param sandbox boolean. TBD
 #' @param sandbox_resample_n The number of question resamples when in sandbox mode
+#' @param end_on_first_wrong Should the quiz immediately end once the user gets one question wrong?
 #' @param embed boolean. TBD TODO: remove?
 #' @param progress_bar boolean. Show the progress bar UI at the top of the quiz
 #' @param progress_bar_color Color code for the progress bar background
