@@ -4,13 +4,15 @@
 #'
 #' @description A shiny Module to implement a quiz
 #'
-#' @param id a unique string that is identical across UI and server
+#' @param quiz an object of class `quiz`. See [construct_quiz()]
 #' @author Joseph Marlo
 #' @export
 #' @describeIn quiz_ui UI side function
-quiz_ui <- function(id){
-  # shouldn't this also have and id_parent argument?
-  ns <- shiny::NS(id)
+quiz_ui <- function(quiz){
+  
+  verify_quiz_structure(quiz)
+  ns <- quiz@options$ns
+
   htmltools::tagList(
     add_external_resources(),
     htmltools::div(
@@ -21,8 +23,6 @@ quiz_ui <- function(id){
   )
 }
 
-#' @param id a unique string that is identical across UI and server
-#' @param id_parent if using within a Shiny module, the id of that module
 #' @param quiz an object of class `quiz`. See [construct_quiz()]
 #' @export
 #' @return a reactive object showing the results of the quiz
@@ -30,13 +30,15 @@ quiz_ui <- function(id){
 #' @seealso [create_quiz()]
 #' 
 #' @describeIn quiz_ui Server side function
-quiz_server <- function(quiz, id, id_parent = character(0)){
+quiz_server <- function(quiz){
   
   verify_quiz_structure(quiz)
+  ns <- quiz@options$ns
+  id <- ns(NULL)
   
   shiny::moduleServer(id, function(input, output, session){
     # ns <- session$ns
-    ns <- shiny::NS(shiny::NS(id_parent)(id))
+    # ns <- shiny::NS(shiny::NS(id_parent)(id))
     
     # message(paste0('The quiz module has a namespace id of: ', id))
     

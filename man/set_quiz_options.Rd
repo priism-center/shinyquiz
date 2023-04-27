@@ -6,6 +6,7 @@
 \title{Set the options for the quiz}
 \usage{
 set_quiz_options(
+  ns = shiny::NS("quiz"),
   messages,
   sandbox = FALSE,
   sandbox_resample_n = 50,
@@ -18,6 +19,8 @@ set_quiz_options(
 create_messages(message_correct, message_wrong, message_skipped)
 }
 \arguments{
+\item{ns}{namespace generated from \code{\link[shiny:NS]{shiny::NS()}}. When using custom namespaces, the individual \code{\link[=create_question]{create_question()}} requires the namespace as well.}
+
 \item{messages}{an object of class \code{quizMessages} generated from \code{\link[=create_messages]{create_messages()}} containing the messages to show at the end. If not provided, defaults are used.}
 
 \item{sandbox}{boolean. TBD}

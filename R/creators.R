@@ -64,20 +64,26 @@ add_choice <- function(text, correct = FALSE){
 
 #' @param min the minimum value of the slider range
 #' @param max the maximum value of the slider range
-#' @param default the default value the slider should take
+#' @param default_position the default value the slider should take
 #' @return an object of class 'quizChoiceSlider'
 #' @export
 #' @describeIn add_choice Create a slider choice
-add_slider <- function(min = 0, max = 1, default = 0.5, correct){
+add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 
-  if(!isTRUE(is.numeric(as.numeric(min)))) cli::cli_abort('`min` must be coercible to a numeric')
-  if(!isTRUE(is.numeric(as.numeric(max)))) cli::cli_abort('`max` must be coercible to a numeric')
+  min <- as.numeric(min)
+  max <- as.numeric(max)
+  default_position <- as.numeric(default_position)
+  correct <- as.numeric(correct)
+  
+  args <- c(min = min, max = max, default_position = default_position, correct = correct)
+  is_numeric <- purrr::map_lgl(args, \(x) is.numeric(x) && is_truthy(x))
+  if (!isTRUE(all(is_numeric))) cli::cli_abort("{names(args)[!is_numeric]} must be coercible to numeric")
   if(!isTRUE(dplyr::between(correct, min, max))) cli::cli_abort('`correct` must be between `min` and `max`')
   
   slider <- methods::new('quizChoiceSlider')
   slider@min <- min
   slider@max <- max
-  slider@default <- default
+  slider@default <- default_position
   slider@correct <- correct
   
   return(slider)
@@ -89,8 +95,7 @@ add_slider <- function(min = 0, max = 1, default = 0.5, correct){
 #' @param ... Objects of class 'quizChoice' generated from [add_choice()] or [add_slider()]. Named options to [shiny::selectInput] or [shiny::checkboxGroupInput] can be passed as well.
 #' @param type One of c('auto', 'single', 'multiple'). How many answers are allowed
 #' @param input One of c('auto', 'select', 'checkbox')
-#' @param id Namespace of the module. Defaults to 'quiz'. This only needs to modified if there are multiple quizzes.
-#' @param id_parent Namespace of the parent module, if any. This only needs to modified if the quiz sits within a shiny module.
+#' @param ns Namespace function generated from [`shiny::NS()`]
 #'
 #' @return an object of class 'quizQuestion'
 #' @export
@@ -114,10 +119,9 @@ add_slider <- function(min = 0, max = 1, default = 0.5, correct){
 #'  )
 #' create_quiz(q, q2)
 #' }
-create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), id = 'quiz', id_parent = character(0)){
+create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), ns = shiny::NS('quiz')){
   
-  # TODO: change id/idparent to ns?
-  ns <- shiny::NS(shiny::NS(id_parent)(id))
+  if (!isTRUE(is.function(ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
   
   type <- match.arg(type, c('auto', 'single', 'multiple'))
   input <- match.arg(input, c('auto', 'select', 'checkbox'))

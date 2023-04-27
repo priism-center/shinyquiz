@@ -3,13 +3,11 @@
 # purrr::walk(list.files('R', full.names = TRUE), source)
 devtools::load_all()
 
-library(shiny)
-
 
 # content -----------------------------------------------------------------
 
 # TODO: can the namespace be handled in a more user-friendly way?
-ns_quiz <- shiny::NS('quiz')
+ns_quiz <- shiny::NS('quiz') # this is the default but can be changed through set_quiz_options
 
 # set the text for question 1
 question_text_1 <- htmltools::div(

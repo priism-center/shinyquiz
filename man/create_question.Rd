@@ -9,8 +9,7 @@ create_question(
   ...,
   type = c("auto", "single", "multiple"),
   input = c("auto", "select", "checkbox"),
-  id = "quiz",
-  id_parent = character(0)
+  ns = shiny::NS("quiz")
 )
 }
 \arguments{
@@ -22,9 +21,7 @@ create_question(
 
 \item{input}{One of c('auto', 'select', 'checkbox')}
 
-\item{id}{Namespace of the module. Defaults to 'quiz'. This only needs to modified if there are multiple quizzes.}
-
-\item{id_parent}{Namespace of the parent module, if any. This only needs to modified if the quiz sits within a shiny module.}
+\item{ns}{Namespace function generated from \code{\link[shiny:NS]{shiny::NS()}}}
 }
 \value{
 an object of class 'quizQuestion'

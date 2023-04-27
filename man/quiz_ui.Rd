@@ -5,16 +5,12 @@
 \alias{quiz_server}
 \title{Run a quiz in R Shiny}
 \usage{
-quiz_ui(id)
+quiz_ui(quiz)
 
-quiz_server(quiz, id, id_parent = character(0))
+quiz_server(quiz)
 }
 \arguments{
-\item{id}{a unique string that is identical across UI and server}
-
 \item{quiz}{an object of class \code{quiz}. See \code{\link[=construct_quiz]{construct_quiz()}}}
-
-\item{id_parent}{if using within a Shiny module, the id of that module}
 }
 \value{
 a reactive object showing the results of the quiz

@@ -38,7 +38,8 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' 
 #' These are options to be passed to a `quiz`.
 #'
-#' @param messages an object of class `quizMessages` generated from [`create_messages()`] containing the messages to show at the end. If not provided, defaults are used.
+#' @param ns namespace generated from [shiny::NS()]. When using custom namespaces, the individual [create_question()] requires the namespace as well.
+#' @param messages an object of class `quizMessages` generated from [create_messages()] containing the messages to show at the end. If not provided, defaults are used.
 #' @param sandbox boolean. TBD
 #' @param sandbox_resample_n The number of question resamples when in sandbox mode
 #' @param embed boolean. TBD TODO: remove?
@@ -51,7 +52,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' @return a list
 #' @export
 #' @describeIn set_quiz_options Sets the options for a `quiz`
-set_quiz_options <- function(messages, sandbox = FALSE, sandbox_resample_n = 50, embed = FALSE, show_progress = !sandbox, progress_bar_color = '#609963', ...){
+set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, sandbox_resample_n = 50, embed = FALSE, show_progress = !sandbox, progress_bar_color = '#609963', ...){
   
   # set the default messages
   if (!methods::hasArg(messages)) {
@@ -64,6 +65,7 @@ set_quiz_options <- function(messages, sandbox = FALSE, sandbox_resample_n = 50,
   if (!inherits(messages, 'quizMessages')) cli::cli_abort("`messages` should be of class 'quizMessages'")
   
   quiz_options <- list(
+    ns = ns,
     messages = messages,
     sandbox = isTRUE(sandbox),
     sandbox_resample_n = as.integer(sandbox_resample_n),
@@ -85,12 +87,13 @@ verify_options_structure <- function(options){
   if (!is.list(options)) cli::cli_abort("`options` must be a list")
   
   # check if all required options exist
-  req_items <- c('messages', 'sandbox', 'embed')
+  req_items <- c('ns', 'messages', 'sandbox', 'embed')
   req_items_in_options <- req_items %in% names(options)
   all_req_items_exist <- isTRUE(all(req_items_in_options))
   if (!all_req_items_exist) cli::cli_abort('Missing in options: {req_items[!req_items_in_options]}')
   
   # check data types
+  if (!isTRUE(is.function(options$ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
   if (!inherits(options$messages, 'quizMessages')) cli::cli_abort('`messages` should be of class `quizMessages`')
   if (!isTRUE(is.logical(options$sandbox))) cli::cli_abort('`sandbox` should be of class `logical`')
   if (!isTRUE(is.logical(options$embed))) cli::cli_abort('`embed` should be of class `logical`')

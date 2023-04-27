@@ -7,7 +7,7 @@
 \usage{
 add_choice(text, correct = FALSE)
 
-add_slider(min = 0, max = 1, default = 0.5, correct)
+add_slider(min = 0, max = 1, default_position = 0.5, correct)
 }
 \arguments{
 \item{text}{Text of the choice answer}
@@ -18,7 +18,7 @@ add_slider(min = 0, max = 1, default = 0.5, correct)
 
 \item{max}{the maximum value of the slider range}
 
-\item{default}{the default value the slider should take}
+\item{default_position}{the default value the slider should take}
 }
 \value{
 an object of class 'quizChoice'

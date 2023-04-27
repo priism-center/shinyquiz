@@ -29,7 +29,7 @@ usethis::use_package('testthat', min_version = TRUE, type = 'Suggests')
 
 # create function files
 usethis::use_r('constructors')
-usethis::use_r('question-creators')
+usethis::use_r('creators')
 usethis::use_r('state-machine')
 usethis::use_r('shiny-module')
 usethis::use_r('preview-tools')
@@ -42,7 +42,7 @@ usethis::use_testthat()
 usethis::use_test('state-machine')
 usethis::use_test('shiny-module')
 usethis::use_test('preview-tools')
-usethis::use_test('question-creators')
+usethis::use_test('creators')
 
 # other
 usethis::use_github_action_check_release("R-CMD-check.yaml")
