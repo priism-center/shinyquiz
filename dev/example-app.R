@@ -92,8 +92,8 @@ grader_1 <- function(user_response){
 # format into a formal question
 question_1 <- construct_question(
   prompt = question_text_1,
-  answerUserDisplay = function(x) paste0(x[[2]], collapse = ', '),
-  answerCorrectDisplay = paste0(c('bp_baseline', 'sex', 'height'), collapse = ', '),
+  answerUserPrettifier = function(x) paste0(x[[2]], collapse = ', '),
+  answerCorrectPretty = paste0(c('bp_baseline', 'sex', 'height'), collapse = ', '),
   grader = grader_1
 )
 # preview_question(question_1)
@@ -119,8 +119,8 @@ question_text_2 <- htmltools::div(
 # format into a formal question
 question_2 <- construct_question(
   prompt = question_text_2,
-  answerUserDisplay = function(x) x,
-  answerCorrectDisplay = 'ATE',
+  answerUserPrettifier = function(x) x,
+  answerCorrectPretty = 'ATE',
   grader = function(x) x == 'ATE'
 )
 
@@ -141,8 +141,8 @@ question_text_3 <- htmltools::div(
 # format into a formal question
 question_3 <- construct_question(
   prompt = question_text_3,
-  answerUserDisplay = function(x) paste0(x[[2]], collapse = ', '),
-  answerCorrectDisplay = 'test3',
+  answerUserPrettifier = function(x) paste0(x[[2]], collapse = ', '),
+  answerCorrectPretty = 'test3',
   grader = function(x) TRUE
 )
 
@@ -150,34 +150,65 @@ question_3 <- construct_question(
 quiz <- construct_quiz(
   question_1, 
   question_2, 
-  question_3, 
-  options = set_quiz_options(sandbox = TRUE)
+  question_3
+  # options = set_quiz_options(show_progress = T, sandbox = T)
 )
 # preview_quiz(quiz)
 
 
-# app ---------------------------------------------------------------------
+# user friendly version ---------------------------------------------------
 
-ui <- shiny::fluidPage(
-  
-  htmltools::div(
-    style = 'color: #fff; background: black; padding: 0.5rem; margin-bottom: 5rem; text-align: center;',
-    htmltools::h1("EXAMPLE APP")
+quiz <- create_quiz(
+  create_question(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ornare augue, fringilla molestie metus. Donec eget tortor tincidunt, sagittis dui volutpat, finibus est. Select nulla.',
+    add_choice('Nulla vel'),
+    add_choice('auctor nulla'),
+    add_choice('nulla', correct = TRUE)
   ),
-  htmltools::div(
-    style = "max-width: 700px",
-    quiz_ui(id = 'quiz')
+  create_question(
+    'Molestie metus. Maecenas tincidunt maximus viverra. Sed non gravida quam. Phasellus at iaculis leo. Mauris congue aliquet dui, ut dapibus lorem porttitor sed.',
+    add_choice(500),
+    add_choice('600', correct = TRUE),
+    add_choice('six hundred'),
+    type = 'multiple',
+    label = 'Select 600'
+  ),
+  create_question(
+    'Sed non gravida quam. Phasellus at iaculis leo.',
+    add_slider(10, 50, 30, correct = 20),
+    label = 'Select 20'
+  ),
+  create_question(
+    htmltools::div(
+      htmltools::p("A custom question with a plot"),
+      shiny::renderPlot(plot(rnorm(100), rnorm(100))),
+    ),
+    add_slider(10, 50, 30, correct = 20),
+    label = 'Select 20'
+  ),
+  create_question_raw(
+    htmltools::div(
+      htmltools::p("A custom sortable question"),
+      sortable::bucket_list(
+        header = "This is a bucket list. You can drag items between the lists.",
+        sortable::add_rank_list(
+          text = "Drag 'a' and 'b' from here",
+          labels = c("a", "b", "c")
+        ),
+        sortable::add_rank_list(
+          input_id = ns_quiz('answers'),
+          text = "to here",
+          labels = NULL
+        )
+      )
+    ), 
+    grader = \(x) setequal(x, c('a', 'b')),
+    correct_answer_pretty = 'a'
   )
+  # options = set_quiz_options(sandbox = TRUE, sandbox_resample_n = 10)
 )
 
-server <- function(input, output, session) {
 
-  # run the quiz
-  quiz_server(
-    id = "quiz", # TODO: this should always be quiz? does it need to match ns_quiz()?
-    id_parent = NULL,
-    quiz = quiz
-  )
-}
+# app ---------------------------------------------------------------------
 
-shinyApp(ui, server, options = list(launch.browser = TRUE))
+preview_app(quiz)

@@ -3,11 +3,14 @@
 \name{construct_quiz}
 \alias{construct_quiz}
 \alias{construct_question}
+\alias{construct_messages}
 \title{Constructors for the quiz}
 \usage{
 construct_quiz(..., options = set_quiz_options())
 
-construct_question(prompt, answerUserDisplay, answerCorrectDisplay, grader)
+construct_question(prompt, answerUserPrettifier, answerCorrectPretty, grader)
+
+construct_messages(message_correct, message_wrong, message_skipped)
 }
 \arguments{
 \item{...}{objects of class 'quizQuestions'. See \code{\link[=construct_question]{construct_question()}}}
@@ -16,24 +19,30 @@ construct_question(prompt, answerUserDisplay, answerCorrectDisplay, grader)
 
 \item{prompt}{an \link[htmltools:builder]{htmltools::div} that represents a quiz question}
 
-\item{answerUserDisplay}{a function that takes the user answer and prints it neatly. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} to catch any errors.}
+\item{answerUserPrettifier}{a function that takes the user answer and prints it neatly. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} to catch any errors.}
 
-\item{answerCorrectDisplay}{a character that prints the correct answer neatly}
+\item{answerCorrectPretty}{a character that prints the correct answer neatly}
 
-\item{grader}{a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} to catch any errors.}
+\item{grader}{a function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} and \code{\link[base:Logic]{base::isTRUE()}} to catch any errors.}
+
+\item{message_correct}{a string to be shown at the end of the quiz when the user gets all questions correct}
+
+\item{message_wrong}{a string to be shown at the end of the quiz when the user gets at least one question wrong}
+
+\item{message_skipped}{a string to be shown at the end of the quiz when the user skips the quiz or ends it early}
 }
 \value{
 an object of class \code{quiz}
 
 an object of class \code{quizQuestion}
+
+an object of class \code{quizMessages}
 }
 \description{
 Construct a quiz or quiz question
 }
 \details{
 See dev/example-app.R for current example.
-
-TODO: This should probably used only on the backend and be internal only?
 }
 \section{Functions}{
 \itemize{
@@ -41,13 +50,18 @@ TODO: This should probably used only on the backend and be internal only?
 
 \item \code{construct_question()}: Construct a question object
 
+\item \code{construct_messages()}: Construct a messages object
+
 }}
 \examples{
 #TBD
 }
 \seealso{
 \code{\link[=construct_question]{construct_question()}}, \code{\link[=set_quiz_options]{set_quiz_options()}}, \code{\link[=construct_messages]{construct_messages()}}
+
+\code{\link[=set_quiz_options]{set_quiz_options()}}
 }
 \author{
 Joseph Marlo
 }
+\keyword{internal}

@@ -17,9 +17,9 @@ S4 class for a quiz question
 
 \item{\code{answerUser}}{list.}
 
-\item{\code{answerUserDisplay}}{function.}
+\item{\code{answerUserPrettifier}}{function.}
 
-\item{\code{answerCorrectDisplay}}{character.}
+\item{\code{answerCorrectPretty}}{character.}
 
 \item{\code{grader}}{function.}
 }}
@@ -30,3 +30,4 @@ S4 class for a quiz question
 \author{
 Joseph Marlo
 }
+\keyword{internal}

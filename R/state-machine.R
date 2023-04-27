@@ -39,7 +39,7 @@ sm_get_state <- function(store, variable = NULL, state = NULL){
   # }
   if (variable == 'current-correct-answer'){
     # return(store$correct_answers[store$states == state][[1]])
-    return(store$questions[store$states == state][[1]]@answerCorrectDisplay)
+    return(store$questions[store$states == state][[1]]@answerCorrectPretty)
   }
   if (variable == 'current-grader'){
     # return(store$graders[store$states == state][[1]])
@@ -138,6 +138,12 @@ sm_quiz_in_sandbox_mode <- function(store){
 }
 
 #' @keywords internal
+#' @describeIn sm_get_state Check if the quiz is complete
+sm_quiz_is_complete <- function(store){
+  isTRUE(sm_get_state(store) == 'quiz-complete')
+}
+
+#' @keywords internal
 #' @describeIn sm_get_state Add headers containing the question number to all the questions in a quiz
 sm_ui_format_prompts <- function(quiz){
   verify_quiz_structure(quiz)
@@ -227,7 +233,7 @@ sm_ui_complete_report <- function(store){
   # calculate score and format the score
   # if in sandbox mode, score is only for non skipped items
   answers_user_print <- purrr::map(store$questions, ~{
-    printer <- purrr::possibly(.x@answerUserDisplay, otherwise = '[Unable to print user response]')
+    printer <- purrr::possibly(.x@answerUserPrettifier, otherwise = '[Unable to print user response]')
     printer(.x@answerUser[[1]])
     })
   answers_user_na <- purrr::map(store$questions, ~.x@answerUser[[1]]) |> is.na() # assumes NAs are skipped questions
@@ -244,20 +250,20 @@ sm_ui_complete_report <- function(store){
   answers_user_print[answers_user_na] <- skip_label
   
   # get formatted correct answers
-  answers_correct_print <- purrr::map_chr(store$questions, ~.x@answerCorrectDisplay)
+  answers_correct_print <- purrr::map_chr(store$questions, ~.x@answerCorrectPretty)
   answers_correct_print[answers_user_na] <- skip_label
   
   # put everything in a table
   grade_tbl <- tibble::tibble(
     icon = answers_icons,
     label = question_label,
-    `Your Answer` = answers_user_print,
-    `Correct Answer` = answers_correct_print
+    your_answer = answers_user_print,
+    correct_answer = answers_correct_print
   )
   
   # remove skipped rows if in sandbox mode
   if (sm_quiz_in_sandbox_mode(store)){
-    grade_tbl <- dplyr::filter(grade_tbl,`Your Answer` != skip_label)
+    grade_tbl <- dplyr::filter(grade_tbl, your_answer != skip_label)
   }
   
   # convert to reactable
@@ -266,8 +272,8 @@ sm_ui_complete_report <- function(store){
     columns = list(
       icon = reactable::colDef(name = '', html = TRUE, width = 40),
       label = reactable::colDef(name = '', width = 115),
-      `Your Answer` = reactable::colDef(align = 'right'),
-      `Correct Answer` = reactable::colDef(align = 'right')
+      your_answer = reactable::colDef(name = 'Your Answer', align = 'right'),
+      correct_answer = reactable::colDef(name = 'Correct Answer', align = 'right')
     )
   )
   
@@ -288,6 +294,8 @@ sm_ui_question <- function(store, ns){
   # render the questions
   html_content <- htmltools::tagList(
     
+    sm_show_progress(store),
+    
     # question content
     sm_get_state(store, 'current-question'),
     
@@ -307,6 +315,24 @@ sm_ui_question <- function(store, ns){
   )
   
   return(html_content)
+}
+
+#' @keywords internal
+#' @describeIn sm_get_state Show the progress bar if stipulated
+sm_show_progress <- function(store){
+  quiz_options <- store$quiz_obj@options
+  progress_bar <- htmltools::tagList()
+  
+  # show_progress_and_not_sandbox <- isTRUE(quiz_options$show_progress) && !quiz_options$sandbox
+  show_progress <- isTRUE(quiz_options$show_progress)
+  if(show_progress){
+    current_question <- which(store$state == store$states) - 1
+    total_questions <- length(store$states) - 1
+    progress_percent <- current_question / total_questions
+    progress_bar <- add_progress_bar(progress_percent, bg_color = quiz_options$progress_bar_color)
+  }
+  
+  return(progress_bar)
 }
 
 #' @keywords internal
@@ -354,8 +380,23 @@ sm_create_reactive_store <- function(quiz){
     is_correct = rep(FALSE, length(quiz@questions)),
     ui_html = NULL,
     skipped = FALSE,
-    sandbox_mode = quiz@options$sandbox
+    sandbox_mode = quiz@options$sandbox,
+    quiz_obj = quiz
   )
   
   return(store)
+}
+
+sm_summary <- function(store, quiz){
+  # TODO: this should format the quiz so the output of the module is useful
+  # should it rely on quiz or store?
+  list(
+    score = scales::percent_format()(mean(store$is_correct)),
+    score_raw = mean(store$is_correct),
+    which_correct = store$is_correct,
+    skipped_quiz = store$skipped,
+    quiz_complete = sm_quiz_is_complete(store),
+    quiz_orig_obj = quiz
+  )
+  # purrr::map_chr(quiz@questions, ~.x@answerUser[[1]])
 }

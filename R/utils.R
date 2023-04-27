@@ -1,17 +1,5 @@
 ### general utility functions ###
 
-#' Check to see if value is not in a vector
-#'
-#' This is just a negative of `%in%`
-#'
-#' @param ... 
-#'
-#' @return boolean
-#' @author Joseph Marlo
-#' @return NULL
-#' @keywords internal
-`%notin%` <- Negate(`%in%`)
-
 #' Check if a value is truthy
 #'
 #' A value is truthy unless it is FALSE, NA, NULL, an empty data.frame, or empty list.

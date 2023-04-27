@@ -2,19 +2,33 @@
 % Please edit documentation in R/constructors.R
 \name{set_quiz_options}
 \alias{set_quiz_options}
-\alias{construct_messages}
+\alias{create_messages}
 \title{Set the options for the quiz}
 \usage{
-set_quiz_options(messages, sandbox = FALSE, embed = FALSE, ...)
+set_quiz_options(
+  messages,
+  sandbox = FALSE,
+  sandbox_resample_n = 50,
+  embed = FALSE,
+  show_progress = !sandbox,
+  progress_bar_color = "#609963",
+  ...
+)
 
-construct_messages(message_correct, message_wrong, message_skipped)
+create_messages(message_correct, message_wrong, message_skipped)
 }
 \arguments{
-\item{messages}{an object of class \code{quizMessages} containing the messages to show at the end. If not provided, defaults are used.}
+\item{messages}{an object of class \code{quizMessages} generated from \code{\link[=create_messages]{create_messages()}} containing the messages to show at the end. If not provided, defaults are used.}
 
 \item{sandbox}{boolean. TBD}
 
+\item{sandbox_resample_n}{The number of question resamples when in sandbox mode}
+
 \item{embed}{boolean. TBD TODO: remove?}
+
+\item{show_progress}{boolean. Show the progress bar UI at the top of the quiz}
+
+\item{progress_bar_color}{Color code for the progress bar background}
 
 \item{...}{other named options to pass to \code{quiz}}
 
@@ -36,7 +50,7 @@ These are options to be passed to a \code{quiz}.
 \itemize{
 \item \code{set_quiz_options()}: Sets the options for a \code{quiz}
 
-\item \code{construct_messages()}: Construct a messages object
+\item \code{create_messages()}: Construct a messages object
 
 }}
 \seealso{

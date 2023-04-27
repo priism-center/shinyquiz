@@ -7,14 +7,17 @@
 \usage{
 quiz_ui(id)
 
-quiz_server(id, id_parent = character(0), quiz)
+quiz_server(quiz, id, id_parent = character(0))
 }
 \arguments{
 \item{id}{a unique string that is identical across UI and server}
 
-\item{id_parent}{if using within a Shiny module, the id of that module}
-
 \item{quiz}{an object of class \code{quiz}. See \code{\link[=construct_quiz]{construct_quiz()}}}
+
+\item{id_parent}{if using within a Shiny module, the id of that module}
+}
+\value{
+a reactive object showing the results of the quiz
 }
 \description{
 A shiny Module to implement a quiz
@@ -27,7 +30,7 @@ A shiny Module to implement a quiz
 
 }}
 \seealso{
-\code{\link[=construct_quiz]{construct_quiz()}}
+\code{\link[=create_quiz]{create_quiz()}}
 }
 \author{
 Joseph Marlo

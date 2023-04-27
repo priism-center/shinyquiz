@@ -25,11 +25,12 @@ quiz_ui <- function(id){
 #' @param id_parent if using within a Shiny module, the id of that module
 #' @param quiz an object of class `quiz`. See [construct_quiz()]
 #' @export
+#' @return a reactive object showing the results of the quiz
 #' 
-#' @seealso [construct_quiz()]
+#' @seealso [create_quiz()]
 #' 
 #' @describeIn quiz_ui Server side function
-quiz_server <- function(id, id_parent = character(0), quiz){
+quiz_server <- function(quiz, id, id_parent = character(0)){
   
   verify_quiz_structure(quiz)
   
@@ -44,7 +45,7 @@ quiz_server <- function(id, id_parent = character(0), quiz){
     if (quiz@options$embed) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
     
     # resample the questions if in sandbox mode
-    quiz <- sm_resample_questions_if_sandbox(quiz, n = 50)
+    quiz <- sm_resample_questions_if_sandbox(quiz, n = quiz@options$sandbox_resample_n)
     
     # add headers to question texts
     quiz <- sm_ui_format_prompts(quiz)
@@ -153,6 +154,9 @@ quiz_server <- function(id, id_parent = character(0), quiz){
     
     # render the UI
     output$UI_quiz <- shiny::renderUI(store$ui_html)
+    
+    # return the quiz summary
+    return(shiny::reactive(sm_summary(store, quiz)))
   })
 }
 

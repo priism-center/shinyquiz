@@ -26,3 +26,4 @@ S4 class for a quiz messages to display at the end
 \author{
 Joseph Marlo
 }
+\keyword{internal}

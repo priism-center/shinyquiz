@@ -127,7 +127,7 @@ add_message_skipped <- function(text){
 #'
 #' @return div containing divs of class "confetti-piece"
 #' @author Joseph Marlo
-#' @seealso [https://codepen.io/zer0kool/pen/KjZWRW]
+#' @seealso \url{https://codepen.io/zer0kool/pen/KjZWRW}
 #' @keywords internal
 add_confetti <- function(){
 
@@ -152,4 +152,31 @@ add_confetti <- function(){
   )
   
   return(confetti_pieces)
+}
+
+#' Create a bootstrap progress bar
+#'
+#' @param percent The percent to fill the progress bar to
+#' @param bg_color Background color
+#'
+#' @return html
+#' @author Joseph Marlo
+#' @seealso \url{https://getbootstrap.com/docs/4.0/components/progress/}
+#' @keywords internal
+add_progress_bar <- function(percent, bg_color) {
+  if (percent < 0 | percent > 1) cli::cli_abort('`percent` must be [0, 1]')
+  percent <- round(percent * 100)
+  if (is.null(bg_color)) bg_color <- "#609963"
+  
+  htmltools::div(
+    class = 'progress',
+    htmltools::div(
+      class = 'progress-bar',
+      role  = 'progressbar',
+      style = glue::glue("width: {percent}%; background: {bg_color};"),
+      `aria-valuenow` = percent,
+      `aria-valuemin` = "0",
+      `aria-valuemax` = "100"
+    )
+  )
 }

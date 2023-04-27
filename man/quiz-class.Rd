@@ -24,3 +24,4 @@ S4 class for a quiz
 \author{
 Joseph Marlo
 }
+\keyword{internal}

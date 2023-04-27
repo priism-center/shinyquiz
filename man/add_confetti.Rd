@@ -13,7 +13,7 @@ div containing divs of class "confetti-piece"
 Requires confetti.css to be in the www/css folder
 }
 \seealso{
-\link{https://codepen.io/zer0kool/pen/KjZWRW}
+\url{https://codepen.io/zer0kool/pen/KjZWRW}
 }
 \author{
 Joseph Marlo
