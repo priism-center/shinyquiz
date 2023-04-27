@@ -50,7 +50,7 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">quiz_ui</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">quiz_server</span><span class="op">(</span><span class="va">id</span>, id_parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, <span class="va">quiz</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">quiz_server</span><span class="op">(</span><span class="va">quiz</span>, <span class="va">id</span>, id_parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -59,14 +59,20 @@
 <dd><p>a unique string that is identical across UI and server</p></dd>
 
 
-<dt>id_parent</dt>
-<dd><p>if using within a Shiny module, the id of that module</p></dd>
-
-
 <dt>quiz</dt>
 <dd><p>an object of class <code>quiz</code>. See <code><a href="construct_quiz.html">construct_quiz()</a></code></p></dd>
 
+
+<dt>id_parent</dt>
+<dd><p>if using within a Shiny module, the id of that module</p></dd>
+
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>a reactive object showing the results of the quiz</p>
+    </div>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
@@ -75,7 +81,7 @@
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="construct_quiz.html">construct_quiz()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="create_quiz.html">create_quiz()</a></code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

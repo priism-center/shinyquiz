@@ -50,7 +50,9 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">construct_quiz</span><span class="op">(</span><span class="va">...</span>, options <span class="op">=</span> <span class="fu"><a href="set_quiz_options.html">set_quiz_options</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">construct_question</span><span class="op">(</span><span class="va">prompt</span>, <span class="va">answerUserDisplay</span>, <span class="va">answerCorrectDisplay</span>, <span class="va">grader</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">construct_question</span><span class="op">(</span><span class="va">prompt</span>, <span class="va">answerUserPrettifier</span>, <span class="va">answerCorrectPretty</span>, <span class="va">grader</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">construct_messages</span><span class="op">(</span><span class="va">message_correct</span>, <span class="va">message_wrong</span>, <span class="va">message_skipped</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -67,16 +69,28 @@
 <dd><p>an <a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">htmltools::div</a> that represents a quiz question</p></dd>
 
 
-<dt>answerUserDisplay</dt>
+<dt>answerUserPrettifier</dt>
 <dd><p>a function that takes the user answer and prints it neatly. This is wrapped with <code><a href="https://purrr.tidyverse.org/reference/possibly.html" class="external-link">purrr::possibly()</a></code> to catch any errors.</p></dd>
 
 
-<dt>answerCorrectDisplay</dt>
+<dt>answerCorrectPretty</dt>
 <dd><p>a character that prints the correct answer neatly</p></dd>
 
 
 <dt>grader</dt>
-<dd><p>a function that takes the user answer and determines if it is correct. Must return TRUE or FALSE. This is wrapped with <code><a href="https://purrr.tidyverse.org/reference/possibly.html" class="external-link">purrr::possibly()</a></code> to catch any errors.</p></dd>
+<dd><p>a function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with <code><a href="https://purrr.tidyverse.org/reference/possibly.html" class="external-link">purrr::possibly()</a></code> and <code><a href="https://rdrr.io/r/base/Logic.html" class="external-link">base::isTRUE()</a></code> to catch any errors.</p></dd>
+
+
+<dt>message_correct</dt>
+<dd><p>a string to be shown at the end of the quiz when the user gets all questions correct</p></dd>
+
+
+<dt>message_wrong</dt>
+<dd><p>a string to be shown at the end of the quiz when the user gets at least one question wrong</p></dd>
+
+
+<dt>message_skipped</dt>
+<dd><p>a string to be shown at the end of the quiz when the user skips the quiz or ends it early</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -90,21 +104,26 @@
 <p>an object of class <code>quizQuestion</code></p>
 
 
+
+<p>an object of class <code>quizMessages</code></p>
+
+
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>See dev/example-app.R for current example.</p>
-<p>TODO: This should probably used only on the backend and be internal only?</p>
     </div>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
 <ul><li><p><code>construct_quiz()</code>: Construct a quiz object</p></li>
 <li><p><code>construct_question()</code>: Construct a question object</p></li>
+<li><p><code>construct_messages()</code>: Construct a messages object</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code>construct_question()</code>, <code><a href="set_quiz_options.html">set_quiz_options()</a></code>, <code><a href="set_quiz_options.html">construct_messages()</a></code></p></div>
+    <div class="dont-index"><p><code>construct_question()</code>, <code><a href="set_quiz_options.html">set_quiz_options()</a></code>, <code>construct_messages()</code></p>
+<p><code><a href="set_quiz_options.html">set_quiz_options()</a></code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

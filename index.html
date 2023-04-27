@@ -82,11 +82,38 @@
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'priism-center/shinyQuiz'</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">quiz</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_quiz.html">create_quiz</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="reference/create_question.html">create_question</a></span><span class="op">(</span></span>
+<span>    <span class="st">'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ornare augue, fringilla molestie metus. Donec eget tortor tincidunt, sagittis dui volutpat, finibus est. Select nulla.'</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Nulla vel'</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'auctor nulla'</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'nulla'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="reference/create_question.html">create_question</a></span><span class="op">(</span></span>
+<span>    <span class="st">'Molestie metus. Maecenas tincidunt maximus viverra. Sed non gravida quam. Phasellus at iaculis leo. Mauris congue aliquet dui, ut dapibus lorem porttitor sed.'</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'ATT'</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'ATE'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'ATC'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">'multiple'</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">'Select ATE and ATC'</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="reference/create_question.html">create_question</a></span><span class="op">(</span></span>
+<span>    <span class="st">'Sed non gravida quam. Phasellus at iaculis leo.'</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_slider</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">30</span>, correct <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">'Select 20'</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/preview_app.html">preview_app</a></span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="dev-notes">Dev notes<a class="anchor" aria-label="anchor" href="#dev-notes"></a>
 </h2>
 <p>A quiz is managed via a state machine framework. The framework requires an object of S4 class <code>quiz</code>. These are constructed using <code>construct_quiz</code> and consist of objects of S4 class <code>question</code> and <code>messages</code>. These have constructor functions as well.</p>
-<p>A <code>quiz</code> object is created outside of Shiny and passed to a Shiny module. The Shiny module manages the state of the quiz through the central reactive object <code>store</code>. The <code>store</code> is created via <code>sm_create_reactive_store</code> function. The state machine functions (prefixed with <code>sm_*</code>) <code>get</code> or <code>set</code> states. The changing of the <code>store</code> object facilitates downstream effects via the Shiny reactive framework.</p>
-<p>For example, the quiz UI is determined by an object in the <code>store</code> object. The current state is observed via a <code>shiny::observeEvent(store$state)</code>. When the current state changes then a function modifies <code>store$ui_html</code>. The UI is rendered via <code>shiny::renderUI(store$ui_html)</code> which watches this <code>ui_html</code> object.</p>
+<p>A <code>quiz</code> object is created outside of Shiny and passed to a Shiny module. The Shiny module manages the state of the quiz through the central reactive object <code>store</code>. The <code>store</code> is created via <code>sm_create_reactive_store</code> function. The state machine functions (prefixed with <code>sm_*</code>) <code>get</code> or <code>set</code> states. The changing of the <code>store</code> object facilitates downstream effects via Shiny reactivity. For example, the quiz UI is determined by an object in the <code>store</code> object. The current state is observed via a <code>shiny::observeEvent(store$state)</code>. When the current state changes then a function modifies <code>store$ui_html</code>. The UI is rendered via <code>shiny::renderUI(store$ui_html)</code> which watches this <code>ui_html</code> object.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

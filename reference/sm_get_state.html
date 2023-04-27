@@ -62,6 +62,8 @@
 <span></span>
 <span><span class="fu">sm_quiz_in_sandbox_mode</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">sm_quiz_is_complete</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">sm_ui_format_prompts</span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">sm_ui_format_prompt</span><span class="op">(</span><span class="va">prompt</span>, <span class="va">i</span><span class="op">)</span></span>
@@ -71,6 +73,8 @@
 <span><span class="fu">sm_ui_complete_report</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">sm_ui_question</span><span class="op">(</span><span class="va">store</span>, <span class="va">ns</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">sm_show_progress</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">sm_resample_questions_if_sandbox</span><span class="op">(</span><span class="va">quiz</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
 <span></span>
@@ -125,11 +129,13 @@
 <li><p><code>sm_check_is_each_correct()</code>: Check that each recorded answer is correct and return a boolean vector</p></li>
 <li><p><code>sm_is_all_correct()</code>: Check that all recorded answers are correct</p></li>
 <li><p><code>sm_quiz_in_sandbox_mode()</code>: Check if the quiz in sandbox mode</p></li>
+<li><p><code>sm_quiz_is_complete()</code>: Check if the quiz is complete</p></li>
 <li><p><code>sm_ui_format_prompts()</code>: Add headers containing the question number to all the questions in a quiz</p></li>
 <li><p><code>sm_ui_format_prompt()</code>: Add a header denoting the question number</p></li>
 <li><p><code>sm_ui_quiz_complete()</code>: UI to show once the quiz is completed</p></li>
 <li><p><code>sm_ui_complete_report()</code>: UI to show the score and table of correct answers to display at the end</p></li>
 <li><p><code>sm_ui_question()</code>: UI to show for the current question</p></li>
+<li><p><code>sm_show_progress()</code>: Show the progress bar if stipulated</p></li>
 <li><p><code>sm_resample_questions_if_sandbox()</code>: Create quasi infinite quiz by resampling questions n times</p></li>
 <li><p><code>sm_create_reactive_store()</code>: Create the main store object that handles the state(s)</p></li>
 </ul></div>
