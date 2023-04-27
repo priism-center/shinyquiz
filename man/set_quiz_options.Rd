@@ -50,7 +50,7 @@ These are options to be passed to a \code{quiz}.
 \itemize{
 \item \code{set_quiz_options()}: Sets the options for a \code{quiz}
 
-\item \code{create_messages()}: Construct a messages object
+\item \code{create_messages()}: Create a messages object
 
 }}
 \seealso{

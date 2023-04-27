@@ -104,7 +104,7 @@ verify_options_structure <- function(options){
 #' 
 #' @export
 #' @return an object of class `quizMessages`
-#' @describeIn set_quiz_options Construct a messages object
+#' @describeIn set_quiz_options Create a messages object
 create_messages <- function(message_correct, message_wrong, message_skipped){
   construct_messages(message_correct, message_wrong, message_skipped)
 }
