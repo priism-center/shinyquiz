@@ -25,3 +25,4 @@ S4 class for a quiz sliders
 \author{
 Joseph Marlo
 }
+\keyword{internal}

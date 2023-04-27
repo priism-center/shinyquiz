@@ -6,7 +6,7 @@
 #' @slot correct logical. 
 #' 
 #' @author Joseph Marlo
-#'
+#' @keywords internal
 #' @return none, sets a class
 setClass('quizChoice', slots = list(
   text = 'character',
@@ -23,7 +23,7 @@ setClass('quizChoice', slots = list(
 #' @slot correct numeric. 
 #'
 #' @author Joseph Marlo
-#'
+#' @keywords internal
 #' @return none, sets a class
 setClass('quizChoiceSlider', slots = list(
   min = 'numeric',
