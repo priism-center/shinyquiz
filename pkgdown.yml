@@ -1,8 +1,11 @@
 pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
-articles: {}
-last_built: 2023-04-27T18:53Z
+articles:
+  custom_questions: custom_questions.html
+  get_started: get_started.html
+  infinite_questions: infinite_questions.html
+last_built: 2023-04-27T23:50Z
 urls:
   reference: https://priism-center.github.io/shinyQuiz/reference
   article: https://priism-center.github.io/shinyQuiz/articles
