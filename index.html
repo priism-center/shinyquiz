@@ -113,13 +113,6 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/preview_app.html">preview_app</a></span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span></code></pre></div>
-<p><br></p>
-</div>
-<div class="section level2">
-<h2 id="dev-notes">Dev notes<a class="anchor" aria-label="anchor" href="#dev-notes"></a>
-</h2>
-<p>A quiz is managed via a state machine framework. The framework requires an object of S4 class <code>quiz</code>. These are constructed using <code>construct_quiz</code> and consist of objects of S4 class <code>question</code> and <code>messages</code>. These have constructor functions as well.</p>
-<p>A <code>quiz</code> object is created outside of Shiny and passed to a Shiny module. The Shiny module manages the state of the quiz through the central reactive object <code>store</code>. The <code>store</code> is created via <code>sm_create_reactive_store</code> function. The state machine functions (prefixed with <code>sm_*</code>) <code>get</code> or <code>set</code> states. The changing of the <code>store</code> object facilitates downstream effects via Shiny reactivity. For example, the quiz UI is determined by an object in the <code>store</code> object. The current state is observed via a <code>shiny::observeEvent(store$state)</code>. When the current state changes then a function modifies <code>store$ui_html</code>. The UI is rendered via <code>shiny::renderUI(store$ui_html)</code> which watches this <code>ui_html</code> object.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
