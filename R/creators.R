@@ -73,6 +73,8 @@ add_choice <- function(text, correct = FALSE){
 #' @export
 #' @describeIn add_choice Create a slider choice
 add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
+  
+  if (is.logical(correct)) cli::cli_abort('`correct` should be a numeric, not logical')
 
   min <- as.numeric(min)
   max <- as.numeric(max)
