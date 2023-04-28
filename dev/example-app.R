@@ -212,9 +212,3 @@ quiz <- create_quiz(
 
 preview_app(quiz)
 
-
-# module in module --------------------------------------------------------
-
-# TODO
-
-

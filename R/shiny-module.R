@@ -35,6 +35,7 @@ quiz_server <- function(quiz){
   verify_quiz_structure(quiz)
   ns <- quiz@options$ns
   id <- ns(NULL)
+  id <- stringr::str_remove_all(id, "^.*?-") # remove any prefixes due to parent modules; this is fragile but works
   
   shiny::moduleServer(id, function(input, output, session){
 

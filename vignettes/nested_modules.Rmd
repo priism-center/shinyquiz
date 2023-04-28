@@ -1,0 +1,100 @@
+---
+title: "Quiz in a Module"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quiz in a Module}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r warning=FALSE, message=FALSE, include=FALSE}
+pkgload::load_all()
+```
+
+```{r setup}
+library(shinyQuiz)
+```
+
+```{r}
+# create namespaces for each each
+parent_mod_id <- 'mod1'
+ns <- shiny::NS(shiny::NS(parent_mod_id)('quiz'))
+ns2 <- shiny::NS(shiny::NS(parent_mod_id)('quiz2'))
+
+# create two distinct quizes
+quiz <- create_quiz(
+  create_question(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+    add_choice('auctor nulla'),
+    add_choice('nulla', correct = TRUE),
+    ns = ns
+  ),
+  create_question(
+    'Mauris congue aliquet dui, ut dapibus lorem porttitor sed.',
+    add_choice(500),
+    add_choice('600', correct = TRUE),
+    add_choice('six hundred'),
+    type = 'multiple',
+    label = 'Select 600',
+    ns = ns
+  ),
+  options = set_quiz_options(ns = ns)
+)
+
+quiz2 <- create_quiz(
+  create_question(
+    'QUIZ2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+    add_choice('auctor nulla'),
+    add_choice('nulla', correct = TRUE),
+    ns = ns2
+  ),
+  create_question(
+    'QUIZ2 Mauris congue aliquet dui, ut dapibus lorem porttitor sed.',
+    add_choice(500),
+    add_choice('600', correct = TRUE),
+    add_choice('six hundred'),
+    type = 'multiple',
+    label = 'Select 600',
+    ns = ns2
+  ),
+  options = set_quiz_options(ns = ns2)
+)
+
+
+# UI for your module
+parent_ui <- function(id) {
+  ns <- shiny::NS(id)
+  htmltools::tagList(
+    quiz_ui(quiz),
+    quiz_ui(quiz2)
+  )
+}
+
+
+# server for your module
+parent_server <- function(id) {
+  shiny::moduleServer(id, function(input, output, session) {
+    quiz_server(quiz)
+    quiz_server(quiz2)
+  }
+  )
+}
+
+# highest level of the shiny app
+ui <- shiny::fluidPage(
+  parent_ui(parent_mod_id)
+)
+server <- function(input, output, session) {
+  parent_server(parent_mod_id)
+}
+# shiny::shinyApp(ui, server, options = list(launch.browser = TRUE))
+```
+
