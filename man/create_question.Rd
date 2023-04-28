@@ -2,6 +2,7 @@
 % Please edit documentation in R/creators.R
 \name{create_question}
 \alias{create_question}
+\alias{create_question_raw}
 \title{Create a quiz question}
 \usage{
 create_question(
@@ -11,9 +12,16 @@ create_question(
   input = c("auto", "select", "checkbox"),
   ns = shiny::NS("quiz")
 )
+
+create_question_raw(
+  prompt,
+  grader,
+  correct_answer_pretty,
+  user_answer_prettifier = function(user_input) paste0(user_input, collapse = ", ")
+)
 }
 \arguments{
-\item{prompt}{Text of the question prompt}
+\item{prompt}{Text of the question prompt. Preferably wrapped in \code{\link[htmltools:builder]{htmltools::div()}}.}
 
 \item{...}{Objects of class 'quizChoice' generated from \code{\link[=add_choice]{add_choice()}} or \code{\link[=add_slider]{add_slider()}}. Named options to \link[shiny:selectInput]{shiny::selectInput} or \link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput} can be passed as well.}
 
@@ -22,13 +30,33 @@ create_question(
 \item{input}{One of c('auto', 'select', 'checkbox')}
 
 \item{ns}{Namespace function generated from \code{\link[shiny:NS]{shiny::NS()}}}
+
+\item{grader}{A function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} and \code{\link[base:Logic]{base::isTRUE()}} to catch any errors.}
+
+\item{correct_answer_pretty}{A string representing the correct answer that is printed 'pretty'}
+
+\item{user_answer_prettifier}{A function with one argument that takes the user's answers and prints it 'pretty'}
 }
 \value{
-an object of class 'quizQuestion'
+an object of class \code{quizQuestion}
+
+an object of class \code{quizQuestion}
 }
 \description{
 Create a quiz question
 }
+\details{
+\code{create_question} is the default method of creating quiz questions.
+
+\code{create_question_raw()} allows any html in the \code{prompt}. This must contain a shiny input that is accessible via \code{input$answers}. The namespace also needs care. The default \code{inputId} is \code{shiny::NS('quiz')('answers')}.
+}
+\section{Functions}{
+\itemize{
+\item \code{create_question()}: Create a quiz question
+
+\item \code{create_question_raw()}: Create a quiz question using custom inputs. This is a more flexible function.
+
+}}
 \examples{
 \dontrun{
 q <- create_question(
@@ -45,10 +73,27 @@ q2 <- create_question(
  )
 create_quiz(q, q2)
 }
+\dontrun{
+q3 <- create_question_raw(
+  prompt = htmltools::div(
+    htmltools::p("my question"),
+    shiny::selectInput(
+      inputId = shiny::NS('quiz')('answers'),
+      label = 'Select 5',
+      choices = c(4, 5, 6)
+    )
+ ),
+ grader = \(user_input) user_input == '5',
+ correct_answer_pretty = '5'
+)
+create_quiz(q3, q2)
+}
 }
 \seealso{
-\code{\link[=add_choice]{add_choice()}}
+\code{\link[=add_choice]{add_choice()}}, \code{\link[=add_slider]{add_slider()}}
 }
 \author{
 Joseph Marlo, George Perrett
+
+Joseph Marlo
 }

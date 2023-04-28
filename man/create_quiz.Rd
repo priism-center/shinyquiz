@@ -18,7 +18,18 @@ an object of class \code{quiz}
 Create a quiz
 }
 \examples{
-# TBD
+quiz <- create_quiz(
+  create_question(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+    add_choice('auctor'),
+    add_choice('nulla', correct = TRUE)
+  ),
+  create_question(
+    'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
+    add_choice('600', correct = TRUE),
+    add_choice('800')
+  )
+)
 }
 \author{
 Joseph Marlo

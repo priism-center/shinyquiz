@@ -10,13 +10,11 @@
 #' @param options a list of options generated from [set_quiz_options()]
 #' 
 #' @keywords internal
-#' @seealso [construct_question()], [set_quiz_options()], [construct_messages()]
+#' @seealso [create_question()], [construct_question()], [set_quiz_options()], [construct_messages()]
 #'
 #' @return an object of class `quiz`
 #' @author Joseph Marlo
-#'
-#' @examples
-#' #TBD
+
 #' @describeIn construct_quiz Construct a quiz object
 construct_quiz <- function(..., options = set_quiz_options()){
   is_all_class_question <- isTRUE(all(purrr::map_lgl(c(...), ~inherits(.x, 'quizQuestion'))))
@@ -124,16 +122,18 @@ create_messages <- function(message_correct, message_wrong, message_skipped){
 #' @param answerUserPrettifier a function that takes the user answer and prints it neatly. This is wrapped with [purrr::possibly()] to catch any errors.
 #' @param answerCorrectPretty a character that prints the correct answer neatly
 #' @param grader a function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with [purrr::possibly()] and [base::isTRUE()] to catch any errors.
+#' @param ns namespace generated from [shiny::NS()]
 #' 
 #' @keywords internal
 #' @return an object of class `quizQuestion`
 #' @describeIn construct_quiz Construct a question object
-construct_question <- function(prompt, answerUserPrettifier, answerCorrectPretty, grader){
+construct_question <- function(prompt, answerUserPrettifier, answerCorrectPretty, grader, ns){
 
   if (!isTRUE(inherits(prompt, 'shiny.tag'))) cli::cli_abort("`prompt` must be of class 'shiny.tag'. Preferably generated from `htmltools::div()`")
   if (!isTRUE(is.function(answerUserPrettifier))) cli::cli_abort('`answerUserPrettifier` must be a function with one argument')
   if (!isTRUE(is.character(answerCorrectPretty))) cli::cli_abort('`answerCorrectPretty` must be a string')
   if (!isTRUE(is.function(grader))) cli::cli_abort('`grader` must be a function with one argument')
+  if (!isTRUE(is.function(ns))) cli::cli_abort('`ns` must be a function with one argument')
   
   question <- methods::new('quizQuestion')
   question@prompt <- prompt
@@ -141,6 +141,7 @@ construct_question <- function(prompt, answerUserPrettifier, answerCorrectPretty
   question@answerUserPrettifier <- answerUserPrettifier
   question@answerCorrectPretty <- answerCorrectPretty
   question@grader <- grader
+  question@ns <- ns
   
   verify_question_structure(question)
   
@@ -156,7 +157,12 @@ construct_question <- function(prompt, answerUserPrettifier, answerCorrectPretty
 #' @describeIn construct_quiz Construct a messages object
 #' @seealso [set_quiz_options()]
 construct_messages <- function(message_correct, message_wrong, message_skipped){
-  # TODO: this should be exported or wrapped with an exported function
+  
+  if (!isTRUE(is.character(message_correct))) cli::cli_abort('`message_correct` must be class character')
+  if (!isTRUE(is.character(message_wrong))) cli::cli_abort('`message_wrong` must be class character')
+  if (!isTRUE(is.character(message_skipped))) cli::cli_abort('`message_skipped` must be class character')
+
+  
   messages <- methods::new('quizMessages')
   messages@message_correct <- message_correct
   messages@message_wrong <- message_wrong
@@ -167,14 +173,12 @@ construct_messages <- function(message_correct, message_wrong, message_skipped){
 
 #' Verify quiz elements are the correct format
 #'
-#' @param question TBD
+#' @param question An object of class `quizQuestion`
 #' 
 #' @keywords internal
 #' @return invisible TRUE if all tests passed
 #' @author Joseph Marlo
-#'
-#' @examples
-#' # TBD
+
 #' @describeIn verify_question_structure Verify a question is the right structure
 verify_question_structure <- function(question){
   
@@ -185,18 +189,23 @@ verify_question_structure <- function(question){
   if (!isTRUE(inherits(question@answerUserPrettifier, 'function'))) cli::cli_abort('`answerUserPrettifier` must be a function that accepts one argument and returns a character.')
   if (!isTRUE(inherits(question@answerCorrectPretty, 'character'))) cli::cli_abort('`answerCorrectPretty` must be a character.')
   if (!isTRUE(inherits(question@grader, 'function'))) cli::cli_abort('`grader` must be a function that accepts one argument and returns a boolean')
-  
-  # if (!isTRUE(question@prompt))) cli::cli_abort('`grader` must be a function that accepts one argument and returns a boolean')
-  
+
   # check to see if there is an input with id "answers"
-  # TODO: this is a bit fragile
-  id_detected <- question@prompt |> as.character() |> stringr::str_detect("\\banswers\\b")
-  if (!isTRUE(id_detected)) cli::cli_abort("'`question` must contain an input with id = 'answers'. This is used to extract the user's answer.")
+  verify_input_id(question@prompt)
   
   # verify number of args in functions
   verify_n_args(question@answerUserPrettifier, 1)
   verify_n_args(question@grader, 1)
 
+  return(invisible(TRUE))
+}
+
+#' @keywords internal
+#' @describeIn verify_question_structure Verify a function has an input with id = 'answers'
+verify_input_id <- function(prompt){
+  # TODO: this is a bit fragile
+  id_detected <- stringr::str_detect(as.character(prompt), "\\banswers\\b")
+  if (!isTRUE(id_detected)) cli::cli_abort("'`question` must contain an input with id = 'answers'. This is used to extract the user's answer.")
   return(invisible(TRUE))
 }
 
@@ -221,7 +230,8 @@ verify_messages_structure <- function(messages){
 verify_quiz_structure <- function(quiz){
   if (!inherits(quiz, 'quiz')) cli::cli_abort('quiz must be of class quiz')
   if (!isTRUE(length(quiz@questions) > 0)) cli::cli_abort('No questions found')
-  # if (!isTRUE(length(quiz@messages) > 0)) cli::cli_abort('No questions found')
+  ns_fns <- purrr::map(quiz@questions, \(x) x@ns)
+  if (!isTRUE(length(unique(ns_fns)) == 1)) cli::cli_alert_warning('Multiple unique `ns` provided. Check your `create_question()` calls. Sometimes this is okay.')
   
   verify_messages_structure(quiz@options$messages)
   
@@ -249,7 +259,8 @@ setClass('quizQuestion', slots = list(
   answerUser = 'list', # initially empty slot that will hold user answerss
   answerUserPrettifier = 'function', # how to print the user answer in the report
   answerCorrectPretty = 'character', # how to print the correct answer in the report
-  grader = 'function' # function that compares user answer to the correct answer
+  grader = 'function', # function that compares user answer to the correct answer
+  ns = 'function'
   )
 )
 
@@ -274,7 +285,7 @@ setClass('quizMessages', slots = list(
 #' S4 class for a quiz
 #'
 #' @slot questions list. A list of `quizQuestion`s
-#' @slot options TBD.
+#' @slot options list. a list generated from [set_quiz_options()]
 #'
 #' @return none, sets a class
 #' @author Joseph Marlo

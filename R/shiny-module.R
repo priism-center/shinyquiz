@@ -7,6 +7,33 @@
 #' @param quiz an object of class `quiz`. See [construct_quiz()]
 #' @author Joseph Marlo
 #' @export
+#' 
+#' @examples 
+#' \dontrun{
+#' quiz <- create_quiz(
+#'   create_question(
+#'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+#'     add_choice('auctor'),
+#'     add_choice('nulla', correct = TRUE)
+#'   ),
+#'   create_question(
+#'     'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
+#'     add_choice('600', correct = TRUE),
+#'     add_choice('800')
+#'   )
+#' )
+#' 
+#' ui <- shiny::fluidPage(
+#'   htmltools::div(
+#'     style = "max-width: 700px",
+#'     quiz_ui(id = 'quiz')
+#'    )
+#'  )
+#' server <- function(input, output, session) {
+#'  quiz_server(quiz)
+#' }
+#' shinyApp(ui, server)
+#' }
 #' @describeIn quiz_ui UI side function
 quiz_ui <- function(quiz){
   

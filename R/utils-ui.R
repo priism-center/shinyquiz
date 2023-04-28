@@ -8,9 +8,6 @@
 #' @return called for side effect
 #' @author Joseph Marlo
 #' @keywords internal
-#'
-#' @examples
-#' # TBD
 scroll_to_div <- function(ns = NULL, id = 'quiz-container'){
   if (!is.null(ns)) id <- ns(id)
   js <- paste0("$('#", id, "')[0].scrollIntoView()")
@@ -26,9 +23,6 @@ scroll_to_div <- function(ns = NULL, id = 'quiz-container'){
 #' @return called for side effect
 #' @author Joseph Marlo
 #' @keywords internal
-#'
-#' @examples
-#' #TBD
 add_checkmark <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
   
   # construct selector
@@ -58,9 +52,6 @@ add_checkmark <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
 #' @return called for side effect
 #' @author Joseph Marlo
 #' @keywords internal
-#'
-#' @examples
-#' #TBD
 add_red_x <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
   
   # construct selector
@@ -88,9 +79,6 @@ add_red_x <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
 #' @return called for side effect
 #' @author Joseph Marlo
 #' @keywords internal
-#'
-#' @examples
-#' #TBD
 #' @describeIn add_message_correct Message to display when user is correct
 add_message_correct <- function(text){
   # this relies on bootstrap css

@@ -30,9 +30,6 @@ Add ending messages to the quiz
 \item \code{add_message_skipped()}: Message to display when user skipped the quiz
 
 }}
-\examples{
-#TBD
-}
 \author{
 Joseph Marlo
 }

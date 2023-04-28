@@ -24,7 +24,7 @@ library(shinyQuiz)
 ```
 
 ```{r}
-# create namespaces for each each
+# create namespaces for each quiz
 parent_mod_id <- 'mod1'
 ns <- shiny::NS(shiny::NS(parent_mod_id)('quiz'))
 ns2 <- shiny::NS(shiny::NS(parent_mod_id)('quiz2'))
@@ -32,18 +32,15 @@ ns2 <- shiny::NS(shiny::NS(parent_mod_id)('quiz2'))
 # create two distinct quizes
 quiz <- create_quiz(
   create_question(
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
-    add_choice('auctor nulla'),
+    'QUIZ1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+    add_choice('auctor'),
     add_choice('nulla', correct = TRUE),
     ns = ns
   ),
   create_question(
-    'Mauris congue aliquet dui, ut dapibus lorem porttitor sed.',
-    add_choice(500),
+    'QUIZ1: Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
     add_choice('600', correct = TRUE),
-    add_choice('six hundred'),
-    type = 'multiple',
-    label = 'Select 600',
+    add_choice('800'),
     ns = ns
   ),
   options = set_quiz_options(ns = ns)
@@ -51,18 +48,15 @@ quiz <- create_quiz(
 
 quiz2 <- create_quiz(
   create_question(
-    'QUIZ2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
-    add_choice('auctor nulla'),
-    add_choice('nulla', correct = TRUE),
+    'QUIZ2: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select dolar.',
+    add_choice('elit'),
+    add_choice('dolar', correct = TRUE),
     ns = ns2
   ),
   create_question(
-    'QUIZ2 Mauris congue aliquet dui, ut dapibus lorem porttitor sed.',
-    add_choice(500),
-    add_choice('600', correct = TRUE),
-    add_choice('six hundred'),
-    type = 'multiple',
-    label = 'Select 600',
+    'QUIZ2: Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 400.',
+    add_choice('400', correct = TRUE),
+    add_choice('200'),
     ns = ns2
   ),
   options = set_quiz_options(ns = ns2)
@@ -73,7 +67,12 @@ quiz2 <- create_quiz(
 parent_ui <- function(id) {
   ns <- shiny::NS(id)
   htmltools::tagList(
+    htmltools::h2("My parent module"),
+    htmltools::p("Parent module content"),
+    htmltools::h3("Quiz 1"),
     quiz_ui(quiz),
+    htmltools::hr(),
+    htmltools::h3("Quiz 2"),
     quiz_ui(quiz2)
   )
 }

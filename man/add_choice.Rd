@@ -40,6 +40,11 @@ add_choice('39')
 add_choice('39', TRUE)
 add_slider(0, 1, 0.5, 0.8)
 
+create_question(
+ 'My question prompt',
+ add_choice('39'),
+ add_choice('41', TRUE)
+)
 }
 \seealso{
 \code{\link[=create_question]{create_question()}}

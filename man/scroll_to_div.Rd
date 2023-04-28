@@ -17,9 +17,6 @@ called for side effect
 \description{
 Scroll the webpage to a certain div
 }
-\examples{
-# TBD
-}
 \author{
 Joseph Marlo
 }

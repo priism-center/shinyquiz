@@ -35,7 +35,21 @@ Launch a viewer to preview the structure of the questions in a quiz.
 
 }}
 \examples{
-# TBD
+\dontrun{
+quiz <- create_quiz(
+  create_question(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+    add_choice('auctor'),
+    add_choice('nulla', correct = TRUE)
+  ),
+  create_question(
+    'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
+    add_choice('600', correct = TRUE),
+    add_choice('800')
+  )
+)
+preview_app(quiz)
+}
 }
 \author{
 Joseph Marlo

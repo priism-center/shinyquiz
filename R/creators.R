@@ -48,6 +48,11 @@ setClass('quizChoiceSlider', slots = list(
 #' add_choice('39', TRUE)
 #' add_slider(0, 1, 0.5, 0.8)
 #' 
+#' create_question(
+#'  'My question prompt',
+#'  add_choice('39'),
+#'  add_choice('41', TRUE)
+#' )
 #' @describeIn add_choice Create a discrete choice
 add_choice <- function(text, correct = FALSE){
   # if(!isTRUE(is.character(text))) cli::cli_abort('`text` must be a character')
@@ -95,12 +100,14 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #' @param type One of c('auto', 'single', 'multiple'). How many answers are allowed
 #' @param input One of c('auto', 'select', 'checkbox')
 #' @param ns Namespace function generated from [`shiny::NS()`]
+#' 
+#' @details `create_question` is the default method of creating quiz questions. 
 #'
-#' @return an object of class 'quizQuestion'
+#' @return an object of class `quizQuestion`
 #' @export
 #' 
 #' @author Joseph Marlo, George Perrett
-#' @seealso [add_choice()]
+#' @seealso [add_choice()], [add_slider()]
 #' 
 #' @examples
 #' \dontrun{
@@ -118,6 +125,7 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #'  )
 #' create_quiz(q, q2)
 #' }
+#' @describeIn create_question Create a quiz question
 create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), ns = shiny::NS('quiz')){
   
   if (!isTRUE(is.function(ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
@@ -165,7 +173,8 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
     prompt = prompt_html,
     answerUserPrettifier = \(x) paste0(x, collapse = ', '),
     answerCorrectPretty = paste0(input$text_correct, collapse = ', '),
-    grader = \(x) setequal(x, input$text_correct)
+    grader = \(x) setequal(x, input$text_correct),
+    ns = ns
   )
   
   return(q)
@@ -174,7 +183,7 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
 #' @keywords internal
 create_question_slider_ <- function(slider, label, step, round, ns){
   input_html <- shiny::sliderInput(
-    inputId = ns('answers'), #TODO: need to figure out how to pass the namespace to here
+    inputId = ns('answers'), 
     label = label,
     min = slider@min,
     max = slider@max,
@@ -211,7 +220,7 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
   
   if (input == 'select'){
     input_html <- shiny::selectInput(
-      inputId = ns('answers'), #TODO: need to figure out how to pass the namespace to here
+      inputId = ns('answers'),
       label = label,
       choices = texts,
       selected = selected,
@@ -219,7 +228,7 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
     )
   } else {
     input_html <- shiny::checkboxGroupInput(
-      inputId = ns('answers'), #TODO: need to figure out how to pass the namespace to here
+      inputId = ns('answers'), 
       label = label,
       choices = texts,
       selected = selected
@@ -229,23 +238,22 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
   return(list(input_html = input_html, text_correct = text_correct))
 }
 
-#' Create a quiz question
-#' 
-#' Create a quiz question using custom inputs. This is a more flexible function that [create_question()]. It allows any html in the `prompt`. ADD REQUIREMENTS
-#'
+
 #' @param prompt Text of the question prompt. Preferably wrapped in [htmltools::div()]. 
-#' @param grader A function with one argument that takes the user input and returns TRUE/FALSE
+#' @param grader A function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with [purrr::possibly()] and [base::isTRUE()] to catch any errors.
 #' @param correct_answer_pretty A string representing the correct answer that is printed 'pretty'
 #' @param user_answer_prettifier A function with one argument that takes the user's answers and prints it 'pretty'
 #'
-#' @return a object of class `quizQuestion`
+#' @details `create_question_raw()` allows any html in the `prompt`. This must contain a shiny input that is accessible via `input$answers`. The namespace also needs care. The default `inputId` is `shiny::NS('quiz')('answers')`. 
+#'
+#' @return an object of class `quizQuestion`
 #' @export
 #' @author Joseph Marlo
 #'
 #' @examples
 #' \dontrun{
-#' q <- create_question_raw(
-#'   htmltools::div(
+#' q3 <- create_question_raw(
+#'   prompt = htmltools::div(
 #'     htmltools::p("my question"),
 #'     shiny::selectInput(
 #'       inputId = shiny::NS('quiz')('answers'),
@@ -256,17 +264,17 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
 #'  grader = \(user_input) user_input == '5',
 #'  correct_answer_pretty = '5'
 #' )
-#' preview_question(q)
+#' create_quiz(q3, q2)
 #' }
+#' @describeIn create_question Create a quiz question using custom inputs. This is a more flexible function. 
 create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answer_prettifier = \(user_input) paste0(user_input, collapse = ', ')){
-  
-  # if(!isTRUE(is.character(as.character(text)))) cli::cli_abort('`text` must be coercible to a character')
   
   q <- construct_question(
     prompt = htmltools::div(prompt),
     answerUserPrettifier = user_answer_prettifier,
     answerCorrectPretty = correct_answer_pretty,
-    grader = grader
+    grader = grader,
+    ns = shiny::NS('quiz') # dummy since ns should be handled directly
   )
   
   return(q)
@@ -282,7 +290,18 @@ create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answ
 #' @author Joseph Marlo
 #'
 #' @examples
-#' # TBD
+#' quiz <- create_quiz(
+#'   create_question(
+#'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+#'     add_choice('auctor'),
+#'     add_choice('nulla', correct = TRUE)
+#'   ),
+#'   create_question(
+#'     'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
+#'     add_choice('600', correct = TRUE),
+#'     add_choice('800')
+#'   )
+#' )
 create_quiz <- function(..., options = set_quiz_options()){
   construct_quiz(..., options = options)
 }

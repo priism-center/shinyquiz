@@ -19,9 +19,6 @@ called for side effect
 \description{
 Add a green checkmark to a div
 }
-\examples{
-#TBD
-}
 \author{
 Joseph Marlo
 }

@@ -15,7 +15,7 @@ S4 class for a quiz
 \describe{
 \item{\code{questions}}{list. A list of \code{quizQuestion}s}
 
-\item{\code{options}}{TBD.}
+\item{\code{options}}{list. a list generated from \code{\link[=set_quiz_options]{set_quiz_options()}}}
 }}
 
 \seealso{

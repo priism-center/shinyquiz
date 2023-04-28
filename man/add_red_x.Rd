@@ -19,9 +19,6 @@ called for side effect
 \description{
 Add a red X to a div
 }
-\examples{
-#TBD
-}
 \author{
 Joseph Marlo
 }

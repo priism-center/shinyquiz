@@ -3,7 +3,6 @@
 \name{sm_get_state}
 \alias{sm_get_state}
 \alias{sm_set_state}
-\alias{sm_is_answer_correct}
 \alias{sm_is_current_correct}
 \alias{sm_check_is_each_correct}
 \alias{sm_is_all_correct}
@@ -23,8 +22,6 @@
 sm_get_state(store, variable = NULL, state = NULL)
 
 sm_set_state(store, variable, value, state = NULL)
-
-sm_is_answer_correct(answer, key)
 
 sm_is_current_correct(store)
 
@@ -84,8 +81,6 @@ These are \code{get} and \code{set} functions for retrieving state values and se
 
 \item \code{sm_set_state()}: Setter function for the state machine
 
-\item \code{sm_is_answer_correct()}: Backup function to check that an answer matches a response, agnostic of ordering. Deprecated?
-
 \item \code{sm_is_current_correct()}: Check that current-response is correct
 
 \item \code{sm_check_is_each_correct()}: Check that each recorded answer is correct and return a boolean vector
@@ -117,16 +112,25 @@ These are \code{get} and \code{set} functions for retrieving state values and se
 }}
 \examples{
 \dontrun{
-#TODO: this is the deprecated method; need to update
-question_1 <- "This is question 1"
-question_2 <- "This is question 2"
-#construct_question()
-#construct_messages()
-#quiz <- construct_quiz(...)
-store <- sm_create_reactive_store(quiz, sandbox_mode = FALSE)
+quiz <- create_quiz(
+  create_question(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+    add_choice('auctor'),
+    add_choice('nulla', correct = TRUE)
+  ),
+  create_question(
+    'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
+    add_choice('600', correct = TRUE),
+    add_choice('800')
+  )
+)
+store <- sm_create_reactive_store(quiz)
+sm_get_state(store)
+sm_get_state(store, 'next-state')
 sm_get_state(store, 'current-question')
+sm_check_is_each_correct(store)
+sm_quiz_in_sandbox_mode(store)
 }
-#TBD
 }
 \seealso{
 \code{\link[shiny:reactiveValues]{shiny::reactiveValues()}}

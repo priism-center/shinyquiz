@@ -15,7 +15,21 @@
 #' @author Joseph Marlo
 #'
 #' @examples
-#' # TBD
+#' \dontrun{
+#' quiz <- create_quiz(
+#'   create_question(
+#'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+#'     add_choice('auctor'),
+#'     add_choice('nulla', correct = TRUE)
+#'   ),
+#'   create_question(
+#'     'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
+#'     add_choice('600', correct = TRUE),
+#'     add_choice('800')
+#'   )
+#' )
+#' preview_app(quiz)
+#' }
 #' @describeIn preview_app Preview a quiz with full operability
 preview_app <- function(quiz, launch_browser = TRUE){
   
@@ -28,7 +42,7 @@ preview_app <- function(quiz, launch_browser = TRUE){
       quiz_ui(quiz),
       htmltools::br(),
       shiny::checkboxInput('show', 'Show output'),
-      shiny::conditionalPanel("input.show == true", shiny::verbatimTextOutput('quizSummary')) 
+      shiny::conditionalPanel("input.show == true", shiny::verbatimTextOutput('quizSummary'))
     )
     
   )
@@ -47,6 +61,8 @@ preview_app <- function(quiz, launch_browser = TRUE){
 
 
 # html preview ------------------------------------------------------------
+
+# these are used the print methods
 
 #' @keywords internal
 #' @describeIn preview_app Quick preview a quiz 

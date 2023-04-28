@@ -8,7 +8,13 @@
 \usage{
 construct_quiz(..., options = set_quiz_options())
 
-construct_question(prompt, answerUserPrettifier, answerCorrectPretty, grader)
+construct_question(
+  prompt,
+  answerUserPrettifier,
+  answerCorrectPretty,
+  grader,
+  ns
+)
 
 construct_messages(message_correct, message_wrong, message_skipped)
 }
@@ -24,6 +30,8 @@ construct_messages(message_correct, message_wrong, message_skipped)
 \item{answerCorrectPretty}{a character that prints the correct answer neatly}
 
 \item{grader}{a function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} and \code{\link[base:Logic]{base::isTRUE()}} to catch any errors.}
+
+\item{ns}{namespace generated from \code{\link[shiny:NS]{shiny::NS()}}}
 
 \item{message_correct}{a string to be shown at the end of the quiz when the user gets all questions correct}
 
@@ -53,11 +61,8 @@ See dev/example-app.R for current example.
 \item \code{construct_messages()}: Construct a messages object
 
 }}
-\examples{
-#TBD
-}
 \seealso{
-\code{\link[=construct_question]{construct_question()}}, \code{\link[=set_quiz_options]{set_quiz_options()}}, \code{\link[=construct_messages]{construct_messages()}}
+\code{\link[=create_question]{create_question()}}, \code{\link[=construct_question]{construct_question()}}, \code{\link[=set_quiz_options]{set_quiz_options()}}, \code{\link[=construct_messages]{construct_messages()}}
 
 \code{\link[=set_quiz_options]{set_quiz_options()}}
 }

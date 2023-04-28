@@ -3,6 +3,7 @@
 \name{verify_options_structure}
 \alias{verify_options_structure}
 \alias{verify_question_structure}
+\alias{verify_input_id}
 \alias{verify_n_args}
 \alias{verify_messages_structure}
 \alias{verify_quiz_structure}
@@ -12,6 +13,8 @@ verify_options_structure(options)
 
 verify_question_structure(question)
 
+verify_input_id(prompt)
+
 verify_n_args(fn, n)
 
 verify_messages_structure(messages)
@@ -19,7 +22,7 @@ verify_messages_structure(messages)
 verify_quiz_structure(quiz)
 }
 \arguments{
-\item{question}{TBD}
+\item{question}{An object of class \code{quizQuestion}}
 }
 \value{
 invisible TRUE if all tests passed
@@ -33,6 +36,8 @@ Verify quiz elements are the correct format
 
 \item \code{verify_question_structure()}: Verify a question is the right structure
 
+\item \code{verify_input_id()}: Verify a function has an input with id = 'answers'
+
 \item \code{verify_n_args()}: Verify a function has n arguments
 
 \item \code{verify_messages_structure()}: Verify the messages are the correct structure
@@ -40,9 +45,6 @@ Verify quiz elements are the correct format
 \item \code{verify_quiz_structure()}: Verify a quiz is the correct structure
 
 }}
-\examples{
-# TBD
-}
 \author{
 Joseph Marlo
 }

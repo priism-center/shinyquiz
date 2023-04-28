@@ -16,14 +16,24 @@
 #'
 #' @examples
 #' \dontrun{
-#' #TODO: this is the deprecated method; need to update
-#' question_1 <- "This is question 1"
-#' question_2 <- "This is question 2"
-#' #construct_question()
-#' #construct_messages()
-#' #quiz <- construct_quiz(...)
-#' store <- sm_create_reactive_store(quiz, sandbox_mode = FALSE)
+#' quiz <- create_quiz(
+#'   create_question(
+#'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+#'     add_choice('auctor'),
+#'     add_choice('nulla', correct = TRUE)
+#'   ),
+#'   create_question(
+#'     'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
+#'     add_choice('600', correct = TRUE),
+#'     add_choice('800')
+#'   )
+#' )
+#' store <- sm_create_reactive_store(quiz)
+#' sm_get_state(store)
+#' sm_get_state(store, 'next-state')
 #' sm_get_state(store, 'current-question')
+#' sm_check_is_each_correct(store)
+#' sm_quiz_in_sandbox_mode(store)
 #' }
 #' @describeIn sm_get_state Getter function for the state machine
 sm_get_state <- function(store, variable = NULL, state = NULL){
@@ -91,31 +101,19 @@ sm_set_state <- function(store, variable, value, state = NULL){
 }
 
 #' @keywords internal
-#' @describeIn sm_get_state Backup function to check that an answer matches a response, agnostic of ordering. Deprecated?
-sm_is_answer_correct <- function(answer, key){
-  # TODO: deprecated?
-  if (length(answer) != length(key)) return(FALSE)
-  if(!is.numeric(answer)) is_correct <- purrr::map2_lgl(answer, key, function(resp, key) base::setequal(resp, key))
-  if(is.numeric(answer)) is_correct <-  purrr::map2_lgl(answer, key, function(resp, key) dplyr::between(resp, key-.1, key+.1))
-  is_correct <- isTRUE(all(is_correct))
-  return(is_correct)
-}
-
-#' @keywords internal
 #' @describeIn sm_get_state Check that current-response is correct
 sm_is_current_correct <- function(store){
+  # get the response
   current_response <- unname(sm_get_state(store, variable = 'current-response'))
   current_correct_answer <- unname(sm_get_state(store, variable = 'current-correct-answer'))
   
-  # if there is a grader function, use it. Otherwise use the generic one defined above
+  # get the grader function
   current_grader <- sm_get_state(store, 'current-grader')
   current_grader <- purrr::possibly(current_grader, otherwise = FALSE)
-  if (is_truthy(current_grader)){
-    is_correct <- current_grader(current_response)
-  } else {
-    # TODO: deprecated?
-    is_correct <- sm_is_answer_correct(current_response, current_correct_answer)
-  }
+  
+  # grade it
+  is_correct <- current_grader(current_response)
+  
   return(isTRUE(is_correct))
 }
 
@@ -345,9 +343,6 @@ sm_show_progress <- function(store){
 #'
 #' @return questions
 #' @author Joseph Marlo
-#'
-#' @examples
-#' #TBD
 #' @describeIn sm_get_state Create quasi infinite quiz by resampling questions n times
 sm_resample_questions_if_sandbox <- function(quiz, n = 50){
   if (!(is.numeric(n) && n > 0)) cli::cli_abort('n must be positive integer')
