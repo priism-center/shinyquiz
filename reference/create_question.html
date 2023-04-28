@@ -64,13 +64,20 @@
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"single"</span>, <span class="st">"multiple"</span><span class="op">)</span>,</span>
 <span>  input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"select"</span>, <span class="st">"checkbox"</span><span class="op">)</span>,</span>
 <span>  ns <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="st">"quiz"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">create_question_raw</span><span class="op">(</span></span>
+<span>  <span class="va">prompt</span>,</span>
+<span>  <span class="va">grader</span>,</span>
+<span>  <span class="va">correct_answer_pretty</span>,</span>
+<span>  user_answer_prettifier <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">user_input</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">user_input</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>prompt</dt>
-<dd><p>Text of the question prompt</p></dd>
+<dd><p>Text of the question prompt. Preferably wrapped in <code><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">htmltools::div()</a></code>.</p></dd>
 
 
 <dt>...</dt>
@@ -88,20 +95,50 @@
 <dt>ns</dt>
 <dd><p>Namespace function generated from <code><a href="https://shiny.rstudio.com/reference/shiny/latest/NS.html" class="external-link">shiny::NS()</a></code></p></dd>
 
+
+<dt>grader</dt>
+<dd><p>A function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with <code><a href="https://purrr.tidyverse.org/reference/possibly.html" class="external-link">purrr::possibly()</a></code> and <code><a href="https://rdrr.io/r/base/Logic.html" class="external-link">base::isTRUE()</a></code> to catch any errors.</p></dd>
+
+
+<dt>correct_answer_pretty</dt>
+<dd><p>A string representing the correct answer that is printed 'pretty'</p></dd>
+
+
+<dt>user_answer_prettifier</dt>
+<dd><p>A function with one argument that takes the user's answers and prints it 'pretty'</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>an object of class 'quizQuestion'</p>
+<p>an object of class <code>quizQuestion</code></p>
+
+
+
+<p>an object of class <code>quizQuestion</code></p>
+
+
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>create_question</code> is the default method of creating quiz questions.</p>
+<p><code>create_question_raw()</code> allows any html in the <code>prompt</code>. This must contain a shiny input that is accessible via <code>input$answers</code>. The namespace also needs care. The default <code>inputId</code> is <code>shiny::NS('quiz')('answers')</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
+    
+<ul><li><p><code>create_question()</code>: Create a quiz question</p></li>
+<li><p><code>create_question_raw()</code>: Create a quiz question using custom inputs. This is a more flexible function.</p></li>
+</ul></div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="add_choice.html">add_choice()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="add_choice.html">add_choice()</a></code>, <code><a href="add_choice.html">add_slider()</a></code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Joseph Marlo, George Perrett</p>
+<p>Joseph Marlo</p>
     </div>
 
     <div class="section level2">
@@ -120,6 +157,21 @@
 <span class="r-in"><span>  <span class="fu"><a href="add_choice.html">add_slider</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span>, <span class="fl">15</span>, correct <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="create_quiz.html">create_quiz</a></span><span class="op">(</span><span class="va">q</span>, <span class="va">q2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">q3</span> <span class="op">&lt;-</span> <span class="fu">create_question_raw</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  prompt <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"my question"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html" class="external-link">selectInput</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      inputId <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="st">'quiz'</span><span class="op">)</span><span class="op">(</span><span class="st">'answers'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      label <span class="op">=</span> <span class="st">'Select 5'</span>,</span></span>
+<span class="r-in"><span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="op">)</span>,</span></span>
+<span class="r-in"><span> grader <span class="op">=</span> \<span class="op">(</span><span class="va">user_input</span><span class="op">)</span> <span class="va">user_input</span> <span class="op">==</span> <span class="st">'5'</span>,</span></span>
+<span class="r-in"><span> correct_answer_pretty <span class="op">=</span> <span class="st">'5'</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="create_quiz.html">create_quiz</a></span><span class="op">(</span><span class="va">q3</span>, <span class="va">q2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

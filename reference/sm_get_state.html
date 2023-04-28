@@ -62,8 +62,6 @@
 <span></span>
 <span><span class="fu">sm_set_state</span><span class="op">(</span><span class="va">store</span>, <span class="va">variable</span>, <span class="va">value</span>, state <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sm_is_answer_correct</span><span class="op">(</span><span class="va">answer</span>, <span class="va">key</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">sm_is_current_correct</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">sm_check_is_each_correct</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span>
@@ -136,7 +134,6 @@
     
 <ul><li><p><code>sm_get_state()</code>: Getter function for the state machine</p></li>
 <li><p><code>sm_set_state()</code>: Setter function for the state machine</p></li>
-<li><p><code>sm_is_answer_correct()</code>: Backup function to check that an answer matches a response, agnostic of ordering. Deprecated?</p></li>
 <li><p><code>sm_is_current_correct()</code>: Check that current-response is correct</p></li>
 <li><p><code>sm_check_is_each_correct()</code>: Check that each recorded answer is correct and return a boolean vector</p></li>
 <li><p><code>sm_is_all_correct()</code>: Check that all recorded answers are correct</p></li>
@@ -164,16 +161,25 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co">#TODO: this is the deprecated method; need to update</span></span></span>
-<span class="r-in"><span><span class="va">question_1</span> <span class="op">&lt;-</span> <span class="st">"This is question 1"</span></span></span>
-<span class="r-in"><span><span class="va">question_2</span> <span class="op">&lt;-</span> <span class="st">"This is question 2"</span></span></span>
-<span class="r-in"><span><span class="co">#construct_question()</span></span></span>
-<span class="r-in"><span><span class="co">#construct_messages()</span></span></span>
-<span class="r-in"><span><span class="co">#quiz &lt;- construct_quiz(...)</span></span></span>
-<span class="r-in"><span><span class="va">store</span> <span class="op">&lt;-</span> <span class="fu">sm_create_reactive_store</span><span class="op">(</span><span class="va">quiz</span>, sandbox_mode <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">quiz</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_quiz.html">create_quiz</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="create_question.html">create_question</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.'</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'auctor'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'nulla'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="create_question.html">create_question</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.'</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'600'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'800'</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">store</span> <span class="op">&lt;-</span> <span class="fu">sm_create_reactive_store</span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sm_get_state</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sm_get_state</span><span class="op">(</span><span class="va">store</span>, <span class="st">'next-state'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sm_get_state</span><span class="op">(</span><span class="va">store</span>, <span class="st">'current-question'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sm_check_is_each_correct</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sm_quiz_in_sandbox_mode</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="co">#TBD</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
