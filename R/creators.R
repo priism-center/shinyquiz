@@ -290,6 +290,7 @@ create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answ
 #' @return an object of class `quiz`
 #' @export
 #' @author Joseph Marlo
+#' @seealso [set_quiz_options()], [create_question()], [create_question_raw()]
 #'
 #' @examples
 #' quiz <- create_quiz(

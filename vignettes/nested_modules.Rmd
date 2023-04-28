@@ -26,8 +26,9 @@ library(shinyQuiz)
 ```{r}
 # create namespaces for each quiz
 parent_mod_id <- 'mod1'
-ns <- shiny::NS(shiny::NS(parent_mod_id)('quiz'))
-ns2 <- shiny::NS(shiny::NS(parent_mod_id)('quiz2'))
+ns <- shiny::NS(parent_mod_id)
+ns1 <- shiny::NS(ns('quiz'))
+ns2 <- shiny::NS(ns('quiz2'))
 
 # create two distinct quizes
 quiz <- create_quiz(
@@ -35,15 +36,15 @@ quiz <- create_quiz(
     'QUIZ1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
     add_choice('auctor'),
     add_choice('nulla', correct = TRUE),
-    ns = ns
+    ns = ns1
   ),
   create_question(
     'QUIZ1: Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
     add_choice('600', correct = TRUE),
     add_choice('800'),
-    ns = ns
+    ns = ns1
   ),
-  options = set_quiz_options(ns = ns)
+  options = set_quiz_options(ns = ns1)
 )
 
 quiz2 <- create_quiz(

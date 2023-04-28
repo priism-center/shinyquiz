@@ -62,6 +62,7 @@ quiz_server <- function(quiz){
   verify_quiz_structure(quiz)
   ns <- quiz@options$ns
   id <- ns(NULL)
+  if (!isTRUE(stringr::str_count(id, '-') <= 1)) cli::cli_abort('namespace id is invalid. Too many hyphens. Remove any hyphens in your id. Otherwise, are you trying to nest modules more than two deep?')
   id <- stringr::str_remove_all(id, "^.*?-") # remove any prefixes due to parent modules; this is fragile but works
   
   shiny::moduleServer(id, function(input, output, session){

@@ -60,10 +60,20 @@ These are options to be passed to a \code{quiz}.
 
 }}
 \examples{
-\dontrun{
-quiz <- create_quiz(..., options = set_quiz_options(sandbox = TRUE))
+quiz <- create_quiz(
+  create_question(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+    add_choice('auctor'),
+    add_choice('nulla', correct = TRUE)
+  ),
+  create_question(
+    'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
+    add_choice('600', correct = TRUE),
+    add_choice('800')
+  ),
+  options = set_quiz_options(sandbox = TRUE)
+)
 quiz@options <- set_quiz_options(sandbox = FALSE)
-}
 }
 \seealso{
 \code{\link[=construct_quiz]{construct_quiz()}}, \code{\link[=construct_messages]{construct_messages()}}

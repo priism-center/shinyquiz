@@ -52,10 +52,20 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' @export
 #' 
 #' @examples 
-#' \dontrun{
-#' quiz <- create_quiz(..., options = set_quiz_options(sandbox = TRUE))
+#' quiz <- create_quiz(
+#'   create_question(
+#'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
+#'     add_choice('auctor'),
+#'     add_choice('nulla', correct = TRUE)
+#'   ),
+#'   create_question(
+#'     'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
+#'     add_choice('600', correct = TRUE),
+#'     add_choice('800')
+#'   ),
+#'   options = set_quiz_options(sandbox = TRUE)
+#' )
 #' quiz@options <- set_quiz_options(sandbox = FALSE)
-#' }
 #' @describeIn set_quiz_options Sets the options for a `quiz`
 set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, sandbox_resample_n = 50, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
 

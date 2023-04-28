@@ -31,6 +31,9 @@ quiz <- create_quiz(
   )
 )
 }
+\seealso{
+\code{\link[=set_quiz_options]{set_quiz_options()}}, \code{\link[=create_question]{create_question()}}, \code{\link[=create_question_raw]{create_question_raw()}}
+}
 \author{
 Joseph Marlo
 }

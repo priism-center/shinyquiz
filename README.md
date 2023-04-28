@@ -46,12 +46,3 @@ quiz <- create_quiz(
 
 preview_app(quiz)
 ```
-
-<br>
-
-## Dev notes
-
-A quiz is managed via a state machine framework. The framework requires an object of S4 class `quiz`. These are constructed using `construct_quiz` and consist of objects of S4 class `question` and `messages`. These have constructor functions as well.
-
-A `quiz` object is created outside of Shiny and passed to a Shiny module. The Shiny module manages the state of the quiz through the central reactive object `store`. The `store` is created via `sm_create_reactive_store` function. The state machine functions (prefixed with `sm_*`) `get` or `set` states. The changing of the `store` object facilitates downstream effects via Shiny reactivity. 
-For example, the quiz UI is determined by an object in the `store` object. The current state is observed via a `shiny::observeEvent(store$state)`. When the current state changes then a function modifies `store$ui_html`. The UI is rendered via `shiny::renderUI(store$ui_html)` which watches this `ui_html` object.
