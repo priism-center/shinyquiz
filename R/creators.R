@@ -66,6 +66,39 @@ add_choice <- function(text, correct = FALSE){
   return(choice)
 }
 
+#' @param min the minimum value of the numeric possible value
+#' @param max the maximum value of the numeric possible value
+#' @param value the default value number
+#' @param step interval between min and max
+#' @return an object of class 'quizChoiceNumeric'
+#' @export
+#' @describeIn add_choice Create a numeric choice
+add_numeric <- function(value = NULL, min = NA, max = NA, step = NA, correct){
+  if (is.logical(correct)) cli::cli_abort('`correct` should be a numeric, not logical')
+  if(!is.null(value)) value <- as.numeric(value)
+  if(!is.na(min)) min <- as.numeric(min) else min <- NULL
+  if(!is.na(max)) max <- as.numeric(max) else max <- NULL
+  if(!is.na(step)) step <- as.numeric(step)else step <- NULL
+  
+  correct <- as.numeric(correct)
+  
+  args <- c(value = value, min = min, max = max, step = step, correct = correct)
+  is_numeric <- purrr::map_lgl(args, \(x) is.numeric(x) && is_truthy(x))
+  if (!isTRUE(all(is_numeric))) cli::cli_abort("{names(args)[!is_numeric]} must be coercible to numeric")
+  
+  if(is.null(min)) min <- NA
+  if(is.null(max)) max <- NA
+  if(is.null(step)) step <- NA
+  
+  num <- methods::new('quizChoiceNumeric')
+  num@min <- min
+  num@max <- max
+  num@default <- default_position
+  num@correct <- correct
+  
+  return(num)
+}
+
 #' @param min the minimum value of the slider range
 #' @param max the maximum value of the slider range
 #' @param default_position the default value the slider should take
@@ -128,7 +161,7 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #' create_quiz(q, q2)
 #' }
 #' @describeIn create_question Create a quiz question
-create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), ns = shiny::NS('quiz')){
+create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox', 'numeric'), ns = shiny::NS('quiz')){
   
   if (!isTRUE(is.function(ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
   
@@ -183,6 +216,22 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
 }
 
 #' @keywords internal
+create_question_numeric_ <- function(numeric_input, label, step, ns){
+  input_html <- shiny::numericInput(
+    inputId = ns('answers'), 
+    label = label,
+    min = num@min,
+    max = num@max,
+    value = num@value,
+    step = num@step
+  )
+  
+  text_correct <- as.character(num@correct)
+  
+  return(list(input_html = input_html, text_correct = text_correct))
+}
+
+#' @keywords internal
 create_question_slider_ <- function(slider, label, step, round, ns){
   input_html <- shiny::sliderInput(
     inputId = ns('answers'), 
@@ -228,7 +277,7 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
       selected = selected,
       multiple = isTRUE(type == 'multiple')
     )
-  } else {
+  }else {
     input_html <- shiny::checkboxGroupInput(
       inputId = ns('answers'), 
       label = label,
