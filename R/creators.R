@@ -134,6 +134,7 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #' @param ... Objects of class 'quizChoice' generated from [add_choice()] or [add_slider()]. Named options to [shiny::selectInput] or [shiny::checkboxGroupInput] can be passed as well.
 #' @param type One of c('auto', 'single', 'multiple'). How many answers are allowed
 #' @param input One of c('auto', 'select', 'checkbox')
+#' @param shuffle TRUE or FALSE if TRUE order of choices will be randomly shuffled
 #' @param ns Namespace function generated from [`shiny::NS()`]
 #' 
 #' @details `create_question` is the default method of creating quiz questions. 
@@ -161,12 +162,12 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #' create_quiz(q, q2)
 #' }
 #' @describeIn create_question Create a quiz question
-create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox', 'numeric'), ns = shiny::NS('quiz')){
+create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), shuffle = FALSE, ns = shiny::NS('quiz')){
   
   if (!isTRUE(is.function(ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
   
   type <- match.arg(type, c('auto', 'single', 'multiple'))
-  input <- match.arg(input, c('auto', 'select', 'checkbox', 'numeric'))
+  input <- match.arg(input, c('auto', 'select', 'checkbox'))
   dot_list <- list(...)
   
   # extract sliders
@@ -174,6 +175,7 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   
   # extract choices
   choices <- dot_list[purrr::map_lgl(dot_list, \(x) inherits(x, 'quizChoice'))]
+  if(isTRUE(shuffle)) choices <- sample(choices)
   
   # quality checks
   if (!isTRUE(is_truthy(slider_element) | is_truthy(choices))) cli::cli_abort('No choices or sliders provided')
@@ -187,7 +189,6 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   if(is_truthy(dot_list$selected)){selected <- dot_list$selected} else {selected <- NULL}
   if(is_truthy(dot_list$step)){step <- dot_list$step} else {step <- NULL}
   round <- ifelse(is_truthy(dot_list$round), dot_list$round, FALSE)
-  
   use_slider <- is_truthy(slider_element)
   if (use_slider){
     slider_element <- slider_element[[1]]
@@ -195,7 +196,7 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   } else {
     input <- create_question_input_(dot_list, choices, type, input, label, selected, ns)
   }
-
+  
   # put it in a div
   prompt_html <- htmltools::div(
     htmltools::p(prompt),
