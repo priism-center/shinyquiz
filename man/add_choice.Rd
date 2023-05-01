@@ -2,10 +2,13 @@
 % Please edit documentation in R/creators.R
 \name{add_choice}
 \alias{add_choice}
+\alias{add_numeric}
 \alias{add_slider}
 \title{Create a choice for a question}
 \usage{
 add_choice(text, correct = FALSE)
+
+add_numeric(value = NULL, min = NA, max = NA, step = NA, correct)
 
 add_slider(min = 0, max = 1, default_position = 0.5, correct)
 }
@@ -14,14 +17,20 @@ add_slider(min = 0, max = 1, default_position = 0.5, correct)
 
 \item{correct}{Boolean denoting if this \code{choice} is correct; numeric for \code{slider}}
 
+\item{value}{the default value number}
+
 \item{min}{the minimum value of the slider range}
 
 \item{max}{the maximum value of the slider range}
+
+\item{step}{interval between min and max}
 
 \item{default_position}{the default value the slider should take}
 }
 \value{
 an object of class 'quizChoice'
+
+an object of class 'quizChoiceNumeric'
 
 an object of class 'quizChoiceSlider'
 }
@@ -31,6 +40,8 @@ Create a choice for a question
 \section{Functions}{
 \itemize{
 \item \code{add_choice()}: Create a discrete choice
+
+\item \code{add_numeric()}: Create a numeric choice
 
 \item \code{add_slider()}: Create a slider choice
 

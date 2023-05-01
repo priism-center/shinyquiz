@@ -78,7 +78,7 @@ add_numeric <- function(value = NULL, min = NA, max = NA, step = NA, correct){
   if(!is.null(value)) value <- as.numeric(value)
   if(!is.na(min)) min <- as.numeric(min) else min <- NULL
   if(!is.na(max)) max <- as.numeric(max) else max <- NULL
-  if(!is.na(step)) step <- as.numeric(step)else step <- NULL
+  if(!is.na(step)) step <- as.numeric(step) else step <- NULL
   
   correct <- as.numeric(correct)
   
@@ -93,7 +93,7 @@ add_numeric <- function(value = NULL, min = NA, max = NA, step = NA, correct){
   num <- methods::new('quizChoiceNumeric')
   num@min <- min
   num@max <- max
-  num@default <- default_position
+  # num@default <- default_position
   num@correct <- correct
   
   return(num)
@@ -166,7 +166,7 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   if (!isTRUE(is.function(ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
   
   type <- match.arg(type, c('auto', 'single', 'multiple'))
-  input <- match.arg(input, c('auto', 'select', 'checkbox'))
+  input <- match.arg(input, c('auto', 'select', 'checkbox', 'numeric'))
   dot_list <- list(...)
   
   # extract sliders
