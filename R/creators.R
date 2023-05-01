@@ -162,12 +162,12 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #' create_quiz(q, q2)
 #' }
 #' @describeIn create_question Create a quiz question
-create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), shuffle = FALSE, ns = shiny::NS('quiz')){
+create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox', 'numeric'), shuffle = FALSE, ns = shiny::NS('quiz')){
   
   if (!isTRUE(is.function(ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
   
   type <- match.arg(type, c('auto', 'single', 'multiple'))
-  input <- match.arg(input, c('auto', 'select', 'checkbox'))
+  input <- match.arg(input, c('auto', 'select', 'checkbox', 'numeric'))
   dot_list <- list(...)
   
   # extract sliders
