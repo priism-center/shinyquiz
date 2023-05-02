@@ -8,22 +8,18 @@
 \usage{
 add_choice(text, correct = FALSE)
 
-add_numeric(value = NULL, min = NA, max = NA, step = NA, correct)
+add_numeric(correct)
 
 add_slider(min = 0, max = 1, default_position = 0.5, correct)
 }
 \arguments{
 \item{text}{Text of the choice answer}
 
-\item{correct}{Boolean denoting if this \code{choice} is correct; numeric for \code{slider}}
-
-\item{value}{the default value number}
+\item{correct}{Boolean denoting if this \code{choice} is correct; numeric for \code{slider} or \code{numeric}}
 
 \item{min}{the minimum value of the slider range}
 
 \item{max}{the maximum value of the slider range}
-
-\item{step}{interval between min and max}
 
 \item{default_position}{the default value the slider should take}
 }
@@ -62,4 +58,6 @@ create_question(
 }
 \author{
 Joseph Marlo
+
+George Perrett
 }

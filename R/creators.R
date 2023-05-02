@@ -32,10 +32,24 @@ setClass('quizChoiceSlider', slots = list(
   )
 )
 
+#' S4 class for a quiz numeric response
+#'
+#' @slot correct numeric. 
+#'
+#' @author George Perrett
+#' @keywords internal
+#' @return none, sets a class
+setClass('quizChoiceNumeric', slots = list(
+  correct = 'numeric'
+)
+)
+
+
+
 #' Create a choice for a question
 #'
 #' @param text Text of the choice answer
-#' @param correct Boolean denoting if this `choice` is correct; numeric for `slider`
+#' @param correct Boolean denoting if this `choice` is correct; numeric for `slider` or `numeric`
 #'
 #' @return an object of class 'quizChoice'
 #' @export
@@ -66,37 +80,31 @@ add_choice <- function(text, correct = FALSE){
   return(choice)
 }
 
-#' @param min the minimum value of the numeric possible value
-#' @param max the maximum value of the numeric possible value
-#' @param value the default value number
-#' @param step interval between min and max
+
+#' @author George Perrett
 #' @return an object of class 'quizChoiceNumeric'
 #' @export
 #' @describeIn add_choice Create a numeric choice
-add_numeric <- function(value = NULL, min = NA, max = NA, step = NA, correct){
+add_numeric <- function(correct){
   if (is.logical(correct)) cli::cli_abort('`correct` should be a numeric, not logical')
-  if(!is.null(value)) value <- as.numeric(value)
-  if(!is.na(min)) min <- as.numeric(min) else min <- NULL
-  if(!is.na(max)) max <- as.numeric(max) else max <- NULL
-  if(!is.na(step)) step <- as.numeric(step) else step <- NULL
+  # if(!is.null(value)) value <- as.numeric(value)
+  # if(!is.na(min)) min <- as.numeric(min) else min <- NULL
+  # if(!is.na(max)) max <- as.numeric(max) else max <- NULL
+  # if(!is.na(step)) step <- as.numeric(step) else step <- NULL
   
   correct <- as.numeric(correct)
-  
-  args <- c(value = value, min = min, max = max, step = step, correct = correct)
+ 
+  args <- c(correct = correct)
   is_numeric <- purrr::map_lgl(args, \(x) is.numeric(x) && is_truthy(x))
   if (!isTRUE(all(is_numeric))) cli::cli_abort("{names(args)[!is_numeric]} must be coercible to numeric")
   
-  if(is.null(min)) min <- NA
-  if(is.null(max)) max <- NA
-  if(is.null(step)) step <- NA
-  
-  num <- methods::new('quizChoiceNumeric')
-  num@min <- min
-  num@max <- max
-  # num@default <- default_position
-  num@correct <- correct
-  
-  return(num)
+  # if(is.null(min)) min <- NA
+  # if(is.null(max)) max <- NA
+  # if(is.null(step)) step <- NA
+  # 
+  numeric <- methods::new('quizChoiceNumeric')
+  numeric@correct <- correct
+  return(numeric)
 }
 
 #' @param min the minimum value of the slider range
@@ -162,38 +170,54 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #' create_quiz(q, q2)
 #' }
 #' @describeIn create_question Create a quiz question
-create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox', 'numeric'), shuffle = FALSE, ns = shiny::NS('quiz')){
+create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), shuffle = FALSE, ns = shiny::NS('quiz')){
   
   if (!isTRUE(is.function(ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
   
   type <- match.arg(type, c('auto', 'single', 'multiple'))
-  input <- match.arg(input, c('auto', 'select', 'checkbox', 'numeric'))
+  input <- match.arg(input, c('auto', 'select', 'checkbox'))
   dot_list <- list(...)
   
   # extract sliders
   slider_element <- dot_list[purrr::map_lgl(dot_list, \(x) inherits(x, 'quizChoiceSlider'))]
+  
+  # extract numeric input
+  numeric_element <- dot_list[purrr::map_lgl(dot_list, \(x) inherits(x, 'quizChoiceNumeric'))]
   
   # extract choices
   choices <- dot_list[purrr::map_lgl(dot_list, \(x) inherits(x, 'quizChoice'))]
   if(isTRUE(shuffle)) choices <- sample(choices)
   
   # quality checks
-  if (!isTRUE(is_truthy(slider_element) | is_truthy(choices))) cli::cli_abort('No choices or sliders provided')
+  if (!isTRUE(is_truthy(slider_element) | is_truthy(choices) | is_truthy(numeric_element))) cli::cli_abort('No choices or sliders provided')
   if (is_truthy(slider_element) && length(slider_element) > 1) cli::cli_abort('Only one slider can be provided')
+  if (is_truthy(numeric_element) && length(numeric_element) > 1) cli::cli_abort('Only one numeric input box can be provided')
   if (is_truthy(slider_element) && is_truthy(choices)) cli::cli_abort('sliders and choices cannot be mixed')
+  if (is_truthy(numeric_element) && is_truthy(choices)) cli::cli_abort('numeric input box and choices cannot be mixed')
   # if (is_truthy(choices) && is_truthy(choices)) cli::cli_abort('sliders and choices cannot be mixed')
   
   # extract extra arguments
   # browser()
   label <- ifelse(is_truthy(dot_list$label), dot_list$label, 'Select answer')
   if(is_truthy(dot_list$selected)){selected <- dot_list$selected} else {selected <- NULL}
-  if(is_truthy(dot_list$step)){step <- dot_list$step} else {step <- NULL}
-  round <- ifelse(is_truthy(dot_list$round), dot_list$round, FALSE)
   use_slider <- is_truthy(slider_element)
+  use_numeric <- is_truthy(numeric_element)
+  
   if (use_slider){
+    # extract extra arguments for slider 
+    if(is_truthy(dot_list$step)){step <- dot_list$step} else {step <- NULL}
+    round <- ifelse(is_truthy(dot_list$round), dot_list$round, FALSE)
     slider_element <- slider_element[[1]]
     input <- create_question_slider_(slider_element, label, step, round, ns)
-  } else {
+  } else if(use_numeric){
+    # extract extra arguments for numeric input
+    if(is_truthy(dot_list$step)){step <- dot_list$step} else {step <- NA}
+    if(is_truthy(dot_list$value)){value <- dot_list$value} else {value <- NULL}
+    if(is_truthy(dot_list$min)){min <- dot_list$min} else {min <- NA}
+    if(is_truthy(dot_list$max)){max <- dot_list$max} else {max <- NA}
+    numeric_element <- numeric_element[[1]]
+    input <- create_question_numeric_(numeric_element, label, min, max, value, step, ns)
+  }else {
     input <- create_question_input_(dot_list, choices, type, input, label, selected, ns)
   }
   
@@ -217,17 +241,17 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
 }
 
 #' @keywords internal
-create_question_numeric_ <- function(numeric_input, label, step, ns){
+create_question_numeric_ <- function(numeric, label, min, max, value, step, ns){
   input_html <- shiny::numericInput(
     inputId = ns('answers'), 
     label = label,
-    min = num@min,
-    max = num@max,
-    value = num@value,
-    step = num@step
+    min = min,
+    max = max,
+    value = value,
+    step = step
   )
   
-  text_correct <- as.character(num@correct)
+  text_correct <- as.character(numeric@correct)
   
   return(list(input_html = input_html, text_correct = text_correct))
 }
@@ -361,8 +385,69 @@ create_quiz <- function(..., options = set_quiz_options()){
 
 
 # infinite questions ------------------------------------------------------
+#' Create a sandbox question
+#' @param .f a function that outputs an object of class `quizQuestion`. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a `create_question` or `create_question_raw` call inside your function (see example). 
+#' @param n a numeric value indicating how many draw of function .f to include in the random question bank. 
+#'
+#' @description Create quasi-infinite questions. 
+#' @details `create_question_sandbox()` takes any user generated function `.f`. The function passed to  the .`f` argument creates a random prompt along with an updated answer, the function passed to the `.f` argument must return an object of class `quizQuestion`. `create_question_sandbox()` will automatically check to ensure the function passed to `.f` is in the appropriate format. The `n` argument controls how many random draws from  the function passed to `.f` are included in the question bank for the quiz. Higher values of `n` allow more unique questions but extreme values of `n` may also lead to slower performance. To create a quiz with `n` randomly generated questions, `create_question_sandbox` can be passed as an argument to `create_quiz`.   
+#'
+#' @return n number of objects of class `quizQuestion`
+#' @export
+#' @author George Perrett, Joseph Marlo
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' # a function that generates a random question
+#' random_question <- function() {
+#'   number <- round(rnorm(1, 30, 10), 0)
+#'   rand_prompt <- paste('Is', number, 'an even number?')
+#'   
+#'   # using create_question inside the function helps to ensure correct class
+#'   q <- create_question(prompt = rand_prompt,
+#'                        add_choice('Yes, it is even', correct = number%%2 == 0), 
+#'                        add_choice('No, it is odd', correct = number%%2 != 0))
+#'   
+#'   return(q)
+#' }
+#' 
+#' # create a quiz with a question bank of 20 randomly generated questions
+#' create_quiz(
+#' create_question_sandbox(.f = random_question, n = 20), 
+#' options = set_quiz_options(sandbox = T)
+#' )
+#' }
 
-# TODO
-# create_question_infinite <- function(.f){
-#   
-# }
+create_question_sandbox <- function(.f, n = 50){
+  if(!isTRUE(is.numeric(n))) cli::cli_abort('`n` must be coercible to a numeric value')
+  verify_fn(.f)
+  replicate(n, .f())
+}
+
+#' @keywords internal
+verify_fn <- function(.f){
+  cli::cli_h1('Checking function')
+  cli::cli_h2('Checking function input')
+  if (!isTRUE(is.function(.f))) cli::cli_abort('.f must be a function with no arguments')
+  verify_n_args(.f, n = 0)
+  cli::cli_alert_success('Function inputs good')
+  
+  cli::cli_h2('Checking function output')
+  verify_question_structure(.f())
+  cli::cli_alert_success('Function output good')
+  
+  cli::cli_h2('Checking randomness')
+  if (isTRUE(all.equal(.f(), .f()))) cli::cli_abort('No randomness detected. Function output on multiple calls is identical.')
+  cli::cli_alert_success('Randomness detected')
+  
+  cli::cli_h1('')
+  cli::cli_alert_success('All clear your sandbox question is looking good!')
+  cli::cli_status_clear()
+  
+  
+  # add class ?
+  
+  return(invisible(.f))
+}
+

@@ -9,7 +9,8 @@ create_question(
   prompt,
   ...,
   type = c("auto", "single", "multiple"),
-  input = c("auto", "select", "checkbox", "numeric"),
+  input = c("auto", "select", "checkbox"),
+  shuffle = FALSE,
   ns = shiny::NS("quiz")
 )
 
@@ -28,6 +29,8 @@ create_question_raw(
 \item{type}{One of c('auto', 'single', 'multiple'). How many answers are allowed}
 
 \item{input}{One of c('auto', 'select', 'checkbox')}
+
+\item{shuffle}{TRUE or FALSE if TRUE order of choices will be randomly shuffled}
 
 \item{ns}{Namespace function generated from \code{\link[shiny:NS]{shiny::NS()}}}
 
