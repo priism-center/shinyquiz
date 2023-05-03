@@ -45,7 +45,6 @@ setClass('quizChoiceNumeric', slots = list(
 )
 
 
-
 #' Create a choice for a question
 #'
 #' @param text Text of the choice answer
@@ -437,7 +436,7 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' )
 #' }
 create_question_sandbox <- function(.f, n = 50){
-  if(!isTRUE(is.numeric(n))) cli::cli_abort('`n` must be coercible to a numeric value')
+  if (!((n %% 1 == 0) & n > 0)) cli::cli_abort('`n` must be a positive integer')
   verify_question_sandbox(.f)
   
   # draw random realizations
