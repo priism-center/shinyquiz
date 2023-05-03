@@ -72,7 +72,7 @@ quiz_server <- function(quiz){
     if (quiz@options$embed) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
     
     # resample the questions if in sandbox mode
-    quiz <- sm_resample_questions_if_sandbox(quiz, n = quiz@options$sandbox_resample_n)
+    # quiz <- sm_resample_questions_if_sandbox(quiz, n = quiz@options$sandbox_resample_n)
     
     # add headers to question texts
     quiz <- sm_ui_format_prompts(quiz)
