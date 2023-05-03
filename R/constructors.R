@@ -248,6 +248,9 @@ verify_quiz_structure <- function(quiz){
   return(invisible(TRUE))
 }
 
+
+# S4 classes --------------------------------------------------------------
+
 # this is purely to satisfy the CMD check warning in `quizQuestion`
 setClass('shiny.tag')
 
