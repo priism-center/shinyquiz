@@ -386,6 +386,8 @@ sm_create_reactive_store <- function(quiz){
   return(store)
 }
 
+#' @keywords internal
+#' @describeIn sm_get_state Calculate the percent of questions correct
 sm_score_quiz <- function(store){
   # if not in sandbox mode, then NAs should be treated as incorrect
 
@@ -403,7 +405,11 @@ sm_score_quiz <- function(store){
   return(score)
 }
 
+#' @keywords internal
+#' @describeIn sm_get_state Generate a summary of the quiz to output from the Shiny module
 sm_summary <- function(store, quiz){
+  # TODO: return back the full quiz results?
+  
   score <- sm_score_quiz(store)
   list(
     score = scales::percent_format()(score),

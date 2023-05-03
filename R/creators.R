@@ -68,7 +68,6 @@ setClass('quizChoiceNumeric', slots = list(
 #' )
 #' @describeIn add_choice Create a discrete choice
 add_choice <- function(text, correct = FALSE){
-  # if(!isTRUE(is.character(text))) cli::cli_abort('`text` must be a character')
   if(!isTRUE(is.character(as.character(text)))) cli::cli_abort('`text` must be coercible to a character')
   if(!isTRUE(is.logical(correct))) cli::cli_abort('`correct` must be a logical')
   
@@ -86,21 +85,9 @@ add_choice <- function(text, correct = FALSE){
 #' @describeIn add_choice Create a numeric choice
 add_numeric <- function(correct){
   if (is.logical(correct)) cli::cli_abort('`correct` should be a numeric, not logical')
-  # if(!is.null(value)) value <- as.numeric(value)
-  # if(!is.na(min)) min <- as.numeric(min) else min <- NULL
-  # if(!is.na(max)) max <- as.numeric(max) else max <- NULL
-  # if(!is.na(step)) step <- as.numeric(step) else step <- NULL
-  
   correct <- as.numeric(correct)
- 
-  args <- c(correct = correct)
-  is_numeric <- purrr::map_lgl(args, \(x) is.numeric(x) && is_truthy(x))
-  if (!isTRUE(all(is_numeric))) cli::cli_abort("{names(args)[!is_numeric]} must be coercible to numeric")
+  if (!is_truthy(correct)) cli::cli_abort("{`correct` must be coercible to numeric")
   
-  # if(is.null(min)) min <- NA
-  # if(is.null(max)) max <- NA
-  # if(is.null(step)) step <- NA
-  # 
   numeric <- methods::new('quizChoiceNumeric')
   numeric@correct <- correct
   return(numeric)
@@ -193,10 +180,9 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   if (is_truthy(numeric_element) && length(numeric_element) > 1) cli::cli_abort('Only one numeric input box can be provided')
   if (is_truthy(slider_element) && is_truthy(choices)) cli::cli_abort('sliders and choices cannot be mixed')
   if (is_truthy(numeric_element) && is_truthy(choices)) cli::cli_abort('numeric input box and choices cannot be mixed')
-  # if (is_truthy(choices) && is_truthy(choices)) cli::cli_abort('sliders and choices cannot be mixed')
+  if (is_truthy(numeric_element) && is_truthy(slider_element)) cli::cli_abort('numeric input box and sliders cannot be mixed')
   
   # extract extra arguments
-  # browser()
   label <- ifelse(is_truthy(dot_list$label), dot_list$label, 'Select answer')
   if(is_truthy(dot_list$selected)){selected <- dot_list$selected} else {selected <- NULL}
   use_slider <- is_truthy(slider_element)

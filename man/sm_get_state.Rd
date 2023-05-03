@@ -17,6 +17,8 @@
 \alias{sm_show_progress}
 \alias{sm_resample_questions_if_sandbox}
 \alias{sm_create_reactive_store}
+\alias{sm_score_quiz}
+\alias{sm_summary}
 \title{Functions for managing the quiz state machine}
 \usage{
 sm_get_state(store, variable = NULL, state = NULL)
@@ -50,6 +52,10 @@ sm_show_progress(store)
 sm_resample_questions_if_sandbox(quiz, n = 50)
 
 sm_create_reactive_store(quiz)
+
+sm_score_quiz(store)
+
+sm_summary(store, quiz)
 }
 \arguments{
 \item{store}{a list formatted like in the example}
@@ -108,6 +114,10 @@ These are \code{get} and \code{set} functions for retrieving state values and se
 \item \code{sm_resample_questions_if_sandbox()}: Create quasi infinite quiz by resampling questions n times
 
 \item \code{sm_create_reactive_store()}: Create the main store object that handles the state(s)
+
+\item \code{sm_score_quiz()}: Calculate the percent of questions correct
+
+\item \code{sm_summary()}: Generate a summary of the quiz to output from the Shiny module
 
 }}
 \examples{

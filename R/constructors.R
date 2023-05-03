@@ -14,7 +14,6 @@
 #'
 #' @return an object of class `quiz`
 #' @author Joseph Marlo
-
 #' @describeIn construct_quiz Construct a quiz object
 construct_quiz <- function(..., options = set_quiz_options()){
   is_all_class_question <- isTRUE(all(purrr::map_lgl(c(...), ~inherits(.x, 'quizQuestion'))))
@@ -24,7 +23,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
   
   # make quiz
   quiz <- methods::new('quiz')
-  quiz@questions <- c(...) #questions
+  quiz@questions <- c(...)
   quiz@options <- options
   
   verify_quiz_structure(quiz)
@@ -67,8 +66,8 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' )
 #' quiz@options <- set_quiz_options(sandbox = FALSE)
 #' @describeIn set_quiz_options Sets the options for a `quiz`
-set_quiz_options <- function(ns = shiny::NS('quiz'), messages,  sandbox = NULL, sandbox_resample_n = 50, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
-  if(is.null(sandbox))  sandbox <- TRUE
+set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = NULL, sandbox_resample_n = 50, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
+  if(is.null(sandbox)) sandbox <- TRUE
   # set the default messages
   if (!methods::hasArg(messages)) {
     messages <- construct_messages(
@@ -172,7 +171,6 @@ construct_messages <- function(message_correct, message_wrong, message_skipped){
   if (!isTRUE(is.character(message_wrong))) cli::cli_abort('`message_wrong` must be class character')
   if (!isTRUE(is.character(message_skipped))) cli::cli_abort('`message_skipped` must be class character')
 
-  
   messages <- methods::new('quizMessages')
   messages@message_correct <- message_correct
   messages@message_wrong <- message_wrong
@@ -193,9 +191,7 @@ construct_messages <- function(message_correct, message_wrong, message_skipped){
 verify_question_structure <- function(question){
   
   if (!isTRUE(inherits(question, 'quizQuestion'))) cli::cli_abort('`question` must be an S4 object with class quizQuestion')
-  
   if (!isTRUE(inherits(question@prompt, 'shiny.tag'))) cli::cli_abort('`question` must be of class shiny.tag. Preferably generated from htmltools::div().')
-  
   if (!isTRUE(inherits(question@answerUserPrettifier, 'function'))) cli::cli_abort('`answerUserPrettifier` must be a function that accepts one argument and returns a character.')
   if (!isTRUE(inherits(question@answerCorrectPretty, 'character'))) cli::cli_abort('`answerCorrectPretty` must be a character.')
   if (!isTRUE(inherits(question@grader, 'function'))) cli::cli_abort('`grader` must be a function that accepts one argument and returns a boolean')
