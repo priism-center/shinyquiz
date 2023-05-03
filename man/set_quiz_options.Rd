@@ -8,7 +8,7 @@
 set_quiz_options(
   ns = shiny::NS("quiz"),
   messages,
-  sandbox = FALSE,
+  sandbox = NULL,
   sandbox_resample_n = 50,
   end_on_first_wrong = !sandbox,
   embed = FALSE,

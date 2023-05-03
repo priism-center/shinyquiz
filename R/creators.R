@@ -380,7 +380,24 @@ create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answ
 #'   )
 #' )
 create_quiz <- function(..., options = set_quiz_options()){
-  construct_quiz(..., options = options)
+  # create quiz
+  quiz <- construct_quiz(..., options = options)
+  # check if any items are sandbox questions then force into sandbox mode 
+  # unless override is triggered
+  if (!is.null(options$sandbox)){
+    quiz@options$sandbox <- options$sandbox
+    return(quiz)
+  } 
+  dot_list <- list(...)
+  is_sandbox <- purrr::map_lgl(unlist(dot_list), \(x) inherits(x, 'quizQuestionSandbox'))
+  any_sandbox <- isTRUE(any(is_sandbox))
+  if (any_sandbox) {
+    quiz@options$sandbox <- TRUE
+    quiz@options$logic_end_on_first_wrong <- FALSE
+    quiz@options$progress_bar <- FALSE
+  }
+  
+  return(quiz)
 }
 
 
@@ -392,6 +409,7 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' @description Create quasi-infinite questions. 
 #' @details `create_question_sandbox()` takes any user generated function `.f`. The function passed to  the .`f` argument creates a random prompt along with an updated answer, the function passed to the `.f` argument must return an object of class `quizQuestion`. `create_question_sandbox()` will automatically check to ensure the function passed to `.f` is in the appropriate format. The `n` argument controls how many random draws from  the function passed to `.f` are included in the question bank for the quiz. Higher values of `n` allow more unique questions but extreme values of `n` may also lead to slower performance. To create a quiz with `n` randomly generated questions, `create_question_sandbox` can be passed as an argument to `create_quiz`.   
 #'
+#' @importFrom methods new
 #' @return n number of objects of class `quizQuestion`
 #' @export
 #' @author George Perrett, Joseph Marlo
@@ -422,7 +440,11 @@ create_quiz <- function(..., options = set_quiz_options()){
 create_question_sandbox <- function(.f, n = 50){
   if(!isTRUE(is.numeric(n))) cli::cli_abort('`n` must be coercible to a numeric value')
   verify_fn(.f)
-  replicate(n, .f())
+  # draw random realizations
+  q_bank <- replicate(n, .f(), simplify = 'list')
+  # set new class for all question from sandbox function
+  q_bank <- lapply(q_bank,function(x){new('quizQuestionSandbox', x)})
+  return(q_bank)
 }
 
 #' @keywords internal

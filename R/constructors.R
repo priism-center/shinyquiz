@@ -67,8 +67,8 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' )
 #' quiz@options <- set_quiz_options(sandbox = FALSE)
 #' @describeIn set_quiz_options Sets the options for a `quiz`
-set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, sandbox_resample_n = 50, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
-
+set_quiz_options <- function(ns = shiny::NS('quiz'), messages,  sandbox = NULL, sandbox_resample_n = 50, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
+  if(is.null(sandbox))  sandbox <- TRUE
   # set the default messages
   if (!methods::hasArg(messages)) {
     messages <- construct_messages(
@@ -82,7 +82,7 @@ set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, 
   quiz_options <- list(
     ns = ns,
     messages = messages,
-    sandbox = isTRUE(sandbox),
+    sandbox = sandbox,
     sandbox_resample_n = as.integer(sandbox_resample_n),
     logic_end_on_first_wrong = isTRUE(end_on_first_wrong),
     embed = isTRUE(embed),
@@ -273,6 +273,21 @@ setClass('quizQuestion', slots = list(
   ns = 'function'
   )
 )
+
+#' S4 class for a sandbox quiz question
+#'
+#' @slot prompt shiny.tag. 
+#' @slot answerUser list. 
+#' @slot answerUserPrettifier function. 
+#' @slot answerCorrectPretty character. 
+#' @slot grader function.
+#'
+#' @return none, sets a class
+#' @author George Perrett, Joseph Marlo
+#' @keywords internal
+#'
+#' @seealso [construct_question()]
+setClass('quizQuestionSandbox', contains = 'quizQuestion')
 
 #' S4 class for a quiz messages to display at the end
 #'
