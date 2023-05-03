@@ -15,7 +15,6 @@
 \alias{sm_ui_complete_report}
 \alias{sm_ui_question}
 \alias{sm_show_progress}
-\alias{sm_resample_questions_if_sandbox}
 \alias{sm_create_reactive_store}
 \alias{sm_score_quiz}
 \alias{sm_summary}
@@ -49,8 +48,6 @@ sm_ui_question(store, ns)
 
 sm_show_progress(store)
 
-sm_resample_questions_if_sandbox(quiz, n = 50)
-
 sm_create_reactive_store(quiz)
 
 sm_score_quiz(store)
@@ -65,13 +62,9 @@ sm_summary(store, quiz)
 \item{state}{one of c('quiz-question-1', ..., 'quiz-question')}
 
 \item{quiz}{an object of class 'quiz'}
-
-\item{n}{Number of resamples to make}
 }
 \value{
 depends on function
-
-questions
 
 reactiveValues
 }
@@ -110,8 +103,6 @@ These are \code{get} and \code{set} functions for retrieving state values and se
 \item \code{sm_ui_question()}: UI to show for the current question
 
 \item \code{sm_show_progress()}: Show the progress bar if stipulated
-
-\item \code{sm_resample_questions_if_sandbox()}: Create quasi infinite quiz by resampling questions n times
 
 \item \code{sm_create_reactive_store()}: Create the main store object that handles the state(s)
 

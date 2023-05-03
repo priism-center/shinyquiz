@@ -38,7 +38,6 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' @param ns namespace generated from [shiny::NS()]. When using custom namespaces, the individual [create_question()] requires the namespace as well.
 #' @param messages an object of class `quizMessages` generated from [create_messages()] containing the messages to show at the end. If not provided, defaults are used.
 #' @param sandbox boolean. TBD
-#' @param sandbox_resample_n The number of question resamples when in sandbox mode
 #' @param end_on_first_wrong Should the quiz immediately end once the user gets one question wrong?
 #' @param embed boolean. TBD TODO: remove?
 #' @param progress_bar boolean. Show the progress bar UI at the top of the quiz
@@ -66,8 +65,9 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' )
 #' quiz@options <- set_quiz_options(sandbox = FALSE)
 #' @describeIn set_quiz_options Sets the options for a `quiz`
-set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = NULL, sandbox_resample_n = 50, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
-  if(is.null(sandbox)) sandbox <- TRUE
+set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
+  # if(is.null(sandbox)) sandbox <- TRUE
+  
   # set the default messages
   if (!methods::hasArg(messages)) {
     messages <- construct_messages(
@@ -82,7 +82,6 @@ set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = NULL, s
     ns = ns,
     messages = messages,
     sandbox = sandbox,
-    sandbox_resample_n = as.integer(sandbox_resample_n),
     logic_end_on_first_wrong = isTRUE(end_on_first_wrong),
     embed = isTRUE(embed),
     progress_bar = isTRUE(progress_bar),

@@ -338,25 +338,6 @@ sm_show_progress <- function(store){
 }
 
 #' @keywords internal
-#' @param quiz A list of questions of class 'quizQuestion'
-#' @param n Number of resamples to make
-#'
-#' @return questions
-#' @author Joseph Marlo
-#' @describeIn sm_get_state Create quasi infinite quiz by resampling questions n times
-sm_resample_questions_if_sandbox <- function(quiz, n = 50){
-  if (!(is.numeric(n) && n > 0)) cli::cli_abort('n must be positive integer')
-  verify_quiz_structure(quiz)
-  
-  if (quiz@options$sandbox){
-    indices <- sample(seq_along(quiz@questions), size = n, replace = TRUE)
-    quiz@questions <- quiz@questions[indices]
-  }
-  
-  return(quiz)
-}
-
-#' @keywords internal
 #' @param quiz an object of class 'quiz'
 #' 
 #' @seealso [shiny::reactiveValues()]

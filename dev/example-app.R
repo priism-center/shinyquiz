@@ -54,7 +54,20 @@ quiz <- create_quiz(
     grader = \(x) setequal(x, c('a', 'b')),
     correct_answer_pretty = 'a, b'
   )
-  # options = set_quiz_options(sandbox = TRUE, sandbox_resample_n = 10)
+  # create_question_sandbox(
+  #   \() {
+  #     number <- round(rnorm(1, 30, 10), 0)
+  #     rand_prompt <- paste('Is', number, 'an even number?')
+  #     
+  #     # using create_question inside the function helps to ensure correct class
+  #     q <- create_question(prompt = rand_prompt,
+  #                          add_choice('Yes, it is even', correct = number%%2 == 0),
+  #                          add_choice('No, it is odd', correct = number%%2 != 0))
+  #     
+  #     return(q)
+  #   }
+  # )
+  # options = set_quiz_options(sandbox = TRUE)
   # options = set_quiz_options(end_on_first_wrong = FALSE)
 )
 

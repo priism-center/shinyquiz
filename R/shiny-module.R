@@ -71,9 +71,6 @@ quiz_server <- function(quiz){
     # TODO: keep this embedding mode?
     if (quiz@options$embed) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
     
-    # resample the questions if in sandbox mode
-    # quiz <- sm_resample_questions_if_sandbox(quiz, n = quiz@options$sandbox_resample_n)
-    
     # add headers to question texts
     quiz <- sm_ui_format_prompts(quiz)
     
@@ -167,7 +164,7 @@ quiz_server <- function(quiz){
         add_red_x(ns = ns, id = 'quiz-container', element = 'h3')
         
         # change the state
-        # if in sandbox mode, go to next question otherwise end here
+        # depending on options, go to next question otherwise end here
         shinyjs::delay(delay_in_ms, {
           if (sm_logic_end_on_first_wrong(store)){
             store <- sm_set_state(store, variable = 'current-state', value = 'quiz-complete')

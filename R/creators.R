@@ -367,12 +367,10 @@ create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answ
 create_quiz <- function(..., options = set_quiz_options()){
   # create quiz
   quiz <- construct_quiz(..., options = options)
+  
   # check if any items are sandbox questions then force into sandbox mode 
   # unless override is triggered
-  if (!is.null(options$sandbox)){
-    quiz@options$sandbox <- options$sandbox
-    return(quiz)
-  } 
+  if (isTRUE(options$overide)) return(quiz)
   dot_list <- list(...)
   is_sandbox <- purrr::map_lgl(unlist(dot_list), \(x) inherits(x, 'quizQuestionSandbox'))
   any_sandbox <- isTRUE(any(is_sandbox))

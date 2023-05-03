@@ -8,8 +8,7 @@
 set_quiz_options(
   ns = shiny::NS("quiz"),
   messages,
-  sandbox = NULL,
-  sandbox_resample_n = 50,
+  sandbox = FALSE,
   end_on_first_wrong = !sandbox,
   embed = FALSE,
   progress_bar = !sandbox,
@@ -25,8 +24,6 @@ create_messages(message_correct, message_wrong, message_skipped)
 \item{messages}{an object of class \code{quizMessages} generated from \code{\link[=create_messages]{create_messages()}} containing the messages to show at the end. If not provided, defaults are used.}
 
 \item{sandbox}{boolean. TBD}
-
-\item{sandbox_resample_n}{The number of question resamples when in sandbox mode}
 
 \item{end_on_first_wrong}{Should the quiz immediately end once the user gets one question wrong?}
 
