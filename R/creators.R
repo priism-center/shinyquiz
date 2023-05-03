@@ -298,7 +298,7 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
     input_html <- shiny::selectInput(
       inputId = ns('answers'),
       label = label,
-      choices = texts,
+      choices = c('', texts),
       selected = selected,
       multiple = isTRUE(type == 'multiple')
     )
