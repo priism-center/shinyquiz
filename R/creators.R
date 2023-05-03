@@ -41,7 +41,7 @@ setClass('quizChoiceSlider', slots = list(
 #' @return none, sets a class
 setClass('quizChoiceNumeric', slots = list(
   correct = 'numeric'
-)
+ )
 )
 
 
@@ -151,7 +151,7 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #' @export
 #' 
 #' @author Joseph Marlo, George Perrett
-#' @seealso [add_choice()], [add_slider()]
+#' @seealso [add_choice()], [add_slider(), [add_numeric()]]
 #' 
 #' @examples
 #' \dontrun{
@@ -402,6 +402,7 @@ create_quiz <- function(..., options = set_quiz_options()){
 
 
 # infinite questions ------------------------------------------------------
+
 #' Create a sandbox question
 #' @param .f a function that outputs an object of class `quizQuestion`. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a `create_question` or `create_question_raw` call inside your function (see example). 
 #' @param n a numeric value indicating how many draw of function .f to include in the random question bank. 
@@ -409,7 +410,6 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' @description Create quasi-infinite questions. 
 #' @details `create_question_sandbox()` takes any user generated function `.f`. The function passed to  the .`f` argument creates a random prompt along with an updated answer, the function passed to the `.f` argument must return an object of class `quizQuestion`. `create_question_sandbox()` will automatically check to ensure the function passed to `.f` is in the appropriate format. The `n` argument controls how many random draws from  the function passed to `.f` are included in the question bank for the quiz. Higher values of `n` allow more unique questions but extreme values of `n` may also lead to slower performance. To create a quiz with `n` randomly generated questions, `create_question_sandbox` can be passed as an argument to `create_quiz`.   
 #'
-#' @importFrom methods new
 #' @return n number of objects of class `quizQuestion`
 #' @export
 #' @author George Perrett, Joseph Marlo
@@ -432,44 +432,51 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' 
 #' # create a quiz with a question bank of 20 randomly generated questions
 #' create_quiz(
-#' create_question_sandbox(.f = random_question, n = 20), 
-#' options = set_quiz_options(sandbox = T)
+#'   create_question_sandbox(.f = random_question, n = 20), 
+#'   options = set_quiz_options(sandbox = TRUE)
 #' )
 #' }
-
 create_question_sandbox <- function(.f, n = 50){
   if(!isTRUE(is.numeric(n))) cli::cli_abort('`n` must be coercible to a numeric value')
-  verify_fn(.f)
+  verify_question_sandbox(.f)
+  
   # draw random realizations
   q_bank <- replicate(n, .f(), simplify = 'list')
+  
   # set new class for all question from sandbox function
-  q_bank <- lapply(q_bank,function(x){new('quizQuestionSandbox', x)})
+  q_bank <- purrr::map(q_bank, \(x) methods::new('quizQuestionSandbox', x))
+  
   return(q_bank)
 }
 
+#' @describeIn create_question_sandbox Verify the input function is the correct structure
 #' @keywords internal
-verify_fn <- function(.f){
-  cli::cli_h1('Checking function')
-  cli::cli_h2('Checking function input')
-  if (!isTRUE(is.function(.f))) cli::cli_abort('.f must be a function with no arguments')
+verify_question_sandbox <- function(.f){
+  
+  cli::cli_progress_step(
+    'Checking function input',
+    msg_done = 'Function inputs good',
+    msg_failed = '.f must be a function with no arguments'
+  )
+  if (!isTRUE(is.function(.f))) cli::cli_abort('')
   verify_n_args(.f, n = 0)
-  cli::cli_alert_success('Function inputs good')
   
-  cli::cli_h2('Checking function output')
+  cli::cli_progress_step(
+    'Checking function output', 
+    msg_done = 'Function output good',
+    msg_failed = 'Could not verify function output. Does your function return a question using `create_question` or `create_question_raw`?'
+  )
   verify_question_structure(.f())
-  cli::cli_alert_success('Function output good')
   
-  cli::cli_h2('Checking randomness')
-  if (isTRUE(all.equal(.f(), .f()))) cli::cli_abort('No randomness detected. Function output on multiple calls is identical.')
-  cli::cli_alert_success('Randomness detected')
+  cli::cli_progress_step(
+    'Checking randomness',
+    msg_done = 'Randomness detected',
+    msg_failed = 'No randomness detected. Function output from multiple calls is identical.'
+  )
+  if (isTRUE(all.equal(.f(), .f()))) cli::cli_abort('')
   
-  cli::cli_h1('')
-  cli::cli_alert_success('All clear your sandbox question is looking good!')
+  cli::cli_progress_step('All clear! Your sandbox question is looking good!')
   cli::cli_status_clear()
   
-  
-  # add class ?
-  
-  return(invisible(.f))
+  return(invisible(TRUE))
 }
-

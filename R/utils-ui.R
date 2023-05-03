@@ -153,15 +153,15 @@ add_confetti <- function(){
 #' @keywords internal
 add_progress_bar <- function(percent, bg_color) {
   if (percent < 0 | percent > 1) cli::cli_abort('`percent` must be [0, 1]')
-  percent <- scales::percent_format()(percent)
+  percent <- round(percent * 100, digits = 0)
   if (is.null(bg_color)) bg_color <- "#609963"
-  
+    
   htmltools::div(
     class = 'progress',
     htmltools::div(
       class = 'progress-bar',
       role  = 'progressbar',
-      style = glue::glue("width: {percent}; background: {bg_color};"),
+      style = glue::glue("width: {percent}%; background: {bg_color};"),
       `aria-valuenow` = percent,
       `aria-valuemin` = "0",
       `aria-valuemax` = "100"

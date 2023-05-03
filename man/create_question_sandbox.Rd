@@ -2,9 +2,12 @@
 % Please edit documentation in R/creators.R
 \name{create_question_sandbox}
 \alias{create_question_sandbox}
+\alias{verify_question_sandbox}
 \title{Create a sandbox question}
 \usage{
 create_question_sandbox(.f, n = 50)
+
+verify_question_sandbox(.f)
 }
 \arguments{
 \item{.f}{a function that outputs an object of class \code{quizQuestion}. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a \code{create_question} or \code{create_question_raw} call inside your function (see example).}
@@ -20,6 +23,11 @@ Create quasi-infinite questions.
 \details{
 \code{create_question_sandbox()} takes any user generated function \code{.f}. The function passed to  the .\code{f} argument creates a random prompt along with an updated answer, the function passed to the \code{.f} argument must return an object of class \code{quizQuestion}. \code{create_question_sandbox()} will automatically check to ensure the function passed to \code{.f} is in the appropriate format. The \code{n} argument controls how many random draws from  the function passed to \code{.f} are included in the question bank for the quiz. Higher values of \code{n} allow more unique questions but extreme values of \code{n} may also lead to slower performance. To create a quiz with \code{n} randomly generated questions, \code{create_question_sandbox} can be passed as an argument to \code{create_quiz}.
 }
+\section{Functions}{
+\itemize{
+\item \code{verify_question_sandbox()}: Verify the input function is the correct structure
+
+}}
 \examples{
 \dontrun{
 
@@ -38,11 +46,12 @@ random_question <- function() {
 
 # create a quiz with a question bank of 20 randomly generated questions
 create_quiz(
-create_question_sandbox(.f = random_question, n = 20), 
-options = set_quiz_options(sandbox = T)
+  create_question_sandbox(.f = random_question, n = 20), 
+  options = set_quiz_options(sandbox = TRUE)
 )
 }
 }
 \author{
 George Perrett, Joseph Marlo
 }
+\keyword{internal}
