@@ -86,8 +86,6 @@
 <span></span>
 <span><span class="fu">sm_show_progress</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sm_resample_questions_if_sandbox</span><span class="op">(</span><span class="va">quiz</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">sm_create_reactive_store</span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">sm_score_quiz</span><span class="op">(</span><span class="va">store</span><span class="op">)</span></span>
@@ -112,19 +110,12 @@
 <dt>quiz</dt>
 <dd><p>an object of class 'quiz'</p></dd>
 
-
-<dt>n</dt>
-<dd><p>Number of resamples to make</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
 <p>depends on function</p>
-
-
-<p>questions</p>
 
 
 <p>reactiveValues</p>
@@ -150,7 +141,6 @@
 <li><p><code>sm_ui_complete_report()</code>: UI to show the score and table of correct answers to display at the end</p></li>
 <li><p><code>sm_ui_question()</code>: UI to show for the current question</p></li>
 <li><p><code>sm_show_progress()</code>: Show the progress bar if stipulated</p></li>
-<li><p><code>sm_resample_questions_if_sandbox()</code>: Create quasi infinite quiz by resampling questions n times</p></li>
 <li><p><code>sm_create_reactive_store()</code>: Create the main store object that handles the state(s)</p></li>
 <li><p><code>sm_score_quiz()</code>: Calculate the percent of questions correct</p></li>
 <li><p><code>sm_summary()</code>: Generate a summary of the quiz to output from the Shiny module</p></li>
