@@ -19,17 +19,28 @@ knitr::opts_chunk$set(
 pkgload::load_all()
 ```
 
+Shiny modules are an effective way to reuse code across different Shiny applications, providing a modular and clean approach to app development. By combining the capabilities of `shinyQuiz` with Shiny modules, you can create reusable, customizable quiz components that can be effortlessly integrated into any of your Shiny applications.
+We will walk you through the process of modifying the namespace of a quiz to correctly work within a Shiny module.
+
 ```{r setup}
 library(shinyQuiz)
 ```
 
-```{r}
+We're creating two quizzes that will be embeded within a single module. If you only have one quiz for a given module then you can skip the second quiz.
+
+Each of these quizzes will have a namespace that corresponds to the namespace of the module and a unique id for the quiz.
+
+```{r eval=FALSE}
 # create namespaces for each quiz
 parent_mod_id <- 'mod1'
 ns <- shiny::NS(parent_mod_id)
 ns1 <- shiny::NS(ns('quiz'))
 ns2 <- shiny::NS(ns('quiz2'))
+```
 
+The namespaces should be passed to the individual questions via `ns = ns1` and to the `create_quiz()` call via the options.
+
+```{r eval=FALSE}
 # create two distinct quizes
 quiz <- create_quiz(
   create_question(
@@ -62,8 +73,11 @@ quiz2 <- create_quiz(
   ),
   options = set_quiz_options(ns = ns2)
 )
+```
 
+The quizzes can now be placed inside your modules as you normally would.
 
+```{r eval=FALSE}
 # UI for your module
 parent_ui <- function(id) {
   ns <- shiny::NS(id)
@@ -77,7 +91,6 @@ parent_ui <- function(id) {
     quiz_ui(quiz2)
   )
 }
-
 
 # server for your module
 parent_server <- function(id) {
@@ -95,6 +108,6 @@ ui <- shiny::fluidPage(
 server <- function(input, output, session) {
   parent_server(parent_mod_id)
 }
-# shiny::shinyApp(ui, server, options = list(launch.browser = TRUE))
+shiny::shinyApp(ui, server)
 ```
 

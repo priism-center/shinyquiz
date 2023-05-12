@@ -19,37 +19,65 @@ pkgload::load_all()
 ```
 
 
-```{r setup}
-library(shinyQuiz)
+`shinyQuiz` is a powerful R package that allows users to create interactive quizzes within R Shiny applications. This guide provides a step-by-step introduction to creating a quiz, integrating it into your Shiny app, and adjusting the options.
+
+## Installation
+
+`shinyQuiz` is currently in development and is available to test by installing via:
+
+<!-- TODO: update with CRAN when ready -->
+
+``` r
+# latest development version
+# install.packages("remotes")
+remotes::install_github('priism-center/shinyQuiz')
 ```
 
 
 ## Creating questions
 
-{ show the different question types }
+To start creating a quiz, first load the package.
+
+
+```{r setup}
+library(shinyQuiz)
+```
+
+A quiz is composed of individual questions created via the `create_question` function. These objects are then integrated into a quiz using the `create_quiz` function.
+
+Individual questions take a prompt and an arbitrary amount of answer choices via `add_numeric()`, `add_choice()`, or `add_slider()`,
 
 ```{r}
-
 q1 <- create_question(
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ornare augue, fringilla molestie metus. Donec eget tortor tincidunt, sagittis dui volutpat, finibus est. Select nulla.',
-  add_choice('Nulla vel'),
-  add_choice('auctor nulla'),
-  add_choice('nulla', correct = TRUE)
+  'What is 2+2?',
+  add_numeric(correct = 4)
 )
+```
 
+```{r}
 q2 <- create_question(
-  'Molestie metus. Maecenas tincidunt maximus viverra. Sed non gravida quam. Phasellus at iaculis leo. Mauris congue aliquet dui, ut dapibus lorem porttitor sed.',
-  add_choice(500),
-  add_choice('600', correct = TRUE),
-  add_choice('six hundred'),
-  type = 'multiple',
-  label = 'Select 600'
+  'What is the capital of France?',
+  add_choice('Lyon'),
+  add_choice('Paris', correct = TRUE),
+  add_choice('Strasbourg'),
+  label = 'Select a city'
 )
+```
 
+```{r}
 q3 <- create_question(
-  'Sed non gravida quam. Phasellus at iaculis leo.',
-  add_slider(10, 50, 30, correct = 20),
-  label = 'Select 20'
+  'Which cities are captial cities?',
+  add_choice('Paris', correct = TRUE),
+  add_choice('London', correct = TRUE),
+  add_choice('Munich'),
+  label = 'Select all that are correct'
+)
+```
+
+```{r}
+q4 <- create_question(
+  'What is 1.5 / 2?',
+  add_slider(correct = 0.75)
 )
 ```
 
@@ -57,39 +85,78 @@ q3 <- create_question(
 
 ## Forming a quiz
 
-```{r eval=FALSE}
-quiz <- create_quiz(q1, q2, q3)
-quiz
+Create the quiz and preview it.
+
+```{r}
+quiz <- create_quiz(q1, q2, q3, q4)
 ```
 
-Preview as a light Shiny app
+The `preview_app()` launches the quiz in a Shiny instance. This can be used directly if you wish.
 
 ```{r eval=FALSE}
 preview_app(quiz)
 ```
 
+<!-- TODO: show screenshot or gif? -->
+
 <br>
 
 ## Integrating into your Shiny application
 
-{ show example Shiny app here }
+You can integrate the quiz into your Shiny app by adding it to the server and UI functions. Here's an example:
 
-```{r}
+```{r eval=FALSE}
+# UI
+ui <- fluidPage(
+  h3('My Excellent Shiny App'),
+  quiz_ui(quiz)
+)
 
+# Server
+server <- function(input, output) {
+  quiz_server(quiz)
+}
+
+shinyApp(ui = ui, server = server)
 ```
-
-{ show module output }
-
 
 ## Adjusting options
 
-{ illustrate adjusting `set_quiz_options`: quiz logic, namespace, messages}
+There are several options you can adjust to customize the behavior of your quizzes. Here are some examples:
 
-```{r}
+- `ns`: A namespace function created from `shiny::NS()`. The default is `shiny::NS('quiz')`. When including multiple quizzes within an application or when nesting a quiz within a module, this should adjusted in addition to the `ns` argument within each `create_question()`.  
+- `messages`: lorem ipsum  
+- `sandbox`: lorem ipsum  
+- `end_on_first_wrong`: lorem ipsum  
+- `progress_bar`: lorem ipsum  
+- `progress_bar_color`: lorem ipsum  
 
+```{r eval=FALSE}
+create_quiz(q1, q2, q3, q4, options = set_quiz_options(sandbox = TRUE))
 ```
 
 <br>
 
-### Placing the quiz in a Shiny module
+## Consuming the quiz output
 
+The `quiz_server()` outputs a reactive summary of the quiz that can be consumed by your Shiny application. 
+
+```{r eval=FALSE}
+# UI
+ui <- fluidPage(
+  h3('My Excellent Shiny App'),
+  quiz_ui(quiz),
+  verbatimTextOutput('quizSummary')
+)
+
+# Server
+server <- function(input, output) {
+  quiz_summary <- quiz_server(quiz)
+  output$quizSummary <- shiny::renderPrint(quiz_summary())
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+
+That's the basic idea! With the `shinyQuiz` package, you can easily create interactive quizzes and add them to your Shiny applications. Enjoy quiz making! 
