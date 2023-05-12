@@ -84,13 +84,21 @@
 
     
     
+<p><code>shinyQuiz</code> provides versatile functions customizing your
+questions beyond the predefined question types. By using
+<code><a href="../reference/create_question.html">create_question()</a></code> and <code><a href="../reference/create_question.html">create_question_raw()</a></code>
+functions, you can tailor your quizzes to suit a wide array of
+educational scenarios and learning styles. In this guide, we will delve
+into the power of these two functions, demonstrating how to craft custom
+questions, specify multiple correct answers, and even incorporate raw
+HTML for enhanced question formatting.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://priism-center.github.io/shinyQuiz/">shinyQuiz</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="customizing-prompts">Customizing prompts<a class="anchor" aria-label="anchor" href="#customizing-prompts"></a>
+<h2 id="maximizing-create_question">Maximizing <code>create_question()</code><a class="anchor" aria-label="anchor" href="#maximizing-create_question"></a>
 </h2>
-<p><code>create_question</code> can take html but
-<code>create_question_raw</code> is even more flexible.</p>
+<p><code><a href="../reference/create_question.html">create_question()</a></code> can take a HTML in its prompt.</p>
+<p>…expand on plots, html, etc…</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/create_question.html">create_question</a></span><span class="op">(</span></span>
 <span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
@@ -100,18 +108,28 @@
 <span>  <span class="fu"><a href="../reference/add_choice.html">add_slider</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">30</span>, correct <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>  label <span class="op">=</span> <span class="st">'Select 20'</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="further-customization-via-create_question_raw">Further customization via <code>create_question_raw()</code><a class="anchor" aria-label="anchor" href="#further-customization-via-create_question_raw"></a>
+</h2>
+<div class="section level3">
+<h3 id="customizing-prompts">Customizing prompts<a class="anchor" aria-label="anchor" href="#customizing-prompts"></a>
+</h3>
+<p><code>create_question</code> can take html but
+<code>create_question_raw</code> is even more flexible.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">create_question_raw</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/create_question.html">create_question_raw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
-<div class="section level2">
-<h2 id="customizing-inputs">Customizing inputs<a class="anchor" aria-label="anchor" href="#customizing-inputs"></a>
-</h2>
+<div class="section level3">
+<h3 id="customizing-inputs">Customizing inputs<a class="anchor" aria-label="anchor" href="#customizing-inputs"></a>
+</h3>
 <p><br></p>
 </div>
-<div class="section level2">
-<h2 id="customizing-grading">Customizing grading<a class="anchor" aria-label="anchor" href="#customizing-grading"></a>
-</h2>
+<div class="section level3">
+<h3 id="customizing-grading">Customizing grading<a class="anchor" aria-label="anchor" href="#customizing-grading"></a>
+</h3>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
