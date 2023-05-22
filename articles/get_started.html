@@ -126,7 +126,7 @@ choices via <code><a href="../reference/add_choice.html">add_numeric()</a></code
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_question.html">create_question</a></span><span class="op">(</span></span>
-<span>  <span class="st">'Which cities are captial cities?'</span>,</span>
+<span>  <span class="st">'Which cities are capital cities?'</span>,</span>
 <span>  <span class="fu"><a href="../reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Paris'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'London'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Munich'</span><span class="op">)</span>,</span>
@@ -186,19 +186,25 @@ quiz within a module, this should adjusted in addition to the
 <code><a href="../reference/create_question.html">create_question()</a></code>.<br>
 </li>
 <li>
-<code>messages</code>: lorem ipsum<br>
+<code>messages</code>: A <code>messages</code> object created from
+<code><a href="../reference/set_quiz_options.html">create_messages()</a></code>. Controls the messages shown at the end
+of the quiz.</li>
+<li>
+<code>sandbox</code>: Should the quiz be put into sandbox mode?
+TRUE/FALSE. Sandbox resamples the questions so they go on
+quasi-infinitely.<br>
 </li>
 <li>
-<code>sandbox</code>: lorem ipsum<br>
+<code>end_on_first_wrong</code>: Should the quiz terminate once the
+user gets one question wrong? Defaults to TRUE.<br>
 </li>
 <li>
-<code>end_on_first_wrong</code>: lorem ipsum<br>
+<code>progress_bar</code>: Show the progress bar? Defaults to
+TRUE.<br>
 </li>
 <li>
-<code>progress_bar</code>: lorem ipsum<br>
-</li>
-<li>
-<code>progress_bar_color</code>: lorem ipsum</li>
+<code>progress_bar_color</code>: Color of the progress bar. Can be a
+hex code or rgba(). Default is #609963.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/create_quiz.html">create_quiz</a></span><span class="op">(</span><span class="va">q1</span>, <span class="va">q2</span>, <span class="va">q3</span>, <span class="va">q4</span>, options <span class="op">=</span> <span class="fu"><a href="../reference/set_quiz_options.html">set_quiz_options</a></span><span class="op">(</span>sandbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -208,7 +214,9 @@ quiz within a module, this should adjusted in addition to the
 <h2 id="consuming-the-quiz-output">Consuming the quiz output<a class="anchor" aria-label="anchor" href="#consuming-the-quiz-output"></a>
 </h2>
 <p>The <code><a href="../reference/quiz_ui.html">quiz_server()</a></code> outputs a reactive summary of the quiz
-that can be consumed by your Shiny application.</p>
+that can be consumed by your Shiny application. Here, we print it using
+<code>verbatimTextOutput</code> and <code>renderPrint</code>. You can
+pass the summary to any other functions as you wish.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># UI</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
