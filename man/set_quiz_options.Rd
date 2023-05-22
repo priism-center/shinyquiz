@@ -57,6 +57,7 @@ These are options to be passed to a \code{quiz}.
 
 }}
 \examples{
+# set the options when creating the quiz
 quiz <- create_quiz(
   create_question(
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -70,7 +71,16 @@ quiz <- create_quiz(
   ),
   options = set_quiz_options(sandbox = TRUE)
 )
+
+# or modify the options on a quiz object
 quiz@options <- set_quiz_options(sandbox = FALSE)
+# adjust the messages shown at the end of the quiz
+messages <- create_messages(
+  'Congrats!',
+  'Ahh, bummer! Got at least one wrong',
+  'Looks like you skipped to the end!'
+ )
+quiz@options <- set_quiz_options(messages = messages)
 }
 \seealso{
 \code{\link[=construct_quiz]{construct_quiz()}}, \code{\link[=construct_messages]{construct_messages()}}

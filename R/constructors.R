@@ -50,6 +50,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' @export
 #' 
 #' @examples 
+#' # set the options when creating the quiz
 #' quiz <- create_quiz(
 #'   create_question(
 #'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -63,6 +64,8 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #'   ),
 #'   options = set_quiz_options(sandbox = TRUE)
 #' )
+#' 
+#' # or modify the options on a quiz object
 #' quiz@options <- set_quiz_options(sandbox = FALSE)
 #' @describeIn set_quiz_options Sets the options for a `quiz`
 set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
@@ -122,6 +125,14 @@ verify_options_structure <- function(options){
 #' @export
 #' @return an object of class `quizMessages`
 #' @describeIn set_quiz_options Create a messages object
+#' @examples 
+#' # adjust the messages shown at the end of the quiz
+#' messages <- create_messages(
+#'   'Congrats!',
+#'   'Ahh, bummer! Got at least one wrong',
+#'   'Looks like you skipped to the end!'
+#'  )
+#' quiz@options <- set_quiz_options(messages = messages)
 create_messages <- function(message_correct, message_wrong, message_skipped){
   construct_messages(message_correct, message_wrong, message_skipped)
 }
