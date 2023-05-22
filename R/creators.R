@@ -86,7 +86,7 @@ add_choice <- function(text, correct = FALSE){
 add_numeric <- function(correct){
   if (is.logical(correct)) cli::cli_abort('`correct` should be a numeric, not logical')
   correct <- as.numeric(correct)
-  if (!is_truthy(correct)) cli::cli_abort("{`correct` must be coercible to numeric")
+  if (!is_truthy(correct)) cli::cli_abort("`correct` must be coercible to numeric")
   
   numeric <- methods::new('quizChoiceNumeric')
   numeric@correct <- correct
