@@ -74,6 +74,7 @@ quiz <- create_quiz(
 
 # or modify the options on a quiz object
 quiz@options <- set_quiz_options(sandbox = FALSE)
+
 # adjust the messages shown at the end of the quiz
 messages <- create_messages(
   'Congrats!',

@@ -67,6 +67,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' 
 #' # or modify the options on a quiz object
 #' quiz@options <- set_quiz_options(sandbox = FALSE)
+#' 
 #' @describeIn set_quiz_options Sets the options for a `quiz`
 set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
   # if(is.null(sandbox)) sandbox <- TRUE
