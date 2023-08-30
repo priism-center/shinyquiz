@@ -46,3 +46,24 @@ quiz <- create_quiz(
 
 preview_app(quiz)
 ```
+
+<br>
+
+## TODO 
+
+- Docs 
+  - All functions generally need more thorough explanations 
+- Vignettes 
+  - Getting started: needs some cleanup; link to functions 
+  - Customizing Questions: lots of work 
+  - Creating Infinite Questions:  lots of work 
+  - Set Up a Quiz in a Module: light review needed 
+- Tests 
+  - how to test preview functions? 
+  - state machine needs many tests 
+- CRAN 
+  - pass check 
+  - pass check on linux, mac, windows 
+  - review DESCRIPTION file 
+  - review [checklist](https://cran.r-project.org/web/packages/submission_checklist.html) 
+  

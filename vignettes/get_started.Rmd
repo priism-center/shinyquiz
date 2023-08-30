@@ -124,7 +124,7 @@ shinyApp(ui = ui, server = server)
 
 There are several options you can adjust to customize the behavior of your quizzes. Here are some examples:
 
-- `ns`: A namespace function created from `shiny::NS()`. The default is `shiny::NS('quiz')`. When including multiple quizzes within an application or when nesting a quiz within a module, this should adjusted in addition to the `ns` argument within each `create_question()`.  
+- `ns`: A namespace function created from `shiny::NS()`. The default is `shiny::NS('quiz')`. When including multiple quizzes within an application or when nesting a quiz within a module, this should be adjusted in addition to the `ns` argument within each `create_question()`. TODO: need further explanation  
 - `messages`: A `messages` object created from `create_messages()`. Controls the messages shown at the end of the quiz. 
 - `sandbox`: Should the quiz be put into sandbox mode? TRUE/FALSE. Sandbox resamples the questions so they go on quasi-infinitely.  
 - `end_on_first_wrong`: Should the quiz terminate once the user gets one question wrong? Defaults to TRUE.  
@@ -139,7 +139,7 @@ create_quiz(q1, q2, q3, q4, options = set_quiz_options(sandbox = TRUE))
 
 ## Consuming the quiz output
 
-The `quiz_server()` outputs a reactive summary of the quiz that can be consumed by your Shiny application. Here, we print it using `verbatimTextOutput` and `renderPrint`. You can pass the summary to any other functions as you wish.
+The `quiz_server()` outputs a reactive summary of the quiz that can be consumed by your Shiny application. Here, we run the `quiz_server()` and capture it's output. We then print it using `verbatimTextOutput` and `renderPrint`. You can pass the summary to any other functions as you wish.
 
 ```{r eval=FALSE}
 # UI

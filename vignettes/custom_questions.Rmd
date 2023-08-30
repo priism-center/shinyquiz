@@ -19,7 +19,7 @@ pkgload::load_all()
 ```
 
 `shinyQuiz` provides versatile functions customizing your questions beyond the predefined question types. By using `create_question()` and `create_question_raw()` functions, you can tailor your quizzes to suit a wide array of educational scenarios and learning styles.
-In this guide, we will delve into the power of these two functions, demonstrating how to craft custom questions, specify multiple correct answers, and even incorporate raw HTML for enhanced question formatting.
+In this guide, we will delve into the power of these two functions, demonstrating how to craft custom questions, specify multiple correct answers, and incorporate raw HTML for enhanced question formatting.
 
 ```{r setup}
 library(shinyQuiz)

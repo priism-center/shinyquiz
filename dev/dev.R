@@ -41,7 +41,6 @@ usethis::use_r('utils')
 # create tests
 usethis::use_testthat()
 usethis::use_test('state-machine')
-usethis::use_test('shiny-module')
 usethis::use_test('preview-tools')
 usethis::use_test('creators')
 

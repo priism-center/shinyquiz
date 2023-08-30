@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 pkgload::load_all()
 ```
 
-Shiny modules are an effective way to reuse code across different Shiny applications, providing a modular and clean approach to app development. By combining the capabilities of `shinyQuiz` with Shiny modules, you can create reusable, customizable quiz components that can be effortlessly integrated into any of your Shiny applications.
+[Shiny modules](https://mastering-shiny.org/scaling-modules.html) are an effective way to reuse code across different Shiny applications, providing a modular and clean approach to app development. By combining the capabilities of `shinyQuiz` with Shiny modules, you can create reusable, customizable quiz components that can be effortlessly integrated into any of your Shiny applications.
 We will walk you through the process of modifying the namespace of a quiz to correctly work within a Shiny module.
 
 ```{r setup}
@@ -75,7 +75,7 @@ quiz2 <- create_quiz(
 )
 ```
 
-The quizzes can now be placed inside your modules as you normally would.
+The quizzes can now be placed inside your module as you normally would.
 
 ```{r eval=FALSE}
 # UI for your module
@@ -83,7 +83,7 @@ parent_ui <- function(id) {
   ns <- shiny::NS(id)
   htmltools::tagList(
     htmltools::h2("My parent module"),
-    htmltools::p("Parent module content"),
+    shiny::textOutput(ns('text')),
     htmltools::h3("Quiz 1"),
     quiz_ui(quiz),
     htmltools::hr(),
@@ -95,10 +95,13 @@ parent_ui <- function(id) {
 # server for your module
 parent_server <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
+    # non-quiz content
+    output$text <- shiny::renderText("Parent module rendered content")
+    
+    # quizzes
     quiz_server(quiz)
     quiz_server(quiz2)
-  }
-  )
+  })
 }
 
 # highest level of the shiny app

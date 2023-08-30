@@ -2,7 +2,7 @@
 
 #' Run a quiz in R Shiny
 #'
-#' @description A shiny Module to implement a quiz
+#' @description A shiny module to implement a quiz
 #'
 #' @param quiz an object of class `quiz`. See [construct_quiz()]
 #' @author Joseph Marlo
@@ -101,9 +101,6 @@ quiz_server <- function(quiz){
       # scroll to top of quiz container
       scroll_to_div(ns = ns, id = 'quiz-container')
       
-      # make non-quiz content visible (may be re-hidden depending on final state)
-      # shinyjs::show(selector = paste0('.', shiny::NS(id_parent)('learning-content')), asis = TRUE)
-      
       # state behavior
       if (store$state == 'quiz-complete'){
         # determine the UI
@@ -112,22 +109,10 @@ quiz_server <- function(quiz){
           ns = ns,
           messages = quiz@options$messages
         )
-        
-        # unblur the text
-        # TODO: remove this functionality
-        # shinyjs::removeClass(selector = paste0('.', shiny::NS(id_parent)('learning-content-blur')),
-        #                      asis = TRUE,
-        #                      class = 'learning-content-blur')
-        
+
       } else {
         # determine the UI
         store$ui_html <- sm_ui_question(store, ns = ns)
-        
-        # hide non-quiz content
-        # TODO: remove this functionality
-        # if (!quiz@options$embed){
-        #   shinyjs::hide(selector = paste0('.', shiny::NS(id_parent)('learning-content')), asis = TRUE)
-        # }
       }
     })
     
