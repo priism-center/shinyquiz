@@ -39,7 +39,7 @@
 sm_get_state <- function(store, variable = NULL, state = NULL){
   if (is.null(state)) state <- store$state
   if (is.null(variable)) return(state)
-  if (!(state %in% store$states)) stop('state not in store$states')
+  if (!(state %in% store$states)) cli::cli_abort('state not in store$states')
   
   if (variable == 'current-question'){
     return(store$questions[store$states == state][[1]]@prompt)
@@ -71,6 +71,8 @@ sm_get_state <- function(store, variable = NULL, state = NULL){
   if (variable == 'sandbox-mode'){
     return(store$sandbox_mode)
   }
+  
+  cli::cli_abort('Variable or state not found')
 }
 
 #' @keywords internal

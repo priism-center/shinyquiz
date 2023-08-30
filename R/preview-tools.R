@@ -89,6 +89,7 @@ preview_quiz <- function(quiz, launch_browser = FALSE){
   )
   htmltools::html_print(panels, viewer = viewer)
   cli::cli_alert_warning('Some items like `shiny::renderPlot` may not show correctly in the viewer')
+  return(invisible(panels))
 }
 
 #' @param question an object of class 'quizQuestion' to preview
@@ -104,4 +105,5 @@ preview_question <- function(question, launch_browser = FALSE){
   
   htmltools::html_print(question@prompt, viewer = viewer)
   cli::cli_alert_warning('Some items like sliders may not show correctly in the viewer')
+  return(invisible(question@prompt))
 }

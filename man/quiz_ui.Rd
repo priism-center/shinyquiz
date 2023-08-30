@@ -16,7 +16,7 @@ quiz_server(quiz)
 a reactive object showing the results of the quiz
 }
 \description{
-A shiny Module to implement a quiz
+A shiny module to implement a quiz
 }
 \section{Functions}{
 \itemize{
