@@ -91,14 +91,9 @@ questions beyond the predefined question types. By using
 functions, you can tailor your quizzes to suit a wide array of
 educational scenarios and learning styles. In this guide, we will delve
 into the power of these two functions, demonstrating how to craft custom
-questions, specify multiple correct answers, and incorporate raw HTML
-for enhanced question formatting.</p>
+questions and incorporate raw HTML for enhanced question formatting.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://priism-center.github.io/shinyQuiz/">shinyQuiz</a></span><span class="op">)</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="more-coming-soon">More Coming Soon!<a class="anchor" aria-label="anchor" href="#more-coming-soon"></a>
-</h2>
-</div>
 <div class="section level2">
 <h2 id="maximizing-create_question">Maximizing <code>create_question()</code><a class="anchor" aria-label="anchor" href="#maximizing-create_question"></a>
 </h2>
@@ -137,30 +132,46 @@ functions will not print correctly so using
 <p><br></p>
 </div>
 <div class="section level2">
-<h2 id="further-customization-via-create_question_raw">Further customization via <code>create_question_raw()</code><a class="anchor" aria-label="anchor" href="#further-customization-via-create_question_raw"></a>
+<h2 id="full-customization-with-create_question_raw">Full Customization with <code>create_question_raw()</code><a class="anchor" aria-label="anchor" href="#full-customization-with-create_question_raw"></a>
 </h2>
-<div class="section level3">
-<h3 id="customizing-prompts">Customizing prompts<a class="anchor" aria-label="anchor" href="#customizing-prompts"></a>
-</h3>
-<p><code>create_question</code> can take html but
-<code>create_question_raw</code> is even more flexible.</p>
+<p><code><a href="../reference/create_question.html">create_question_raw()</a></code> gives you more control over the
+question and answer options. You can use any Shiny input function to
+create the choices, and you define your own grading logic.</p>
+<p>Three elements are required for <code><a href="../reference/create_question.html">create_question_raw()</a></code>: -
+<code>prompt</code>: An HTML div defining the question and any
+accompanying elements. You can use HTML tags, Shiny inputs, or any other
+UI elements. This is where you set up what the user will see. At a
+minimum this should include a shiny <code>input</code> object that will
+be used to collect the user’s answer. - <code>grader</code>: A function
+to takes the user input as an argument and returns back TRUE or FALSE.
+This gives you full control over the grading logic. -
+<code>correct_answer_pretty</code>: Text representing the correct
+answer. Useful for displaying a “pretty” version in the quiz’s summary
+table. - <code>user_answer_prettifier</code>: An optional function that
+takes the user input as a argument and returns back a “pretty” version
+of it. Useful for displaying cleaner answers in the quiz’s summary
+table. The default is
+<code>paste0(user_input, collapse = ", ")</code>.</p>
+<p>For example, you could use <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">shiny::selectInput()</a></code> to
+specify a <code>select</code> list. Note the use of
+<code>shiny::NS('quiz')</code> to define the <code>inputId</code>. This
+is required for <code>shinyQuiz</code> to find the user’s answer.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/create_question.html">create_question_raw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><br></p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="more-coming-soon-1">More Coming Soon!!<a class="anchor" aria-label="anchor" href="#more-coming-soon-1"></a>
-</h2>
-<div class="section level3">
-<h3 id="customizing-inputs">Customizing inputs<a class="anchor" aria-label="anchor" href="#customizing-inputs"></a>
-</h3>
-<p><br></p>
-</div>
-<div class="section level3">
-<h3 id="customizing-grading">Customizing grading<a class="anchor" aria-label="anchor" href="#customizing-grading"></a>
-</h3>
-</div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/create_question.html">create_question_raw</a></span><span class="op">(</span></span>
+<span>  prompt <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
+<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"my question"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">selectInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="st">'quiz'</span><span class="op">)</span><span class="op">(</span><span class="st">'answers'</span><span class="op">)</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">'Select 5'</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span> <span class="op">)</span>,</span>
+<span> grader <span class="op">=</span> \<span class="op">(</span><span class="va">user_input</span><span class="op">)</span> <span class="va">user_input</span> <span class="op">==</span> <span class="st">'5'</span>,</span>
+<span> correct_answer_pretty <span class="op">=</span> <span class="st">'5'</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Take caution when defining the <code>grader</code> function as some
+elements may return back an object of a different class that you are
+expected. It’s recommended to always test the quiz.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
