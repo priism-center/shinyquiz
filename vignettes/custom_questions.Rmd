@@ -25,15 +25,17 @@ In this guide, we will delve into the power of these two functions, demonstratin
 library(shinyQuiz)
 ```
 
+## More Coming Soon!
+
 ## Maximizing `create_question()`
 
-`create_question()` can take a HTML in its prompt. 
+`create_question()` automatically generates the necessary HTML to create the question prompt. However, it can also take display custom HTML. `htmltools` and `shiny` include many functions to convert R code into HTML.
 
-...expand on plots, html, etc...
+For example, a custom plot can be included in the question by passing a plot to `shiny::renderPlot()` and wrapping the entire prompt using `htmltools::tagList()`. Note that some HTML functions will not print correctly so using `shinyQuiz::preview_app()` is recommended.
 
 ```{r eval=FALSE}
 create_question(
-  htmltools::div(
+  htmltools::tagList(
     htmltools::p("A custom question with a plot"),
     shiny::renderPlot(plot(rnorm(100), rnorm(100))),
   ),
@@ -41,6 +43,31 @@ create_question(
   label = 'Select 20'
 )
 ```
+
+<br>
+<p align="center">
+<img src="figures/custom-questions-plot.png" width=60%>
+</p>
+<br>
+
+
+```{r eval=FALSE}
+create_question(
+  htmltools::tagList(
+    htmltools::p("A custom question with a table"),
+    reactable::reactable(mtcars),
+  ),
+  add_slider(10, 50, 30, correct = 20),
+  label = 'Select 20'
+)
+```
+
+<br>
+<p align="center">
+<img src="figures/custom-questions-table.png" width=60%>
+</p>
+<br>
+
 
 ## Further customization via `create_question_raw()`
 

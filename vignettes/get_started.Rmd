@@ -95,7 +95,7 @@ preview_app(quiz)
 
 <br>
 <p align="center">
-<img src="figures/nested-modules-screenshot.png" width=60%>
+<img src="figures/get-started-screenshot.png" width=60%>
 </p>
 <br>
 

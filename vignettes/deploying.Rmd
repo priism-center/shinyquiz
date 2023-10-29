@@ -56,7 +56,7 @@ ui <- ui <- shiny::fluidPage(
 
 # Build the server
 server <- function(input, output, session) {
-  quiz_summary <- shinyQuiz::quiz_server(quiz)
+  shinyQuiz::quiz_server(quiz)
 }
 
 # Run the app
@@ -111,7 +111,7 @@ ui <- shiny::fluidPage(
 
 # build the server
 server <- function(input, output, session) {
-  quiz_summary <- quiz_server(quiz)
+  quiz_server(quiz)
 }
 
 # run the app
