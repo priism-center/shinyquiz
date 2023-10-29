@@ -46,6 +46,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/get_started.html">Getting Started</a>
     <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="../articles/deploying.html">Deploying to shinyapps.io</a>
     <a class="dropdown-item" href="../articles/custom_questions.html">Customizing Questions</a>
     <a class="dropdown-item" href="../articles/infinite_questions.html">Creating Infinite Questions</a>
     <a class="dropdown-item" href="../articles/nested_modules.html">Set Up a Quiz in a Module</a>
@@ -149,7 +150,9 @@ choices via <code><a href="../reference/add_choice.html">add_numeric()</a></code
 This can be used directly if you wish.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/preview_app.html">preview_app</a></span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span></code></pre></div>
-<!-- TODO: show screenshot or gif? -->
+<br><p align="center">
+<img src="figures/nested-modules-screenshot.png" width="60%"></p>
+<p><br></p>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -159,8 +162,8 @@ This can be used directly if you wish.</p>
 server and UI functions. Here’s an example:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># UI</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
-<span>  <span class="fu">h3</span><span class="op">(</span><span class="st">'My Excellent Shiny App'</span><span class="op">)</span>,</span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h3</a></span><span class="op">(</span><span class="st">'My Excellent Shiny App'</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/quiz_ui.html">quiz_ui</a></span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -169,7 +172,8 @@ server and UI functions. Here’s an example:</p>
 <span>  <span class="fu"><a href="../reference/quiz_ui.html">quiz_server</a></span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="adjusting-options">Adjusting options<a class="anchor" aria-label="anchor" href="#adjusting-options"></a>
@@ -182,9 +186,9 @@ your quizzes. Here are some examples:</p>
 <code><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">shiny::NS()</a></code>. The default is <code>shiny::NS('quiz')</code>.
 When including multiple quizzes within an application or when nesting a
 quiz within a module, this should be adjusted in addition to the
-<code>ns</code> argument within each <code><a href="../reference/create_question.html">create_question()</a></code>.
-TODO: need further explanation<br>
-</li>
+<code>ns</code> argument within each <code><a href="../reference/create_question.html">create_question()</a></code>. See
+the <a href="shinyQuiz/articles/nested_modules">Quiz in a Module
+article</a> for a working example.</li>
 <li>
 <code>messages</code>: A <code>messages</code> object created from
 <code><a href="../reference/set_quiz_options.html">create_messages()</a></code>. Controls the messages shown at the end
@@ -204,7 +208,9 @@ TRUE.<br>
 </li>
 <li>
 <code>progress_bar_color</code>: Color of the progress bar. Can be a
-hex code or rgba(). Default is #609963.</li>
+<a href="https://www.w3schools.com/colors/colors_hexadecimal.asp" class="external-link">hex
+color code</a> or <a href="https://www.w3schools.com/colors/colors_rgb.asp" class="external-link">rgba()</a>.
+Default is #609963.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/create_quiz.html">create_quiz</a></span><span class="op">(</span><span class="va">q1</span>, <span class="va">q2</span>, <span class="va">q3</span>, <span class="va">q4</span>, options <span class="op">=</span> <span class="fu"><a href="../reference/set_quiz_options.html">set_quiz_options</a></span><span class="op">(</span>sandbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -220,10 +226,10 @@ using <code>verbatimTextOutput</code> and <code>renderPrint</code>. You
 can pass the summary to any other functions as you wish.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># UI</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
-<span>  <span class="fu">h3</span><span class="op">(</span><span class="st">'My Excellent Shiny App'</span><span class="op">)</span>,</span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h3</a></span><span class="op">(</span><span class="st">'My Excellent Shiny App'</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/quiz_ui.html">quiz_ui</a></span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span>,</span>
-<span>  <span class="fu">verbatimTextOutput</span><span class="op">(</span><span class="st">'quizSummary'</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">'quizSummary'</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Server</span></span>
@@ -232,10 +238,13 @@ can pass the summary to any other functions as you wish.</p>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">quizSummary</span> <span class="op">&lt;-</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="fu">quiz_summary</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p><br></p>
 <p>That’s the basic idea! With the <code>shinyQuiz</code> package, you
 can easily create interactive quizzes and add them to your Shiny
-applications. Enjoy quiz making!</p>
+applications. If you want to share your app with others, be sure to
+check out the <a href="shinyQuiz/articles/get_started.html">Deploying to
+shinyapps.io article</a>. Enjoy quiz making!</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
