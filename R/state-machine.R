@@ -8,7 +8,7 @@
 #'
 #' @param store a list formatted like in the example
 #' @param variable one of c('current-question', 'current-correct-answer', 'next-state', 'current-response')
-#' @param state one of c('quiz-question-1', ..., 'quiz-question')
+#' @param state one of c('quiz-question-1', ..., 'quiz-complete')
 #' @keywords internal
 #' @return depends on function
 #'
@@ -279,6 +279,13 @@ sm_ui_complete_report <- function(store){
       your_answer = reactable::colDef(name = 'Your Answer', align = 'right'),
       correct_answer = reactable::colDef(name = 'Correct Answer', align = 'right')
     )
+    # details = function(index) {
+    #   htmltools::div(
+    #     style = 'margin: 0.5rem 2rem 2rem 2rem; padding: 0.5rem 1rem 1rem 1rem; background: rgba(230, 230, 230, 1);',
+    #     # sm_get_state(store, 'current-question', glue::glue('quiz-question-{index}'))
+    #     store$quiz_obj@questions[[index]]@prompt
+    #   )
+    # }
   )
   
   # add score to top of table

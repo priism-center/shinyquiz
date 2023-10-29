@@ -67,7 +67,7 @@ shiny::shinyApp(ui, server)
 
 ## Deploying to shinyapps.io
 
-There's two easy ways to deploy straight to shinyapps.io via Rstudio. For both, you'll need to save your above code to a file `app.R` script. From there, you can either deploy it using the Rstudio interface via the blue button or using the `rsconnect` package. You can find up-to-date information regrading those methods on the [Posit site](https://shiny.posit.co/r/articles/share/shinyapps/).
+There's two easy ways to deploy straight to shinyapps.io via Rstudio. For both, you'll need to save your above code to a file `app.R` script. From there, you can either deploy it using the Rstudio interface via the blue button or using the `rsconnect` package. You can find up-to-date information regarding those methods on the [Posit site](https://shiny.posit.co/r/articles/share/shinyapps/).
 
 <br><br>
 

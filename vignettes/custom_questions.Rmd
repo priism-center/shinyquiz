@@ -94,4 +94,4 @@ create_question_raw(
 )
 ```
 
-Take caution when defining the `grader` function as some elements may return back an object of a different class that you are expected. It's recommended to always self-test your quiz.
+Take caution when defining the `grader` function as some elements may return back an object of a different class that you are expecting. It's recommended to always self-test your quiz.
