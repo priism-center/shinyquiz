@@ -137,21 +137,23 @@ functions will not print correctly so using
 <p><code><a href="../reference/create_question.html">create_question_raw()</a></code> gives you more control over the
 question and answer options. You can use any Shiny input function to
 create the choices, and you define your own grading logic.</p>
-<p>Three elements are required for <code><a href="../reference/create_question.html">create_question_raw()</a></code>: -
-<code>prompt</code>: An HTML div defining the question and any
+<p>Three elements are required for
+<code><a href="../reference/create_question.html">create_question_raw()</a></code>:<br>
+- <code>prompt</code>: An HTML div defining the question and any
 accompanying elements. You can use HTML tags, Shiny inputs, or any other
 UI elements. This is where you set up what the user will see. At a
 minimum this should include a shiny <code>input</code> object that will
-be used to collect the user’s answer. - <code>grader</code>: A function
-to takes the user input as an argument and returns back TRUE or FALSE.
-This gives you full control over the grading logic. -
-<code>correct_answer_pretty</code>: Text representing the correct
+be used to collect the user’s answer.<br>
+- <code>grader</code>: A function to takes the user input as an argument
+and returns back TRUE or FALSE. This gives you full control over the
+grading logic.<br>
+- <code>correct_answer_pretty</code>: Text representing the correct
 answer. Useful for displaying a “pretty” version in the quiz’s summary
-table. - <code>user_answer_prettifier</code>: An optional function that
-takes the user input as a argument and returns back a “pretty” version
-of it. Useful for displaying cleaner answers in the quiz’s summary
-table. The default is
-<code>paste0(user_input, collapse = ", ")</code>.</p>
+table.<br>
+- <code>user_answer_prettifier</code>: An optional function that takes
+the user input as a argument and returns back a “pretty” version of it.
+Useful for displaying cleaner answers in the quiz’s summary table. The
+default is <code>paste0(user_input, collapse = ", ")</code>.</p>
 <p>For example, you could use <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">shiny::selectInput()</a></code> to
 specify a <code>select</code> list. Note the use of
 <code>shiny::NS('quiz')</code> to define the <code>inputId</code>. This
@@ -171,7 +173,7 @@ is required for <code>shinyQuiz</code> to find the user’s answer.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Take caution when defining the <code>grader</code> function as some
 elements may return back an object of a different class that you are
-expected. It’s recommended to always test the quiz.</p>
+expected. It’s recommended to always self-test your quiz.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
