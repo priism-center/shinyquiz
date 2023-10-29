@@ -1,0 +1,121 @@
+---
+title: "Deploying to shinyapps.io"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Deploying to shinyapps.io}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r warning=FALSE, message=FALSE, include=FALSE}
+pkgload::load_all()
+```
+
+This vignette will walk you through how to deploy your quiz created with shinyQuiz to shinyapps.io. We'll start by creating a simple quiz, and then we'll go through the steps to deploy it online.
+
+<br>
+
+## Creating a Quiz
+First, let's create a quiz using shinyQuiz. Here's an example:
+
+```{r eval=FALSE}
+library(shiny)
+library(shinyQuiz)
+
+# Create the quiz
+quiz <- shinyQuiz::create_quiz(
+  # ... (your example code here)
+)
+```
+
+### Previewing the Quiz Locally
+Before deploying, you might want to preview your quiz to make sure it looks and functions as expected.
+
+```{r eval=FALSE}
+preview_app(quiz)
+```
+
+<br>
+
+## Building the Shiny App
+Now that we have our quiz, let's build the Shiny app that will host it. Here's how you can do it:
+
+```{r eval=FALSE}
+# Build the shiny UI
+ui <- ui <- shiny::fluidPage(
+  htmltools::div(
+    style = "max-width: 700px",
+    shinyQuiz::quiz_ui(quiz)
+  )
+)
+
+# Build the server
+server <- function(input, output, session) {
+  quiz_summary <- shinyQuiz::quiz_server(quiz)
+}
+
+# Run the app
+shiny::shinyApp(ui, server)
+```
+
+<br>
+
+## Deploying to shinyapps.io
+
+There's two easy ways to deploy straight to shinyapps.io via Rstudio. For both, you'll need to save your above code to a file `app.R` script. From there, you can either deploy it using the Rstudio interface via the blue button or using the `rsconnect` package. You can find up-to-date information regrading those methods on the [Posit site](https://shiny.posit.co/r/articles/share/shinyapps/).
+
+<br><br>
+
+### Full Script
+
+Here is a full, example version of the `app.R` file:
+
+```{r eval=FALSE}
+library(shiny)
+library(shinyQuiz)
+
+# create the quiz 
+quiz <- create_quiz(
+  create_question(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ornare augue, fringilla molestie metus. Donec eget tortor tincidunt, sagittis dui volutpat, finibus est. Select nulla.',
+    add_choice('Nulla vel'),
+    add_choice('auctor nulla'),
+    add_choice('nulla', correct = TRUE)
+  ),
+  create_question(
+    'Molestie metus. Maecenas tincidunt maximus viverra. Sed non gravida quam. Phasellus at iaculis leo. Mauris congue aliquet dui, ut dapibus lorem porttitor sed.',
+    add_choice('ATT'),
+    add_choice('ATE', correct = TRUE),
+    add_choice('ATC', correct = TRUE),
+    label = 'Select ATE and ATC'
+  ),
+  create_question(
+    'Sed non gravida quam. Phasellus at iaculis leo.',
+    add_slider(10, 50, 30, correct = 20),
+    label = 'Select 20'
+  )
+)
+
+# build the shiny UI
+ui <- shiny::fluidPage(
+  htmltools::div(
+    style = "max-width: 700px",
+    quiz_ui(quiz)
+  )
+)
+
+# build the server
+server <- function(input, output, session) {
+  quiz_summary <- quiz_server(quiz)
+}
+
+# run the app
+shiny::shinyApp(ui, server)
+```

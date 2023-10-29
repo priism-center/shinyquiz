@@ -43,6 +43,14 @@ quiz <- create_quiz(
     label = 'Select 20'
   )
 )
-
 preview_app(quiz)
 ```
+
+<br>
+<p align="center">
+<a href="https://apsta.shinyapps.io/shinyQuiz-demo/">
+<img src="man/figures/README-screenshot.png" width=70%>
+</a>
+</p>
+
+You can view a live version of this app [here](https://apsta.shinyapps.io/shinyQuiz-demo/).

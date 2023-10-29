@@ -49,6 +49,7 @@ usethis::use_vignette('get_started', title = 'Get Started')
 usethis::use_vignette('custom_questions', title = 'Customizing Questions')
 usethis::use_vignette('infinite_questions', title = 'Creating Infinite Questions')
 usethis::use_vignette('nested_modules', title = 'Quiz in a Module')
+usethis::use_vignette('deploying', title = 'Deploying to shinyapps.io')
 
 # other
 usethis::use_github_action_check_release("R-CMD-check.yaml")

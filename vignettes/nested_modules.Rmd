@@ -114,3 +114,8 @@ server <- function(input, output, session) {
 shiny::shinyApp(ui, server)
 ```
 
+<br>
+<p align="center">
+<img src="figures/nested-modules-screenshot.png" width=60%>
+</p>
+<br>

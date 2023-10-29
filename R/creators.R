@@ -137,7 +137,7 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #' @export
 #' 
 #' @author Joseph Marlo, George Perrett
-#' @seealso [add_choice()], [add_slider(), [add_numeric()]]
+#' @seealso [add_choice()], [add_slider()], [add_numeric()]]
 #' 
 #' @examples
 #' \dontrun{
@@ -327,7 +327,7 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
 #' )
 #' create_quiz(q3, q2)
 #' }
-#' @describeIn create_question Create a quiz question using custom inputs. This is a more flexible function. 
+#' @describeIn create_question Create a quiz question using custom inputs. This is a more flexible function that allows any html. 
 create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answer_prettifier = \(user_input) paste0(user_input, collapse = ', ')){
   
   q <- construct_question(

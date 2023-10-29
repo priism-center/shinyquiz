@@ -25,6 +25,8 @@ navbar:
     - text: Getting Started
       href: articles/get_started.html
     - text: -------
+    - text: Deploying to shinyapps.io
+      href: articles/deploying.html
     - text: Customizing Questions
       href: articles/custom_questions.html
     - text: Creating Infinite Questions

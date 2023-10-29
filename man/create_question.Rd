@@ -57,7 +57,7 @@ Create a quiz question
 \itemize{
 \item \code{create_question()}: Create a quiz question
 
-\item \code{create_question_raw()}: Create a quiz question using custom inputs. This is a more flexible function.
+\item \code{create_question_raw()}: Create a quiz question using custom inputs. This is a more flexible function that allows any html.
 
 }}
 \examples{
@@ -93,7 +93,7 @@ create_quiz(q3, q2)
 }
 }
 \seealso{
-\code{\link[=add_choice]{add_choice()}}, [add_slider(), \code{\link[=add_numeric]{add_numeric()}}]
+\code{\link[=add_choice]{add_choice()}}, \code{\link[=add_slider]{add_slider()}}, \code{\link[=add_numeric]{add_numeric()}}]
 }
 \author{
 Joseph Marlo, George Perrett

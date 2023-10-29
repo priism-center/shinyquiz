@@ -10,7 +10,7 @@
 #' @keywords internal
 scroll_to_div <- function(ns = NULL, id = 'quiz-container'){
   if (!is.null(ns)) id <- ns(id)
-  js <- paste0("$('#", id, "')[0].scrollIntoView()")
+  js <- glue::glue("$('#{id}')[0].scrollIntoView()")
   shinyjs::runjs(js)
 }
 
