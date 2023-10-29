@@ -71,11 +71,11 @@ create_question(
 
 `create_question_raw()` gives you more control over the question and answer options. You can use any Shiny input function to create the choices, and you define your own grading logic.
 
-Three elements are required for `create_question_raw()`: 
-- `prompt`: An HTML div defining the question and any accompanying elements. You can use HTML tags, Shiny inputs, or any other UI elements. This is where you set up what the user will see. At a minimum this should include a shiny `input` object that will be used to collect the user's answer. 
-- `grader`: A function to takes the user input as an argument and returns back TRUE or FALSE. This gives you full control over the grading logic.
-- `correct_answer_pretty`: Text representing the correct answer. Useful for displaying a "pretty" version in the quiz's summary table.
-- `user_answer_prettifier`: An optional function that takes the user input as a argument and returns back a "pretty" version of it. Useful for displaying cleaner answers in the quiz's summary table. The default is `paste0(user_input, collapse = ", ")`. 
+Three elements are required for `create_question_raw()`:  
+  - `prompt`: An HTML div defining the question and any accompanying elements. You can use HTML tags, Shiny inputs, or any other UI elements. This is where you set up what the user will see. At a minimum this should include a shiny `input` object that will be used to collect the user's answer.  
+  - `grader`: A function to takes the user input as an argument and returns back TRUE or FALSE. This gives you full control over the grading logic.  
+  - `correct_answer_pretty`: Text representing the correct answer. Useful for displaying a "pretty" version in the quiz's summary table.  
+  - `user_answer_prettifier`: An optional function that takes the user input as a argument and returns back a "pretty" version of it. Useful for displaying cleaner answers in the quiz's summary table. The default is `paste0(user_input, collapse = ", ")`.  
 
 For example, you could use `shiny::selectInput()` to specify a `select` list. Note the use of `shiny::NS('quiz')` to define the `inputId`. This is required for `shinyQuiz` to find the user's answer. 
 
@@ -94,4 +94,4 @@ create_question_raw(
 )
 ```
 
-Take caution when defining the `grader` function as some elements may return back an object of a different class that you are expected. It's recommended to always test the quiz.
+Take caution when defining the `grader` function as some elements may return back an object of a different class that you are expected. It's recommended to always self-test your quiz.
