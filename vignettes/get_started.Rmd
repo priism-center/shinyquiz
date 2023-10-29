@@ -88,6 +88,8 @@ Create the quiz from the questions and preview it.
 
 ```{r}
 quiz <- create_quiz(q1, q2, q3, q4)
+```
+```{r eval=FALSE}
 preview_app(quiz)
 ```
 
