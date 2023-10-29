@@ -84,15 +84,10 @@ q4 <- create_question(
 
 ## Forming a quiz
 
-Create the quiz and preview it.
+Create the quiz from the questions and preview it.
 
 ```{r}
 quiz <- create_quiz(q1, q2, q3, q4)
-```
-
-The `preview_app()` launches the quiz in a Shiny instance. This can be used directly if you wish.
-
-```{r eval=FALSE}
 preview_app(quiz)
 ```
 
@@ -101,6 +96,8 @@ preview_app(quiz)
 <img src="figures/nested-modules-screenshot.png" width=60%>
 </p>
 <br>
+
+The `preview_app()` launches the quiz in a Shiny instance to quickly check the quiz design. You can also print the quiz to preview it without a Shiny runtime.
 
 <br>
 
@@ -129,7 +126,7 @@ shinyApp(ui = ui, server = server)
 
 There are several options you can adjust to customize the behavior of your quizzes. Here are some examples:
 
-- `ns`: A namespace function created from `shiny::NS()`. The default is `shiny::NS('quiz')`. When including multiple quizzes within an application or when nesting a quiz within a module, this should be adjusted in addition to the `ns` argument within each `create_question()`. See the [Quiz in a Module article](shinyQuiz/articles/nested_modules) for a working example.
+- `ns`: A namespace function created from `shiny::NS()`. The default is `shiny::NS('quiz')`. When including multiple quizzes within an application or when nesting a quiz within a module, this should be adjusted in addition to the `ns` argument within each `create_question()`. See the [Quiz in a Module article](nested_modules) for a working example.
 - `messages`: A `messages` object created from `create_messages()`. Controls the messages shown at the end of the quiz. 
 - `sandbox`: Should the quiz be put into sandbox mode? TRUE/FALSE. Sandbox resamples the questions so they go on quasi-infinitely.  
 - `end_on_first_wrong`: Should the quiz terminate once the user gets one question wrong? Defaults to TRUE.  
@@ -165,4 +162,4 @@ shinyApp(ui = ui, server = server)
 
 <br>
 
-That's the basic idea! With the `shinyQuiz` package, you can easily create interactive quizzes and add them to your Shiny applications. If you want to share your app with others, be sure to check out the [Deploying to shinyapps.io article](shinyQuiz/articles/get_started.html). Enjoy quiz making! 
+That's the basic idea! With the `shinyQuiz` package, you can easily create interactive quizzes and add them to your Shiny applications. If you want to share your app with others, be sure to check out the [Deploying to shinyapps.io article](get_started.html). Enjoy quiz making! 

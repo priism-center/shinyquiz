@@ -20,8 +20,6 @@ pkgload::load_all()
 
 This vignette will walk you through how to deploy your quiz created with shinyQuiz to shinyapps.io. We'll start by creating a simple quiz, and then we'll go through the steps to deploy it online.
 
-<br>
-
 ## Creating a Quiz
 First, let's create a quiz using shinyQuiz. Here's an example:
 
