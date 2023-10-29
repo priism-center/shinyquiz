@@ -145,9 +145,9 @@ choices via <code><a href="../reference/add_choice.html">add_numeric()</a></code
 </h2>
 <p>Create the quiz from the questions and preview it.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">quiz</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_quiz.html">create_quiz</a></span><span class="op">(</span><span class="va">q1</span>, <span class="va">q2</span>, <span class="va">q3</span>, <span class="va">q4</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/preview_app.html">preview_app</a></span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span></code></pre></div>
-<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+<code class="sourceCode R"><span><span class="va">quiz</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_quiz.html">create_quiz</a></span><span class="op">(</span><span class="va">q1</span>, <span class="va">q2</span>, <span class="va">q3</span>, <span class="va">q4</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/preview_app.html">preview_app</a></span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span></code></pre></div>
 <br><p align="center">
 <img src="figures/nested-modules-screenshot.png" width="60%"></p>
 <p><br></p>
@@ -161,7 +161,7 @@ it without a Shiny runtime.</p>
 </h2>
 <p>You can integrate the quiz into your Shiny app by adding it to the
 server and UI functions. Here’s an example:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># UI</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h3</a></span><span class="op">(</span><span class="st">'My Excellent Shiny App'</span><span class="op">)</span>,</span>
@@ -213,7 +213,7 @@ TRUE.<br>
 color code</a> or <a href="https://www.w3schools.com/colors/colors_rgb.asp" class="external-link">rgba()</a>.
 Default is #609963.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/create_quiz.html">create_quiz</a></span><span class="op">(</span><span class="va">q1</span>, <span class="va">q2</span>, <span class="va">q3</span>, <span class="va">q4</span>, options <span class="op">=</span> <span class="fu"><a href="../reference/set_quiz_options.html">set_quiz_options</a></span><span class="op">(</span>sandbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
@@ -225,7 +225,7 @@ that can be consumed by your Shiny application. Here, we run the
 <code><a href="../reference/quiz_ui.html">quiz_server()</a></code> and capture it’s output. We then print it
 using <code>verbatimTextOutput</code> and <code>renderPrint</code>. You
 can pass the summary to any other functions as you wish.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># UI</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h3</a></span><span class="op">(</span><span class="st">'My Excellent Shiny App'</span><span class="op">)</span>,</span>
