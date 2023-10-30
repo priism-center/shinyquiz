@@ -67,9 +67,8 @@ quiz_server <- function(quiz){
   
   shiny::moduleServer(id, function(input, output, session){
 
-    # add css class to the quiz container if embedding
-    # TODO: keep this embedding mode?
-    if (quiz@options$embed) shinyjs::addClass(id = 'quiz-container', class = 'quiz-embedded')
+    # add css class to the quiz container
+    if (is_truthy(quiz@options$class)) shinyjs::addClass(id = 'quiz-container', class = quiz@options$class)
     
     # add headers to question texts
     quiz <- sm_ui_format_prompts(quiz)

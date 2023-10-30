@@ -59,7 +59,7 @@ sm_summary(store, quiz)
 
 \item{variable}{one of c('current-question', 'current-correct-answer', 'next-state', 'current-response')}
 
-\item{state}{one of c('quiz-question-1', ..., 'quiz-question')}
+\item{state}{one of c('quiz-question-1', ..., 'quiz-complete')}
 
 \item{quiz}{an object of class 'quiz'}
 }

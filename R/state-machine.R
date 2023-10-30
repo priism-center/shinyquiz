@@ -398,7 +398,6 @@ sm_score_quiz <- function(store){
 #' @keywords internal
 #' @describeIn sm_get_state Generate a summary of the quiz to output from the Shiny module
 sm_summary <- function(store, quiz){
-  # TODO: return back the full quiz results?
   
   score <- sm_score_quiz(store)
   list(

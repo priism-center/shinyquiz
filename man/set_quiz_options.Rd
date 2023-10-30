@@ -10,7 +10,7 @@ set_quiz_options(
   messages,
   sandbox = FALSE,
   end_on_first_wrong = !sandbox,
-  embed = FALSE,
+  class = NULL,
   progress_bar = !sandbox,
   progress_bar_color = "#609963",
   ...
@@ -27,7 +27,7 @@ create_messages(message_correct, message_wrong, message_skipped)
 
 \item{end_on_first_wrong}{Should the quiz immediately end once the user gets one question wrong?}
 
-\item{embed}{boolean. TBD TODO: remove?}
+\item{class}{string. A custom CSS class to add to the quiz div}
 
 \item{progress_bar}{boolean. Show the progress bar UI at the top of the quiz}
 

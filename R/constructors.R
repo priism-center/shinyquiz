@@ -39,7 +39,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' @param messages an object of class `quizMessages` generated from [create_messages()] containing the messages to show at the end. If not provided, defaults are used.
 #' @param sandbox boolean. TBD
 #' @param end_on_first_wrong Should the quiz immediately end once the user gets one question wrong?
-#' @param embed boolean. TBD TODO: remove?
+#' @param class string. A custom CSS class to add to the quiz div
 #' @param progress_bar boolean. Show the progress bar UI at the top of the quiz
 #' @param progress_bar_color Color code for the progress bar background
 #' @param ... other named options to pass to `quiz`
@@ -69,7 +69,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' quiz@options <- set_quiz_options(sandbox = FALSE)
 #' 
 #' @describeIn set_quiz_options Sets the options for a `quiz`
-set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, end_on_first_wrong = !sandbox, embed = FALSE, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
+set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, end_on_first_wrong = !sandbox, class = NULL, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
   # if(is.null(sandbox)) sandbox <- TRUE
   
   # set the default messages
@@ -87,7 +87,7 @@ set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, 
     messages = messages,
     sandbox = sandbox,
     logic_end_on_first_wrong = isTRUE(end_on_first_wrong),
-    embed = isTRUE(embed),
+    class = class,
     progress_bar = isTRUE(progress_bar),
     progress_bar_color = progress_bar_color,
     ...
@@ -105,7 +105,7 @@ verify_options_structure <- function(options){
   if (!is.list(options)) cli::cli_abort("`options` must be a list")
   
   # check if all required options exist
-  req_items <- c('ns', 'messages', 'sandbox', 'embed')
+  req_items <- c('ns', 'messages', 'sandbox', 'class')
   req_items_in_options <- req_items %in% names(options)
   all_req_items_exist <- isTRUE(all(req_items_in_options))
   if (!all_req_items_exist) cli::cli_abort('Missing in options: {req_items[!req_items_in_options]}')
@@ -114,7 +114,7 @@ verify_options_structure <- function(options){
   if (!isTRUE(is.function(options$ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
   if (!inherits(options$messages, 'quizMessages')) cli::cli_abort('`messages` should be of class `quizMessages`')
   if (!isTRUE(is.logical(options$sandbox))) cli::cli_abort('`sandbox` should be of class `logical`')
-  if (!isTRUE(is.logical(options$embed))) cli::cli_abort('`embed` should be of class `logical`')
+  if (!(is.null(options$class) | is.character(options$class))) cli::cli_abort('`class` should be of class `character` or `NULL`')
   
   return(invisible(TRUE))
 }
