@@ -29,7 +29,7 @@ navbar:
       href: articles/deploying.html
     - text: Customizing Questions
       href: articles/custom_questions.html
-    - text: Creating Infinite Questions
-      href: articles/infinite_questions.html
+    - text: Creating Randomized Questions
+      href: articles/random_questions.html
     - text: Set Up a Quiz in a Module
       href: articles/nested_modules.html

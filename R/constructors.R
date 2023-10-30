@@ -37,7 +37,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #'
 #' @param ns namespace generated from [shiny::NS()]. When using custom namespaces, the individual [create_question()] requires the namespace as well.
 #' @param messages an object of class `quizMessages` generated from [create_messages()] containing the messages to show at the end. If not provided, defaults are used.
-#' @param sandbox boolean. TBD #TODO: remove this? is/should sandbox be handled only by create_question_sandbox?
+#' @param sandbox boolean. TBD #TODO: remove this? is/should sandbox be handled only by `create_question_random()`?
 #' @param end_on_first_wrong Should the quiz immediately end once the user gets one question wrong?
 #' @param class string. A custom CSS class to add to the quiz div
 #' @param progress_bar boolean. Show the progress bar UI at the top of the quiz

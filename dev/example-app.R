@@ -54,7 +54,7 @@ quiz <- create_quiz(
     grader = \(x) setequal(x, c('a', 'b')),
     correct_answer_pretty = 'a, b'
   )
-  # create_question_sandbox(
+  # create_question_random(
   #   \() {
   #     number <- round(rnorm(1, 30, 10), 0)
   #     rand_prompt <- paste('Is', number, 'an even number?')

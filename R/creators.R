@@ -384,14 +384,14 @@ create_quiz <- function(..., options = set_quiz_options()){
 }
 
 
-# infinite questions ------------------------------------------------------
+# random questions ------------------------------------------------------
 
 #' Create a sandbox question
 #' @param .f a function that outputs an object of class `quizQuestion`. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a `create_question` or `create_question_raw` call inside your function (see example). 
 #' @param n a numeric value indicating how many draw of function .f to include in the random question bank. 
 #'
-#' @description Create quasi-infinite questions. 
-#' @details `create_question_sandbox()` takes any user generated function `.f`. The function passed to  the .`f` argument creates a random prompt along with an updated answer, the function passed to the `.f` argument must return an object of class `quizQuestion`. `create_question_sandbox()` will automatically check to ensure the function passed to `.f` is in the appropriate format. The `n` argument controls how many random draws from  the function passed to `.f` are included in the question bank for the quiz. Higher values of `n` allow more unique questions but extreme values of `n` may also lead to slower performance. To create a quiz with `n` randomly generated questions, `create_question_sandbox` can be passed as an argument to `create_quiz`.   
+#' @description Create questions with inherit randomness. Allows one function to generate many different questions. 
+#' @details `create_question_random()` takes any user generated function `.f`. The function passed to  the .`f` argument creates a random prompt along with an updated answer, the function passed to the `.f` argument must return an object of class `quizQuestion`. `create_question_random()` will automatically check to ensure the function passed to `.f` is in the appropriate format. The `n` argument controls how many random draws from  the function passed to `.f` are included in the question bank for the quiz. Higher values of `n` allow more unique questions but extreme values of `n` may also lead to slower performance. To create a quiz with `n` randomly generated questions, `create_question_random()` can be passed as an argument to `create_quiz()`.   
 #'
 #' @return n number of objects of class `quizQuestion`
 #' @export
@@ -417,10 +417,10 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' 
 #' # create a quiz with a question bank of 20 randomly generated questions
 #' create_quiz(
-#'   create_question_sandbox(.f = random_question, n = 20)
+#'   create_question_random(.f = random_question, n = 20)
 #' )
 #' }
-create_question_sandbox <- function(.f, n = 50){
+create_question_random <- function(.f, n = 50){
   if (!((n %% 1 == 0) & n > 0)) cli::cli_abort('`n` must be a positive integer')
   verify_question_sandbox(.f)
   

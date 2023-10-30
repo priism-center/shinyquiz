@@ -47,7 +47,7 @@ usethis::use_test('creators')
 # vignettes
 usethis::use_vignette('get_started', title = 'Get Started')
 usethis::use_vignette('custom_questions', title = 'Customizing Questions')
-usethis::use_vignette('infinite_questions', title = 'Creating Infinite Questions')
+usethis::use_vignette('random_questions', title = 'Creating Randomized Questions')
 usethis::use_vignette('nested_modules', title = 'Quiz in a Module')
 usethis::use_vignette('deploying', title = 'Deploying to shinyapps.io')
 
