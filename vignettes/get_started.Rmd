@@ -99,7 +99,7 @@ preview_app(quiz)
 </p>
 <br>
 
-The `preview_app()` launches the quiz in a Shiny instance to quickly check the quiz design. You can also print the quiz to preview it without a Shiny runtime.
+The `preview_app()` launches the quiz in a Shiny instance to quickly check the quiz design. You can also print the quiz via the R console to preview it without a Shiny runtime.
 
 <br>
 
@@ -165,4 +165,4 @@ shinyApp(ui = ui, server = server)
 
 <br>
 
-That's the basic idea! With the `shinyQuiz` package, you can easily create interactive quizzes and add them to your Shiny applications. If you want to share your app with others, be sure to check out the [Deploying to shinyapps.io article](get_started). Enjoy quiz making! 
+That's the basic idea! With the `shinyQuiz` package, you can easily create interactive quizzes and add them to your Shiny applications. If you want to share your app with others, be sure to check out the [Deploying to shinyapps.io article](deploying). Enjoy quiz making! 
