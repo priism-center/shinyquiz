@@ -22,10 +22,10 @@
     <loc>https://priism-center.github.io/shinyQuiz/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/articles/infinite_questions.html</loc>
+    <loc>https://priism-center.github.io/shinyQuiz/articles/nested_modules.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/articles/nested_modules.html</loc>
+    <loc>https://priism-center.github.io/shinyQuiz/articles/random_questions.html</loc>
   </url>
   <url>
     <loc>https://priism-center.github.io/shinyQuiz/authors.html</loc>
@@ -58,7 +58,7 @@
     <loc>https://priism-center.github.io/shinyQuiz/reference/create_question.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/create_question_sandbox.html</loc>
+    <loc>https://priism-center.github.io/shinyQuiz/reference/create_question_random.html</loc>
   </url>
   <url>
     <loc>https://priism-center.github.io/shinyQuiz/reference/create_quiz.html</loc>
