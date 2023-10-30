@@ -59,9 +59,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_question_sandbox</span><span class="op">(</span><span class="va">.f</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">verify_question_sandbox</span><span class="op">(</span><span class="va">.f</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_question_sandbox</span><span class="op">(</span><span class="va">.f</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -87,11 +85,6 @@
     <p><code>create_question_sandbox()</code> takes any user generated function <code>.f</code>. The function passed to  the .<code>f</code> argument creates a random prompt along with an updated answer, the function passed to the <code>.f</code> argument must return an object of class <code>quizQuestion</code>. <code>create_question_sandbox()</code> will automatically check to ensure the function passed to <code>.f</code> is in the appropriate format. The <code>n</code> argument controls how many random draws from  the function passed to <code>.f</code> are included in the question bank for the quiz. Higher values of <code>n</code> allow more unique questions but extreme values of <code>n</code> may also lead to slower performance. To create a quiz with <code>n</code> randomly generated questions, <code>create_question_sandbox</code> can be passed as an argument to <code>create_quiz</code>.</p>
     </div>
     <div class="section level2">
-    <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
-    
-<ul><li><p><code>verify_question_sandbox()</code>: Verify the input function is the correct structure</p></li>
-</ul></div>
-    <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>George Perrett, Joseph Marlo</p>
     </div>
@@ -106,17 +99,18 @@
 <span class="r-in"><span>  <span class="va">rand_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'Is'</span>, <span class="va">number</span>, <span class="st">'an even number?'</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>  <span class="co"># using create_question inside the function helps to ensure correct class</span></span></span>
-<span class="r-in"><span>  <span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_question.html">create_question</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="va">rand_prompt</span>,</span></span>
-<span class="r-in"><span>                       <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Yes, it is even'</span>, correct <span class="op">=</span> <span class="va">number</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span><span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>                       <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'No, it is odd'</span>, correct <span class="op">=</span> <span class="va">number</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span><span class="fl">2</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_question.html">create_question</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    prompt <span class="op">=</span> <span class="va">rand_prompt</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Yes, it is even'</span>, correct <span class="op">=</span> <span class="va">number</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>    <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'No, it is odd'</span>, correct <span class="op">=</span> <span class="va">number</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a quiz with a question bank of 20 randomly generated questions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="create_quiz.html">create_quiz</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu">create_question_sandbox</span><span class="op">(</span>.f <span class="op">=</span> <span class="va">random_question</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>  options <span class="op">=</span> <span class="fu"><a href="set_quiz_options.html">set_quiz_options</a></span><span class="op">(</span>sandbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">create_question_sandbox</span><span class="op">(</span>.f <span class="op">=</span> <span class="va">random_question</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>

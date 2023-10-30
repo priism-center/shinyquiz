@@ -87,11 +87,102 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://priism-center.github.io/shinyQuiz/">shinyQuiz</a></span><span class="op">)</span></span></code></pre></div>
+<p>Creating a dynamic quiz can make it more engaging and challenging for
+users. The <code><a href="../reference/create_question_sandbox.html">create_question_sandbox()</a></code> function in
+<code>shinyQuiz</code> allows you to generate random questions. This
+vignette will guide you through how to use this function
+effectively.</p>
+<p>The <code><a href="../reference/create_question_sandbox.html">create_question_sandbox()</a></code> function takes two main
+arguments:<br>
+- .f: A function that generates a single random question.<br>
+- n: The number of random questions to generate for the quiz.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/create_question_sandbox.html">create_question_sandbox</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="va">your_function</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<p><br></p>
 <div class="section level2">
-<h2 id="coming-soon">Coming Soon!!<a class="anchor" aria-label="anchor" href="#coming-soon"></a>
+<h2 id="creating-a-random-question-generator">Creating a Random Question Generator<a class="anchor" aria-label="anchor" href="#creating-a-random-question-generator"></a>
 </h2>
+<p>Before you can use <code><a href="../reference/create_question_sandbox.html">create_question_sandbox()</a></code>, you’ll
+need to create a function that generates a single random question. This
+function should return a question object created by
+<code><a href="../reference/create_question.html">create_question()</a></code>.</p>
+<p>Here’s an example that generates a random question about whether a
+number is even or odd:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">random_question</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">number</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">30</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="va">rand_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'Is'</span>, <span class="va">number</span>, <span class="st">'an even number?'</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_question.html">create_question</a></span><span class="op">(</span></span>
+<span>    prompt <span class="op">=</span> <span class="va">rand_prompt</span>,</span>
+<span>    <span class="fu"><a href="../reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Yes, it is even'</span>, correct <span class="op">=</span> <span class="va">number</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'No, it is odd'</span>, correct <span class="op">=</span> <span class="va">number</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>You can test your function by running it a few times and verifying
+the preview changes each time.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">random_question</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">random_question</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-  </main>
+<div class="section level2">
+<h2 id="putting-it-all-together">Putting It All Together<a class="anchor" aria-label="anchor" href="#putting-it-all-together"></a>
+</h2>
+<p>Once you have your random question generator function, you can pass
+it to <code><a href="../reference/create_question_sandbox.html">create_question_sandbox()</a></code> along with the number of
+questions you want to generate.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/create_quiz.html">create_quiz</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/create_question_sandbox.html">create_question_sandbox</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="va">random_question</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>This will create a quiz with 20 randomly generated questions about
+whether numbers are even or odd.</p>
+<p><br></p>
+</div>
+<div class="section level2">
+<h2 id="randomizing-on-the-fly">Randomizing on-the-fly<a class="anchor" aria-label="anchor" href="#randomizing-on-the-fly"></a>
+</h2>
+<p>Coming soon!</p>
+<!--
+### Pre-Created vs. Dynamic Quizzes
+When you run `create_question_sandbox()` outside of a Shiny server function, the set of questions it generates is fixed at that moment. This means that if you deploy a Shiny application with this pre-created quiz, every user will see the same set of questions.
+
+
+```r
+# Pre-created quiz
+my_quiz <- create_quiz(
+  create_question_sandbox(.f = random_question, n = 20)
+)
+```
+
+### Dynamic Randomization within Shiny Server
+To generate a new set of questions for each user or session, you can include `create_question_sandbox()` within your Shiny app's server function. This way, the function will re-execute each time a new user accesses the app, providing a unique set of questions.
+
+
+```r
+# Shiny app with dynamic quiz
+shiny::shinyApp(
+  ui = your_ui_here,
+  server = function(input, output, session) {
+    my_dynamic_quiz <- create_quiz(
+      create_question_sandbox(.f = random_question, n = 20)
+    )
+    # rest of your server code
+  }
+)
+```
+
+By placing create_question_sandbox() inside the server function, you ensure that the quiz is truly dynamic, offering a different experience for each user or at different times.
+
+-->
+<p><br></p>
+<p>That’s it! Be sure to check out the documentation for
+<code><a href="../reference/create_question_sandbox.html">create_question_sandbox()</a></code> for more information.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
