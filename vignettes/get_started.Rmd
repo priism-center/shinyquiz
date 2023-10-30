@@ -42,7 +42,7 @@ To start creating a quiz, first load the package.
 library(shinyQuiz)
 ```
 
-A quiz is composed of individual questions created via the `create_question` function. These objects are then integrated into a quiz using the `create_quiz` function.
+A quiz is composed of individual questions created via the `create_question()` function. These objects are then integrated into a quiz using the `create_quiz()` function.
 
 Individual questions take a prompt and an arbitrary amount of answer choices via `add_numeric()`, `add_choice()`, or `add_slider()`,
 

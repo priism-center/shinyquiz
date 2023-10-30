@@ -47,7 +47,7 @@ Now that we have our quiz, let's build the Shiny app that will host it. Here's h
 
 ```{r eval=FALSE}
 # Build the shiny UI
-ui <- ui <- shiny::fluidPage(
+ui <- shiny::fluidPage(
   htmltools::div(
     style = "max-width: 700px",
     shinyQuiz::quiz_ui(quiz)

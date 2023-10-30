@@ -406,17 +406,18 @@ create_quiz <- function(..., options = set_quiz_options()){
 #'   rand_prompt <- paste('Is', number, 'an even number?')
 #'   
 #'   # using create_question inside the function helps to ensure correct class
-#'   q <- create_question(prompt = rand_prompt,
-#'                        add_choice('Yes, it is even', correct = number%%2 == 0), 
-#'                        add_choice('No, it is odd', correct = number%%2 != 0))
+#'   q <- create_question(
+#'     prompt = rand_prompt,
+#'     add_choice('Yes, it is even', correct = number %% 2 == 0), 
+#'     add_choice('No, it is odd', correct = number %% 2 != 0)
+#'   )
 #'   
 #'   return(q)
 #' }
 #' 
 #' # create a quiz with a question bank of 20 randomly generated questions
 #' create_quiz(
-#'   create_question_sandbox(.f = random_question, n = 20), 
-#'   options = set_quiz_options(sandbox = TRUE)
+#'   create_question_sandbox(.f = random_question, n = 20)
 #' )
 #' }
 create_question_sandbox <- function(.f, n = 50){
@@ -432,7 +433,7 @@ create_question_sandbox <- function(.f, n = 50){
   return(q_bank)
 }
 
-#' @describeIn create_question_sandbox Verify the input function is the correct structure
+#' @describeIn verify_question_structure Verify the input function is the correct structure
 #' @keywords internal
 verify_question_sandbox <- function(.f){
   
@@ -456,7 +457,7 @@ verify_question_sandbox <- function(.f){
     msg_done = 'Randomness detected',
     msg_failed = 'No randomness detected. Function output from multiple calls is identical.'
   )
-  if (isTRUE(all.equal(.f(), .f()))) cli::cli_abort('')
+  if (isTRUE(all.equal(.f(), .f()))) cli::cli_abort('Randomness not detected. Two function calls produced the same output.')
   
   cli::cli_progress_step('All clear! Your sandbox question is looking good!')
   cli::cli_status_clear()

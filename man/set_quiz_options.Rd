@@ -23,7 +23,7 @@ create_messages(message_correct, message_wrong, message_skipped)
 
 \item{messages}{an object of class \code{quizMessages} generated from \code{\link[=create_messages]{create_messages()}} containing the messages to show at the end. If not provided, defaults are used.}
 
-\item{sandbox}{boolean. TBD}
+\item{sandbox}{boolean. TBD #TODO: remove this? is/should sandbox be handled only by create_question_sandbox?}
 
 \item{end_on_first_wrong}{Should the quiz immediately end once the user gets one question wrong?}
 
