@@ -72,8 +72,6 @@ This will create a quiz with 20 randomly generated questions about whether numbe
 
 ## Randomizing on-the-fly
 
-Coming soon!
-
 ### Pre-Created vs. Dynamic Quizzes
 When you run `create_question_random()` outside of a Shiny server function, the set of questions it generates is fixed at that moment. This means that if you deploy a Shiny application with this pre-created quiz, every user will see the same set of questions.
 
