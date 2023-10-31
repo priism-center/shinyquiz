@@ -167,10 +167,16 @@ sm_ui_format_prompts <- function(quiz){
 #' @describeIn sm_get_state Add a header denoting the question number
 sm_ui_format_prompt <- function(prompt, i){
   htmltools::div(
-    htmltools::h4("Practice what you've learned"),
-    htmltools::hr(),
-    htmltools::h3(glue::glue("Question {i}")), # h3 required for checkmark/red x placement
-    prompt
+    htmltools::div(
+      class = 'quiz-header',
+      htmltools::h4("Practice what you've learned"),
+      htmltools::hr(),
+      htmltools::h3(glue::glue("Question {i}")) # h3 required for checkmark/red x placement
+    ),
+    htmltools::div(
+        class = 'quiz-prompt',
+        prompt
+    )
   )
 }
 

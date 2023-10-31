@@ -2,11 +2,13 @@
 
 #' Run a quiz in R Shiny
 #'
-#' @description A shiny module to implement a quiz
+#' @description A shiny module to implement a quiz. These are the core functions to implement the quiz with a Shiny application.
 #'
-#' @param quiz an object of class `quiz`. See [construct_quiz()]
+#' @param quiz an object of class `quiz`. See [create_quiz()]
 #' @author Joseph Marlo
 #' @export
+#' 
+#' @seealso [create_quiz()] [preview_app()]
 #' 
 #' @examples 
 #' \dontrun{
@@ -50,11 +52,9 @@ quiz_ui <- function(quiz){
   )
 }
 
-#' @param quiz an object of class `quiz`. See [construct_quiz()]
+#' @param quiz an object of class `quiz`. See [create_quiz()]
 #' @export
 #' @return a reactive object showing the results of the quiz
-#' 
-#' @seealso [create_quiz()]
 #' 
 #' @describeIn quiz_ui Server side function
 quiz_server <- function(quiz){
