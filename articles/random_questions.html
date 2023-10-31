@@ -192,19 +192,19 @@ user accesses the app, providing a unique set of questions.</p>
 <span></span>
 <span><span class="co"># run the app</span></span>
 <span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<p>By placing create_question_random() inside the server function, you
-ensure that the quiz is dynamic, offering a different experience for
-each user or at different times.</p>
+<p>By placing <code><a href="../reference/create_question_random.html">create_question_random()</a></code> inside the server
+function, you ensure that the quiz is dynamic, offering a different
+experience for each user or at different times.</p>
 <p><br></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="additional-information">Additional Information<a class="anchor" aria-label="anchor" href="#additional-information"></a>
 </h2>
-<p>Note that the presence of a sandbox question in a quiz will
+<p>Note that the presence of a random question in a quiz will
 automatically set the quiz option of <code>sandbox = TRUE</code>. This
 removes the progress bar along the top and changes the behavior…</p>
-<p>You may mix and match sandbox and regular questions. The following
+<p>You may mix and match random and regular questions. The following
 will create a quiz that starts with one static question and then follows
 with 20 random ones.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
