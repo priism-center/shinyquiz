@@ -51,7 +51,7 @@ preview_app(quiz)
 <br>
 <p align="center">
 <a href="https://apsta.shinyapps.io/shinyQuiz-demo/">
-<img src="man/figures/README-recording.gif" width=50%>
+<img src="man/figures/README-recording.gif" style="width: 90%; max-width: 400px;">
 </a>
 </p>
 

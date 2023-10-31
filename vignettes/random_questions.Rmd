@@ -117,15 +117,15 @@ server <- function(input, output, session) {
 shiny::shinyApp(ui, server)
 ```
 
-By placing create_question_random() inside the server function, you ensure that the quiz is dynamic, offering a different experience for each user or at different times.
+By placing `create_question_random()` inside the server function, you ensure that the quiz is dynamic, offering a different experience for each user or at different times.
 
 <br>
 
 ## Additional Information
 
-Note that the presence of a sandbox question in a quiz will automatically set the quiz option of `sandbox = TRUE`. This removes the progress bar along the top and changes the behavior...
+Note that the presence of a random question in a quiz will automatically set the quiz option of `sandbox = TRUE`. This removes the progress bar along the top and changes the behavior...
 
-You may mix and match sandbox and regular questions. The following will create a quiz that starts with one static question and then follows with 20 random ones.
+You may mix and match random and regular questions. The following will create a quiz that starts with one static question and then follows with 20 random ones.
 
 ``` {r eval=FALSE}
 create_quiz(

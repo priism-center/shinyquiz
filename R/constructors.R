@@ -284,7 +284,7 @@ setClass('quizQuestion', slots = list(
   )
 )
 
-#' S4 class for a sandbox quiz question
+#' S4 class for a random quiz question
 #'
 #' @slot prompt shiny.tag. 
 #' @slot answerUser list. 
@@ -297,7 +297,7 @@ setClass('quizQuestion', slots = list(
 #' @keywords internal
 #'
 #' @seealso [construct_question()]
-setClass('quizQuestionSandbox', contains = 'quizQuestion')
+setClass('quizQuestionRandom', contains = 'quizQuestion')
 
 #' S4 class for a quiz messages to display at the end
 #'

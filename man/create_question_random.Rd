@@ -2,7 +2,7 @@
 % Please edit documentation in R/creators.R
 \name{create_question_random}
 \alias{create_question_random}
-\title{Create a sandbox question}
+\title{Create a random question}
 \usage{
 create_question_random(.f, n = 50)
 }

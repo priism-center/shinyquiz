@@ -44,7 +44,7 @@ create_question(
 
 <br>
 <p align="center">
-<img src="figures/custom-questions-plot.png" width=60%>
+<img src="figures/custom-questions-plot.png" style="width: 90%; max-width: 500px;">
 </p>
 <br>
 
@@ -62,7 +62,7 @@ create_question(
 
 <br>
 <p align="center">
-<img src="figures/custom-questions-table.png" width=60%>
+<img src="figures/custom-questions-table.png" style="width: 90%; max-width: 500px;">
 </p>
 <br>
 

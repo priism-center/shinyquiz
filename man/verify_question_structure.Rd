@@ -7,7 +7,7 @@
 \alias{verify_n_args}
 \alias{verify_messages_structure}
 \alias{verify_quiz_structure}
-\alias{verify_question_sandbox}
+\alias{verify_question_random}
 \title{Verify quiz elements are the correct format}
 \usage{
 verify_options_structure(options)
@@ -22,7 +22,7 @@ verify_messages_structure(messages)
 
 verify_quiz_structure(quiz)
 
-verify_question_sandbox(.f)
+verify_question_random(.f)
 }
 \arguments{
 \item{question}{An object of class \code{quizQuestion}}
@@ -47,7 +47,7 @@ Verify quiz elements are the correct format
 
 \item \code{verify_quiz_structure()}: Verify a quiz is the correct structure
 
-\item \code{verify_question_sandbox()}: Verify the input function is the correct structure
+\item \code{verify_question_random()}: Verify the input function is the correct structure
 
 }}
 \author{

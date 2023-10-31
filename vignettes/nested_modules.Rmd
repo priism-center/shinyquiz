@@ -116,6 +116,6 @@ shiny::shinyApp(ui, server)
 
 <br>
 <p align="center">
-<img src="figures/nested-modules-screenshot.png" width=60%>
+<img src="figures/nested-modules-screenshot.png" style="width: 90%; max-width: 500px;">
 </p>
 <br>

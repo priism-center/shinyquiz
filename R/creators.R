@@ -368,13 +368,13 @@ create_quiz <- function(..., options = set_quiz_options()){
   # create quiz
   quiz <- construct_quiz(..., options = options)
   
-  # check if any items are sandbox questions then force into sandbox mode 
+  # check if any items are random questions then force into sandbox mode 
   # unless override is triggered
   if (isTRUE(options$overide)) return(quiz)
   dot_list <- list(...)
-  is_sandbox <- purrr::map_lgl(unlist(dot_list), \(x) inherits(x, 'quizQuestionSandbox'))
-  any_sandbox <- isTRUE(any(is_sandbox))
-  if (any_sandbox) {
+  is_random <- purrr::map_lgl(unlist(dot_list), \(x) inherits(x, 'quizQuestionRandom'))
+  any_random <- isTRUE(any(is_random))
+  if (any_random) {
     quiz@options$sandbox <- TRUE
     quiz@options$logic_end_on_first_wrong <- FALSE
     quiz@options$progress_bar <- FALSE
@@ -386,7 +386,7 @@ create_quiz <- function(..., options = set_quiz_options()){
 
 # random questions ------------------------------------------------------
 
-#' Create a sandbox question
+#' Create a random question
 #' @param .f a function that outputs an object of class `quizQuestion`. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a `create_question` or `create_question_raw` call inside your function (see example). 
 #' @param n a numeric value indicating how many draw of function .f to include in the random question bank. 
 #'
@@ -422,20 +422,20 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' }
 create_question_random <- function(.f, n = 50){
   if (!((n %% 1 == 0) & n > 0)) cli::cli_abort('`n` must be a positive integer')
-  verify_question_sandbox(.f)
+  verify_question_random(.f)
   
   # draw random realizations
   q_bank <- replicate(n, .f(), simplify = 'list')
   
-  # set new class for all question from sandbox function
-  q_bank <- purrr::map(q_bank, \(x) methods::new('quizQuestionSandbox', x))
+  # set new class for all question from random function
+  q_bank <- purrr::map(q_bank, \(x) methods::new('quizQuestionRandom', x))
   
   return(q_bank)
 }
 
 #' @describeIn verify_question_structure Verify the input function is the correct structure
 #' @keywords internal
-verify_question_sandbox <- function(.f){
+verify_question_random <- function(.f){
   
   cli::cli_progress_step(
     'Checking function input',
@@ -459,7 +459,7 @@ verify_question_sandbox <- function(.f){
   )
   if (isTRUE(all.equal(.f(), .f()))) cli::cli_abort('Randomness not detected. Two function calls produced the same output.')
   
-  cli::cli_progress_step('All clear! Your sandbox question is looking good!')
+  cli::cli_progress_step('All clear! Your random question is looking good!')
   cli::cli_status_clear()
   
   return(invisible(TRUE))
