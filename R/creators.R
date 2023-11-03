@@ -237,7 +237,7 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   if (is_truthy(slider_element) && is_truthy(choices)) cli::cli_abort('sliders and choices cannot be mixed')
   if (is_truthy(numeric_element) && is_truthy(choices)) cli::cli_abort('numeric input box and choices cannot be mixed')
   if (is_truthy(numeric_element) && is_truthy(slider_element)) cli::cli_abort('numeric input box and sliders cannot be mixed')
-  if (is_truthy(text_element) && (is_truthy(slider_element) || is_truthy(numeric_element) || is_truthy(choices))) cli::cli_abort('Only one text choice can be provided')
+  if (is_truthy(text_element) && (is_truthy(slider_element) || is_truthy(numeric_element) || is_truthy(choices))) cli::cli_abort('Text choices cannot be mixed with other types')
   
   # extract extra arguments
   label <- ifelse(is_truthy(dot_list$label), dot_list$label, 'Select answer')
