@@ -63,7 +63,9 @@
 <span></span>
 <span><span class="fu">add_numeric</span><span class="op">(</span><span class="va">correct</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">add_slider</span><span class="op">(</span>min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span>, default_position <span class="op">=</span> <span class="fl">0.5</span>, <span class="va">correct</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">add_slider</span><span class="op">(</span>min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span>, default_position <span class="op">=</span> <span class="fl">0.5</span>, <span class="va">correct</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">add_text</span><span class="op">(</span><span class="va">correct</span>, exact <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -87,6 +89,10 @@
 <dt>default_position</dt>
 <dd><p>the default value the slider should take</p></dd>
 
+
+<dt>exact</dt>
+<dd><p>Boolean denoting if the grader should use exact matching. If FALSE, the user's answer will be compared to the correct answer after trimming whitespace, converting to lower case, and normalizing diacritics. If you wish to use your own normalizing function, please see <code><a href="create_question.html">create_question_raw()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -99,6 +105,9 @@
 
 
 <p>an object of class 'quizChoiceSlider'</p>
+
+
+<p>an object of class 'quizChoiceText'</p>
     </div>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
@@ -106,6 +115,7 @@
 <ul><li><p><code>add_choice()</code>: Create a discrete choice</p></li>
 <li><p><code>add_numeric()</code>: Create a numeric choice</p></li>
 <li><p><code>add_slider()</code>: Create a slider choice</p></li>
+<li><p><code>add_text()</code>: Create a free text choice</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -149,6 +159,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "correct":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">add_text</span><span class="op">(</span><span class="st">'Correct answer'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "quizChoiceText"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "correct":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Correct answer"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "exact":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="create_question.html">create_question</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span> <span class="st">'My question prompt'</span>,</span></span>
@@ -156,6 +174,13 @@
 <span class="r-in"><span> <span class="fu">add_choice</span><span class="op">(</span><span class="st">'41'</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Some items like sliders may not show correctly in the viewer</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">q1_fuzzy</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_question.html">create_question</a></span><span class="op">(</span><span class="st">'My Label'</span>, <span class="fu">add_text</span><span class="op">(</span>correct <span class="op">=</span> <span class="st">' hEllo'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">q1_fuzzy</span><span class="op">@</span><span class="va">grader</span><span class="op">(</span><span class="st">'Héllo '</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="va">q1_exact</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_question.html">create_question</a></span><span class="op">(</span><span class="st">'My Label'</span>, <span class="fu">add_text</span><span class="op">(</span>correct <span class="op">=</span> <span class="st">'hEllo'</span>, exact <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">q1_exact</span><span class="op">@</span><span class="va">grader</span><span class="op">(</span><span class="st">'Héllo '</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
