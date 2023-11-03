@@ -24,13 +24,13 @@ create_question_raw(
 \arguments{
 \item{prompt}{Text of the question prompt. Preferably wrapped in \code{\link[htmltools:builder]{htmltools::div()}}.}
 
-\item{...}{Objects of class 'quizChoice' generated from \code{\link[=add_choice]{add_choice()}} or \code{\link[=add_slider]{add_slider()}}. Named options to \link[shiny:selectInput]{shiny::selectInput} or \link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput} can be passed as well.}
+\item{...}{Objects of class 'quizChoice' generated from \code{\link[=add_choice]{add_choice()}}, \code{\link[=add_numeric]{add_numeric()}}, \code{\link[=add_slider]{add_slider()}}, or \code{\link[=add_text]{add_text()}}. Named options to \code{\link[shiny:selectInput]{shiny::selectInput()}} or \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}} can be passed as well.}
 
-\item{type}{One of c('auto', 'single', 'multiple'). How many answers are allowed}
+\item{type}{One of c('auto', 'single', 'multiple'). Can the user select only one answer or multiple?}
 
-\item{input}{One of c('auto', 'select', 'checkbox')}
+\item{input}{One of c('auto', 'select', 'checkbox'). Should the UI for a select object created by \code{\link[shiny:selectInput]{shiny::selectInput()}} or checkbox by \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}}?}
 
-\item{shuffle}{TRUE or FALSE if TRUE order of choices will be randomly shuffled}
+\item{shuffle}{TRUE or FALSE. If TRUE order of choices will be randomly shuffled.}
 
 \item{ns}{Namespace function generated from \code{\link[shiny:NS]{shiny::NS()}}}
 
@@ -46,7 +46,7 @@ an object of class \code{quizQuestion}
 an object of class \code{quizQuestion}
 }
 \description{
-Create a quiz question
+Create a single quiz question. Used in conjunction with \code{\link[=create_quiz]{create_quiz()}} to generate a quiz.
 }
 \details{
 \code{create_question} is the default method of creating quiz questions.
@@ -93,7 +93,7 @@ create_quiz(q3, q2)
 }
 }
 \seealso{
-\code{\link[=add_choice]{add_choice()}}, \code{\link[=add_slider]{add_slider()}}, \code{\link[=add_numeric]{add_numeric()}}]
+\code{\link[=add_choice]{add_choice()}}, \code{\link[=add_slider]{add_slider()}}, \code{\link[=add_numeric]{add_numeric()}}, \code{\link[=add_text]{add_text()}}, \code{\link[=create_question_raw]{create_question_raw()}}]
 }
 \author{
 Joseph Marlo, George Perrett

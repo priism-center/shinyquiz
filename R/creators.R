@@ -176,12 +176,14 @@ grader_fn_text_fuzzy <- function(text, correct){
 }
 
 #' Create a quiz question
+#' 
+#' Create a single quiz question. Used in conjunction with [create_quiz()] to generate a quiz. 
 #'
 #' @param prompt Text of the question prompt
-#' @param ... Objects of class 'quizChoice' generated from [add_choice()] or [add_slider()]. Named options to [shiny::selectInput] or [shiny::checkboxGroupInput] can be passed as well.
-#' @param type One of c('auto', 'single', 'multiple'). How many answers are allowed
-#' @param input One of c('auto', 'select', 'checkbox')
-#' @param shuffle TRUE or FALSE if TRUE order of choices will be randomly shuffled
+#' @param ... Objects of class 'quizChoice' generated from [add_choice()], [add_numeric()], [add_slider()], or [add_text()]. Named options to [shiny::selectInput()] or [shiny::checkboxGroupInput()] can be passed as well.
+#' @param type One of c('auto', 'single', 'multiple'). Can the user select only one answer or multiple?
+#' @param input One of c('auto', 'select', 'checkbox'). Should the UI for a select object created by [shiny::selectInput()] or checkbox by [shiny::checkboxGroupInput()]?
+#' @param shuffle TRUE or FALSE. If TRUE order of choices will be randomly shuffled.
 #' @param ns Namespace function generated from [`shiny::NS()`]
 #' 
 #' @details `create_question` is the default method of creating quiz questions. 
@@ -190,7 +192,7 @@ grader_fn_text_fuzzy <- function(text, correct){
 #' @export
 #' 
 #' @author Joseph Marlo, George Perrett
-#' @seealso [add_choice()], [add_slider()], [add_numeric()]]
+#' @seealso [add_choice()], [add_slider()], [add_numeric()], [add_text()], [create_question_raw()]]
 #' 
 #' @examples
 #' \dontrun{
