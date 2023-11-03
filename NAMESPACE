@@ -3,6 +3,7 @@
 export(add_choice)
 export(add_numeric)
 export(add_slider)
+export(add_text)
 export(create_messages)
 export(create_question)
 export(create_question_random)

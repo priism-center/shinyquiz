@@ -34,3 +34,11 @@ test_that("create_quiz works", {
   )
   expect_error(shinyQuiz::create_question('My q', shinyQuiz::add_choice('this')))
 })
+
+test_that("add_text fuzzy works", {
+  q1_fuzzy <- create_question('My Label', add_text('hEllo'))
+  expect_true(q1_fuzzy@grader(' Héllo'))
+  
+  q1_exact <- create_question('My Label', add_text('hEllo', exact = TRUE))
+  expect_false(q1_exact@grader(' Héllo'))
+})

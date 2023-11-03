@@ -44,6 +44,19 @@ setClass('quizChoiceNumeric', slots = list(
  )
 )
 
+#' S4 class for a quiz free form text response
+#'
+#' @slot correct character 
+#'
+#' @author Joseph Marlo
+#' @keywords internal
+#' @return none, sets a class
+setClass('quizChoiceText', slots = list(
+  correct = 'character',
+  exact = 'logical'
+)
+)
+
 
 #' Create a choice for a question
 #'
@@ -60,6 +73,7 @@ setClass('quizChoiceNumeric', slots = list(
 #' add_choice('39')
 #' add_choice('39', TRUE)
 #' add_slider(0, 1, 0.5, 0.8)
+#' add_text('Correct answer')
 #' 
 #' create_question(
 #'  'My question prompt',
@@ -122,6 +136,45 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
   return(slider)
 }
 
+
+#' @param exact Boolean denoting if the grader should use exact matching. If FALSE, the user's answer will be compared to the correct answer after trimming whitespace, converting to lower case, and normalizing diacritics. If you wish to use your own normalizing function, please see [create_question_raw()].
+#' @author Joseph Marlo
+#' @return an object of class 'quizChoiceText'
+#' @export
+#' @describeIn add_choice Create a free text choice
+#' @examples 
+#' 
+#' q1_fuzzy <- create_question('My Label', add_text(correct = ' hEllo'))
+#' q1_fuzzy@grader('Héllo ')
+#' q1_exact <- create_question('My Label', add_text(correct = 'hEllo', exact = TRUE))
+#' q1_exact@grader('Héllo ')
+add_text <- function(correct, exact = FALSE){
+  if(!isTRUE(is.character(as.character(correct)))) cli::cli_abort('`correct` must be coercible to a character')
+  if(!isTRUE(is.logical(exact))) cli::cli_abort('`exact` must be a logical')
+  
+  choice <- methods::new('quizChoiceText')
+  choice@exact <- as.logical(exact)
+  choice@correct <- correct
+  
+  return(choice)
+}
+
+#' @keywords internal
+grader_fn_text_fuzzy <- function(text, correct){
+  normalize_text <- function(x){
+    x <- trimws(x)
+    x <- tolower(x)
+    x <- gsub("\\s+", " ", x) # trim extra spaces
+    x <- stringi::stri_trans_general(x, "Latin-ASCII") # remove non-English standard characters
+    return(x)
+  }
+  is_equal <- setequal(
+    normalize_text(text), 
+    normalize_text(correct)
+  )
+  return(is_equal)
+}
+
 #' Create a quiz question
 #'
 #' @param prompt Text of the question prompt
@@ -170,23 +223,28 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   # extract numeric input
   numeric_element <- dot_list[purrr::map_lgl(dot_list, \(x) inherits(x, 'quizChoiceNumeric'))]
   
+  # extract text input
+  text_element <- dot_list[purrr::map_lgl(dot_list, \(x) inherits(x, 'quizChoiceText'))]
+  
   # extract choices
   choices <- dot_list[purrr::map_lgl(dot_list, \(x) inherits(x, 'quizChoice'))]
   if(isTRUE(shuffle)) choices <- sample(choices)
   
   # quality checks
-  if (!isTRUE(is_truthy(slider_element) | is_truthy(choices) | is_truthy(numeric_element))) cli::cli_abort('No choices or sliders provided')
+  if (!isTRUE(is_truthy(slider_element) | is_truthy(choices) | is_truthy(numeric_element) | is_truthy(text_element))) cli::cli_abort('No choices, sliders, numerics, or texts provided')
   if (is_truthy(slider_element) && length(slider_element) > 1) cli::cli_abort('Only one slider can be provided')
   if (is_truthy(numeric_element) && length(numeric_element) > 1) cli::cli_abort('Only one numeric input box can be provided')
   if (is_truthy(slider_element) && is_truthy(choices)) cli::cli_abort('sliders and choices cannot be mixed')
   if (is_truthy(numeric_element) && is_truthy(choices)) cli::cli_abort('numeric input box and choices cannot be mixed')
   if (is_truthy(numeric_element) && is_truthy(slider_element)) cli::cli_abort('numeric input box and sliders cannot be mixed')
+  if (is_truthy(text_element) && (is_truthy(slider_element) || is_truthy(numeric_element) || is_truthy(choices))) cli::cli_abort('Only one text choice can be provided')
   
   # extract extra arguments
   label <- ifelse(is_truthy(dot_list$label), dot_list$label, 'Select answer')
   if(is_truthy(dot_list$selected)){selected <- dot_list$selected} else {selected <- NULL}
   use_slider <- is_truthy(slider_element)
   use_numeric <- is_truthy(numeric_element)
+  use_text <- is_truthy(text_element)
   
   if (use_slider){
     # extract extra arguments for slider 
@@ -194,7 +252,7 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
     round <- ifelse(is_truthy(dot_list$round), dot_list$round, FALSE)
     slider_element <- slider_element[[1]]
     input <- create_question_slider_(slider_element, label, step, round, ns)
-  } else if(use_numeric){
+  } else if (use_numeric){
     # extract extra arguments for numeric input
     if(is_truthy(dot_list$step)){step <- dot_list$step} else {step <- NA}
     if(is_truthy(dot_list$value)){value <- dot_list$value} else {value <- NULL}
@@ -202,7 +260,9 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
     if(is_truthy(dot_list$max)){max <- dot_list$max} else {max <- NA}
     numeric_element <- numeric_element[[1]]
     input <- create_question_numeric_(numeric_element, label, min, max, value, step, ns)
-  }else {
+  } else if (use_text) {
+    input <- create_question_text_(text_element[[1]], label, ns)
+  } else {
     input <- create_question_input_(dot_list, choices, type, input, label, selected, ns)
   }
   
@@ -213,12 +273,18 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
     input$input_html
   )
   
+  # set grader function
+  grader_fn <- \(x) setequal(x, input$text_correct)
+  
+  # for free text questions that are not exact, change the grader
+  if (use_text && isFALSE(input$is_exact)) grader_fn <- \(x) grader_fn_text_fuzzy(x, input$text_correct)
+
   # create question of the right class
   q <- construct_question(
     prompt = prompt_html,
     answerUserPrettifier = \(x) paste0(x, collapse = ', '),
     answerCorrectPretty = paste0(input$text_correct, collapse = ', '),
-    grader = \(x) setequal(x, input$text_correct),
+    grader = grader_fn,
     ns = ns
   )
   
@@ -256,6 +322,19 @@ create_question_slider_ <- function(slider, label, step, round, ns){
   text_correct <- as.character(slider@correct)
   
   return(list(input_html = input_html, text_correct = text_correct))
+}
+
+#' @keywords internal
+create_question_text_ <- function(text, label, ns){
+  input_html <- shiny::textInput(
+    inputId = ns('answers'), 
+    label = label
+  )
+  
+  text_correct <- as.character(text@correct)
+  is_exact <- text@exact
+  
+  return(list(input_html = input_html, text_correct = text_correct, is_exact = is_exact))
 }
 
 #' @keywords internal
@@ -388,12 +467,12 @@ create_quiz <- function(..., options = set_quiz_options()){
 
 #' Create a random question
 #' @param .f a function that outputs an object of class `quizQuestion`. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a `create_question` or `create_question_raw` call inside your function (see example). 
-#' @param n a numeric value indicating how many draw of function .f to include in the random question bank. 
+#' @param n a numeric value indicating how many draws of function .f to include in the random question bank. 
 #'
 #' @description Create questions with inherit randomness. Allows one function to generate many different questions. 
 #' @details `create_question_random()` takes any user generated function `.f`. The function passed to  the .`f` argument creates a random prompt along with an updated answer, the function passed to the `.f` argument must return an object of class `quizQuestion`. `create_question_random()` will automatically check to ensure the function passed to `.f` is in the appropriate format. The `n` argument controls how many random draws from  the function passed to `.f` are included in the question bank for the quiz. Higher values of `n` allow more unique questions but extreme values of `n` may also lead to slower performance. To create a quiz with `n` randomly generated questions, `create_question_random()` can be passed as an argument to `create_quiz()`.   
 #'
-#' @return n number of objects of class `quizQuestion`
+#' @return a list of length n that includes objects of class `quizQuestionRandom`
 #' @export
 #' @author George Perrett, Joseph Marlo
 #'

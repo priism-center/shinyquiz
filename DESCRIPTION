@@ -24,6 +24,7 @@ Imports:
     scales (>= 1.2.1),
     shiny (>= 1.7.4),
     shinyjs (>= 2.1.0),
+    stringi (>= 1.7.12),
     stringr (>= 1.5.0),
     tibble (>= 3.2.1)
 Suggests: 

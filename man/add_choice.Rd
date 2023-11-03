@@ -4,6 +4,7 @@
 \alias{add_choice}
 \alias{add_numeric}
 \alias{add_slider}
+\alias{add_text}
 \title{Create a choice for a question}
 \usage{
 add_choice(text, correct = FALSE)
@@ -11,6 +12,8 @@ add_choice(text, correct = FALSE)
 add_numeric(correct)
 
 add_slider(min = 0, max = 1, default_position = 0.5, correct)
+
+add_text(correct, exact = FALSE)
 }
 \arguments{
 \item{text}{Text of the choice answer}
@@ -22,6 +25,8 @@ add_slider(min = 0, max = 1, default_position = 0.5, correct)
 \item{max}{the maximum value of the slider range}
 
 \item{default_position}{the default value the slider should take}
+
+\item{exact}{Boolean denoting if the grader should use exact matching. If FALSE, the user's answer will be compared to the correct answer after trimming whitespace, converting to lower case, and normalizing diacritics. If you wish to use your own normalizing function, please see \code{\link[=create_question_raw]{create_question_raw()}}.}
 }
 \value{
 an object of class 'quizChoice'
@@ -29,6 +34,8 @@ an object of class 'quizChoice'
 an object of class 'quizChoiceNumeric'
 
 an object of class 'quizChoiceSlider'
+
+an object of class 'quizChoiceText'
 }
 \description{
 Create a choice for a question
@@ -41,17 +48,25 @@ Create a choice for a question
 
 \item \code{add_slider()}: Create a slider choice
 
+\item \code{add_text()}: Create a free text choice
+
 }}
 \examples{
 add_choice('39')
 add_choice('39', TRUE)
 add_slider(0, 1, 0.5, 0.8)
+add_text('Correct answer')
 
 create_question(
  'My question prompt',
  add_choice('39'),
  add_choice('41', TRUE)
 )
+
+q1_fuzzy <- create_question('My Label', add_text(correct = ' hEllo'))
+q1_fuzzy@grader('Héllo ')
+q1_exact <- create_question('My Label', add_text(correct = 'hEllo', exact = TRUE))
+q1_exact@grader('Héllo ')
 }
 \seealso{
 \code{\link[=create_question]{create_question()}}
