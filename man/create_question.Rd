@@ -93,7 +93,7 @@ create_quiz(q3, q2)
 }
 }
 \seealso{
-\code{\link[=add_choice]{add_choice()}}, \code{\link[=add_slider]{add_slider()}}, \code{\link[=add_numeric]{add_numeric()}}, \code{\link[=add_text]{add_text()}}, \code{\link[=create_question_raw]{create_question_raw()}}]
+\code{\link[=add_choice]{add_choice()}}, \code{\link[=add_slider]{add_slider()}}, \code{\link[=add_numeric]{add_numeric()}}, \code{\link[=add_text]{add_text()}}, \code{\link[=create_question_raw]{create_question_raw()}}
 }
 \author{
 Joseph Marlo, George Perrett

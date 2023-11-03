@@ -192,7 +192,7 @@ grader_fn_text_fuzzy <- function(text, correct){
 #' @export
 #' 
 #' @author Joseph Marlo, George Perrett
-#' @seealso [add_choice()], [add_slider()], [add_numeric()], [add_text()], [create_question_raw()]]
+#' @seealso [add_choice()], [add_slider()], [add_numeric()], [add_text()], [create_question_raw()]
 #' 
 #' @examples
 #' \dontrun{
