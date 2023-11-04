@@ -233,8 +233,6 @@ sm_ui_quiz_complete <- function(store, ns, messages){
 #' @describeIn sm_get_state UI to show the score and table of correct answers to display at the end
 sm_ui_complete_report <- function(store){
   
-  in_sandbox <- sm_quiz_in_sandbox_mode(store)
-  
   # grade answers and convert into icons
   icon_right <- fontawesome::fa_i('check') |> as.character()
   icon_wrong <- fontawesome::fa_i('times') |> as.character()
@@ -250,7 +248,6 @@ sm_ui_complete_report <- function(store){
     printer <- purrr::possibly(.x@answerUserPrettifier, otherwise = '[Unable to print user response]')
     printer(.x@answerUser[[1]])
   })
-  # answers_user_na <- purrr::map(store$questions, ~.x@answerUser[[1]]) |> is.na() # assumes NAs are skipped questions
   score <- sm_score_quiz(store)
   score <- scales::percent_format()(score)
   

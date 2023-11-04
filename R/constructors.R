@@ -37,7 +37,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #'
 #' @param ns namespace generated from [shiny::NS()]. When using custom namespaces, the individual [create_question()] requires the namespace as well.
 #' @param messages an object of class `quizMessages` generated from [create_messages()] containing the messages to show at the end. If not provided, defaults are used.
-#' @param sandbox boolean. TBD #TODO: remove this? is/should sandbox be handled only by `create_question_random()`?
+#' @param sandbox boolean. Quiz no longer ends of the first wrong, removes the progress bar, and grading does not include unattempted questions. Note that the presence of a random question automatically triggers sandbox mode. It can be overridden with `set_quiz_options(override = TRUE)`.
 #' @param end_on_first_wrong Should the quiz immediately end once the user gets one question wrong?
 #' @param class string. A custom CSS class to add to the quiz div
 #' @param progress_bar boolean. Show the progress bar UI at the top of the quiz
@@ -220,8 +220,9 @@ verify_question_structure <- function(question){
 #' @keywords internal
 #' @describeIn verify_question_structure Verify a function has an input with id = 'answers'
 verify_input_id <- function(prompt){
-  # TODO: this is a bit fragile
-  id_detected <- stringr::str_detect(as.character(prompt), "\\banswers\\b")
+  id <- 'answers'
+  pattern <- sprintf('id="[^"]*\\b%s\\b"', id)
+  id_detected <- stringr::str_detect(as.character(prompt), pattern)
   if (!isTRUE(id_detected)) cli::cli_abort("'`question` must contain an input with id = 'answers'. This is used to extract the user's answer.")
   return(invisible(TRUE))
 }
