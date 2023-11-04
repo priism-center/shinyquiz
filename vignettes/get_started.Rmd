@@ -131,7 +131,7 @@ There are several options you can adjust to customize the behavior of your quizz
 - `ns`: A namespace function created from `shiny::NS()`. The default is `shiny::NS('quiz')`. When including multiple quizzes within an application or when nesting a quiz within a module, this should be adjusted in addition to the `ns` argument within each `create_question()`. See the [Quiz in a Module article](nested_modules) for a working example.
 - `messages`: A `messages` object created from `create_messages()`. Controls the messages shown at the end of the quiz. 
 - `class`: A CSS class to add to the quiz container. Useful for custom styling. 
-- `sandbox`: Should the quiz be put into sandbox mode? TRUE/FALSE. Sandbox resamples the questions so they go on quasi-infinitely.  
+- `sandbox`: Should the quiz be put into sandbox mode? TRUE/FALSE. Quiz no longer ends of the first wrong, removes the progress bar, and grading does not include unattempted questions. Note that the presence of a random question automatically triggers sandbox mode. It can be overridden with set_quiz_options(override = TRUE)  
 - `end_on_first_wrong`: Should the quiz terminate once the user gets one question wrong? Defaults to TRUE.  
 - `progress_bar`: Show the progress bar? Defaults to TRUE.    
 - `progress_bar_color`: Color of the progress bar. Can be a [hex color code](https://www.w3schools.com/colors/colors_hexadecimal.asp) or [rgba()](https://www.w3schools.com/colors/colors_rgb.asp). Default is #609963.     
