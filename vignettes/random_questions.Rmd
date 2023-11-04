@@ -18,15 +18,15 @@ knitr::opts_chunk$set(
 pkgload::load_all()
 ```
 
-```{r setup}
-library(shinyQuiz)
-```
-
 Creating a dynamic quiz can make it more engaging and challenging for users. The `create_question_random()` function in `shinyQuiz` allows you to generate random questions. This vignette will guide you through how to use this function effectively.
 
 The `create_question_random()` function takes two main arguments:  
 - .f: A function that generates a single random question.  
 - n: The number of random questions to generate for the quiz.
+
+```{r setup}
+library(shinyQuiz)
+```
 
 <br>
 
@@ -87,7 +87,7 @@ To generate a new set of questions for each user or session, you can include `cr
 
 ``` {r eval=FALSE}
 # create static quiz for the ui side
-# this is required for namespace
+# this is required to match the namespace
 quiz <- create_quiz(
   create_question_random(.f = random_question, n = 20)
 )
@@ -121,7 +121,7 @@ By placing `create_question_random()` inside the server function, you ensure tha
 
 ## Additional Information
 
-Note that the presence of a random question in a quiz will automatically set the quiz option of `sandbox = TRUE`. This removes the progress bar along the top and changes the behavior...
+Note that the presence of a random question in a quiz will automatically set the quiz option of `sandbox = TRUE`. This triggers the quiz to no longer end on the first wrong question, removes the progress bar along the top, and the grade calculation excludes any unattempted questions. You can override this behavior with `set_quiz_options(override = TRUE)`.
 
 You may mix and match random and regular questions. The following will create a quiz that starts with one static question and then follows with 20 random ones.
 

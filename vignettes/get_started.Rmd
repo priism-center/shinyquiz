@@ -164,5 +164,9 @@ shinyApp(ui = ui, server = server)
 ```
 
 <br>
+<p align="center">
+<img src="figures/get-started-output.png" style="width: 90%; max-width: 500px;">
+</p>
+<br>
 
 That's the basic idea! With the `shinyQuiz` package, you can easily create interactive quizzes and add them to your Shiny applications. If you want to share your app with others, be sure to check out the [Deploying to shinyapps.io article](deploying). Enjoy quiz making! 
