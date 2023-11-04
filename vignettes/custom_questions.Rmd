@@ -77,21 +77,27 @@ Three elements are required for `create_question_raw()`:
   - `correct_answer_pretty`: Text representing the correct answer. Useful for displaying a "pretty" version in the quiz's summary table.  
   - `user_answer_prettifier`: An optional function that takes the user input as a argument and returns back a "pretty" version of it. Useful for displaying cleaner answers in the quiz's summary table. The default is `paste0(user_input, collapse = ", ")`.  
 
-For example, you could use `shiny::selectInput()` to specify a `select` list. Note the use of `shiny::NS('quiz')` to define the `inputId`. This is required for `shinyQuiz` to find the user's answer. 
+For example, you could use `shiny::dateInput()` to specify a date input. Note the use of `shiny::NS('quiz')('answers')` to define the `inputId`. This is required for `shinyQuiz` to find the user's answer. 
 
 ```{r eval=FALSE}
 create_question_raw(
   prompt = htmltools::div(
-    htmltools::p("my question"),
-    shiny::selectInput(
+    htmltools::p("How what date was the U.S. Declaration of Independence signed?"),
+    shiny::dateInput(
       inputId = shiny::NS('quiz')('answers'),
       label = 'Select 5',
-      choices = c(4, 5, 6)
+      value = as.Date('1800-01-01')
     )
  ),
- grader = \(user_input) user_input == '5',
+ grader = \(user_input) setequal(user_input, as.Date('1776-07-04')),
  correct_answer_pretty = '5'
 )
 ```
+
+<br>
+<p align="center">
+<img src="figures/custom-questions-raw.png" style="width: 90%; max-width: 500px;">
+</p>
+<br>
 
 Take caution when defining the `grader` function as some elements may return back an object of a different class that you are expecting. It's recommended to always self-test your quiz.
