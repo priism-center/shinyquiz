@@ -85,8 +85,6 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://priism-center.github.io/shinyQuiz/">shinyQuiz</a></span><span class="op">)</span></span></code></pre></div>
 <p>Creating a dynamic quiz can make it more engaging and challenging for
 users. The <code><a href="../reference/create_question_random.html">create_question_random()</a></code> function in
 <code>shinyQuiz</code> allows you to generate random questions. This
@@ -96,6 +94,8 @@ effectively.</p>
 arguments:<br>
 - .f: A function that generates a single random question.<br>
 - n: The number of random questions to generate for the quiz.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://priism-center.github.io/shinyQuiz/">shinyQuiz</a></span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 <div class="section level2">
 <h2 id="creating-a-random-question-generator">Creating a Random Question Generator<a class="anchor" aria-label="anchor" href="#creating-a-random-question-generator"></a>
@@ -165,7 +165,7 @@ server function. This way, the function will re-execute each time a new
 user accesses the app, providing a unique set of questions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create static quiz for the ui side</span></span>
-<span><span class="co"># this is required for namespace</span></span>
+<span><span class="co"># this is required to match the namespace</span></span>
 <span><span class="va">quiz</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_quiz.html">create_quiz</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/create_question_random.html">create_question_random</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="va">random_question</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -202,7 +202,10 @@ experience for each user or at different times.</p>
 </h2>
 <p>Note that the presence of a random question in a quiz will
 automatically set the quiz option of <code>sandbox = TRUE</code>. This
-removes the progress bar along the top and changes the behavior…</p>
+triggers the quiz to no longer end on the first wrong question, removes
+the progress bar along the top, and the grade calculation excludes any
+unattempted questions. You can override this behavior with
+<code>set_quiz_options(override = TRUE)</code>.</p>
 <p>You may mix and match random and regular questions. The following
 will create a quiz that starts with one static question and then follows
 with 20 random ones.</p>
