@@ -93,8 +93,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">quiz</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_quiz.html">create_quiz</a></span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">quiz</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_quiz.html">create_quiz</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="create_question.html">create_question</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="st">'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.'</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'auctor'</span><span class="op">)</span>,</span></span>
@@ -116,6 +115,7 @@
 <span class="r-in"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span> <span class="fu">quiz_server</span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
