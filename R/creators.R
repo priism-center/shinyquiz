@@ -197,7 +197,6 @@ grader_fn_text_fuzzy <- function(text, correct){
 #' @seealso [add_choice()], [add_slider()], [add_numeric()], [add_text()], [create_question_raw()]
 #' 
 #' @examples
-#' \dontrun{
 #' q <- create_question(
 #'   prompt = 'My prompt explaining what the ATE of this thing should be',
 #'   add_choice("34"),
@@ -211,7 +210,6 @@ grader_fn_text_fuzzy <- function(text, correct){
 #'   add_slider(0, 30, 15, correct = 10)
 #'  )
 #' create_quiz(q, q2)
-#' }
 #' @describeIn create_question Create a quiz question
 create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), shuffle = FALSE, ns = shiny::NS('quiz')){
   
@@ -395,7 +393,6 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
 #' @author Joseph Marlo
 #'
 #' @examples
-#' \dontrun{
 #' q3 <- create_question_raw(
 #'   prompt = htmltools::div(
 #'     htmltools::p("my question"),
@@ -409,7 +406,6 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
 #'  correct_answer_pretty = '5'
 #' )
 #' create_quiz(q3, q2)
-#' }
 #' @describeIn create_question Create a quiz question using custom inputs. This is a more flexible function that allows any html. 
 create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answer_prettifier = \(user_input) paste0(user_input, collapse = ', ')){
   
@@ -483,8 +479,6 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' @author George Perrett, Joseph Marlo
 #'
 #' @examples
-#' \dontrun{
-#' 
 #' # a function that generates a random question
 #' random_question <- function() {
 #'   number <- round(rnorm(1, 30, 10), 0)
@@ -504,7 +498,6 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' create_quiz(
 #'   create_question_random(.f = random_question, n = 20)
 #' )
-#' }
 create_question_random <- function(.f, n = 50){
   if (!((n %% 1 == 0) & n > 0)) cli::cli_abort('`n` must be a positive integer')
   verify_question_random(.f)

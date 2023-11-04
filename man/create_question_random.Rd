@@ -21,8 +21,6 @@ Create questions with inherit randomness. Allows one function to generate many d
 \code{create_question_random()} takes any user generated function \code{.f}. The function passed to  the .\code{f} argument creates a random prompt along with an updated answer, the function passed to the \code{.f} argument must return an object of class \code{quizQuestion}. \code{create_question_random()} will automatically check to ensure the function passed to \code{.f} is in the appropriate format. The \code{n} argument controls how many random draws from  the function passed to \code{.f} are included in the question bank for the quiz. Higher values of \code{n} allow more unique questions but extreme values of \code{n} may also lead to slower performance. To create a quiz with \code{n} randomly generated questions, \code{create_question_random()} can be passed as an argument to \code{create_quiz()}.
 }
 \examples{
-\dontrun{
-
 # a function that generates a random question
 random_question <- function() {
   number <- round(rnorm(1, 30, 10), 0)
@@ -42,7 +40,6 @@ random_question <- function() {
 create_quiz(
   create_question_random(.f = random_question, n = 20)
 )
-}
 }
 \author{
 George Perrett, Joseph Marlo

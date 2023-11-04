@@ -15,7 +15,6 @@
 #' @author Joseph Marlo
 #'
 #' @examples
-#' \dontrun{
 #' quiz <- create_quiz(
 #'   create_question(
 #'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -34,7 +33,6 @@
 #' sm_get_state(store, 'current-question')
 #' sm_check_is_each_correct(store)
 #' sm_quiz_in_sandbox_mode(store)
-#' }
 #' @describeIn sm_get_state Getter function for the state machine
 sm_get_state <- function(store, variable = NULL, state = NULL){
   if (is.null(state)) state <- store$state

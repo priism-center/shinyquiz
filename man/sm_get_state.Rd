@@ -112,7 +112,6 @@ These are \code{get} and \code{set} functions for retrieving state values and se
 
 }}
 \examples{
-\dontrun{
 quiz <- create_quiz(
   create_question(
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -131,7 +130,6 @@ sm_get_state(store, 'next-state')
 sm_get_state(store, 'current-question')
 sm_check_is_each_correct(store)
 sm_quiz_in_sandbox_mode(store)
-}
 }
 \seealso{
 \code{\link[shiny:reactiveValues]{shiny::reactiveValues()}}
