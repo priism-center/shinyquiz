@@ -79,7 +79,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>prompt</dt>
-<dd><p>Text of the question prompt. Preferably wrapped in <code><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">htmltools::div()</a></code>.</p></dd>
+<dd><p>Text of the question prompt. Can also be an HTML element such as <code><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">htmltools::div()</a></code>.</p></dd>
 
 
 <dt>...</dt>
@@ -129,7 +129,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>create_question</code> is the default method of creating quiz questions.</p>
-<p><code>create_question_raw()</code> allows any html in the <code>prompt</code>. This must contain a shiny input that is accessible via <code>input$answers</code>. The namespace also needs care. The default <code>inputId</code> is <code>shiny::NS('quiz')('answers')</code>.</p>
+<p><code>create_question_raw()</code> allows any HTML in the <code>prompt</code>. This must contain a shiny input that is accessible via <code>input$answers</code>. The namespace also needs care. The default <code>inputId</code> is <code>shiny::NS('quiz')('answers')</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
