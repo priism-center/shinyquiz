@@ -82,7 +82,7 @@ For example, you could use `shiny::dateInput()` to specify a date input. Note th
 ```{r eval=FALSE}
 create_question_raw(
   prompt = htmltools::div(
-    htmltools::p("How what date was the U.S. Declaration of Independence signed?"),
+    htmltools::p("On what date was the U.S. Declaration of Independence signed?"),
     shiny::dateInput(
       inputId = shiny::NS('quiz')('answers'),
       label = 'Select 5',

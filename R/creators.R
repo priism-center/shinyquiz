@@ -455,7 +455,7 @@ create_quiz <- function(..., options = set_quiz_options()){
   
   # check if any items are random questions then force into sandbox mode 
   # unless override is triggered
-  if (isTRUE(options$overide)) return(quiz)
+  if (isTRUE(options$override)) return(quiz)
   dot_list <- list(...)
   is_random <- purrr::map_lgl(unlist(dot_list), \(x) inherits(x, 'quizQuestionRandom'))
   any_random <- isTRUE(any(is_random))
