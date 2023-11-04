@@ -67,7 +67,7 @@ q <- create_question(
   add_choice("59", TRUE),
   add_choice("98", TRUE)
 )
-preview_question(q)
+q
 
 q2 <- create_question(
   prompt = 'My prompt explaining what the ATC of this thing should be',

@@ -10,6 +10,7 @@
 #' @param variable one of c('current-question', 'current-correct-answer', 'next-state', 'current-response')
 #' @param state one of c('quiz-question-1', ..., 'quiz-complete')
 #' @keywords internal
+#' @noRd
 #' @return depends on function
 #'
 #' @author Joseph Marlo

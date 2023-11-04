@@ -5,7 +5,7 @@
 \alias{add_numeric}
 \alias{add_slider}
 \alias{add_text}
-\title{Add choices to a question}
+\title{Add choices to a quiz question}
 \usage{
 add_choice(text, correct = FALSE)
 

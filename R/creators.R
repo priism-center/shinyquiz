@@ -58,7 +58,7 @@ setClass('quizChoiceText', slots = list(
 )
 
 
-#' Add choices to a question
+#' Add choices to a quiz question
 #' 
 #' Add a choice to a quiz question. Used in conjunction with [create_question()] to generate a question 
 #'
@@ -203,7 +203,7 @@ grader_fn_text_fuzzy <- function(text, correct){
 #'   add_choice("59", TRUE),
 #'   add_choice("98", TRUE)
 #' )
-#' preview_question(q)
+#' q
 #' 
 #' q2 <- create_question(
 #'   prompt = 'My prompt explaining what the ATC of this thing should be',
