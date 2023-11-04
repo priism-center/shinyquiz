@@ -200,8 +200,10 @@ of the quiz.</li>
 for custom styling.</li>
 <li>
 <code>sandbox</code>: Should the quiz be put into sandbox mode?
-TRUE/FALSE. Sandbox resamples the questions so they go on
-quasi-infinitely.<br>
+TRUE/FALSE. Quiz no longer ends of the first wrong, removes the progress
+bar, and grading does not include unattempted questions. Note that the
+presence of a random question automatically triggers sandbox mode. It
+can be overridden with set_quiz_options(override = TRUE)<br>
 </li>
 <li>
 <code>end_on_first_wrong</code>: Should the quiz terminate once the
