@@ -154,23 +154,26 @@ table.<br>
 the user input as a argument and returns back a “pretty” version of it.
 Useful for displaying cleaner answers in the quiz’s summary table. The
 default is <code>paste0(user_input, collapse = ", ")</code>.</p>
-<p>For example, you could use <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">shiny::selectInput()</a></code> to
-specify a <code>select</code> list. Note the use of
-<code>shiny::NS('quiz')</code> to define the <code>inputId</code>. This
-is required for <code>shinyQuiz</code> to find the user’s answer.</p>
+<p>For example, you could use <code><a href="https://rdrr.io/pkg/shiny/man/dateInput.html" class="external-link">shiny::dateInput()</a></code> to specify
+a date input. Note the use of <code>shiny::NS('quiz')('answers')</code>
+to define the <code>inputId</code>. This is required for
+<code>shinyQuiz</code> to find the user’s answer.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/create_question.html">create_question_raw</a></span><span class="op">(</span></span>
 <span>  prompt <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
-<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"my question"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">selectInput</a></span><span class="op">(</span></span>
+<span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"How what date was the U.S. Declaration of Independence signed?"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/dateInput.html" class="external-link">dateInput</a></span><span class="op">(</span></span>
 <span>      inputId <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="st">'quiz'</span><span class="op">)</span><span class="op">(</span><span class="st">'answers'</span><span class="op">)</span>,</span>
 <span>      label <span class="op">=</span> <span class="st">'Select 5'</span>,</span>
-<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span></span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">'1800-01-01'</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span> <span class="op">)</span>,</span>
-<span> grader <span class="op">=</span> \<span class="op">(</span><span class="va">user_input</span><span class="op">)</span> <span class="va">user_input</span> <span class="op">==</span> <span class="st">'5'</span>,</span>
+<span> grader <span class="op">=</span> \<span class="op">(</span><span class="va">user_input</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setequal</a></span><span class="op">(</span><span class="va">user_input</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">'1776-07-04'</span><span class="op">)</span><span class="op">)</span>,</span>
 <span> correct_answer_pretty <span class="op">=</span> <span class="st">'5'</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<br><p align="center">
+<img src="figures/custom-questions-raw.png" style="width: 90%; max-width: 500px;"></p>
+<p><br></p>
 <p>Take caution when defining the <code>grader</code> function as some
 elements may return back an object of a different class that you are
 expecting. It’s recommended to always self-test your quiz.</p>
