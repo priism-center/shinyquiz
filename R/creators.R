@@ -58,7 +58,9 @@ setClass('quizChoiceText', slots = list(
 )
 
 
-#' Create a choice for a question
+#' Add choices to a question
+#' 
+#' Add a choice to a quiz question. Used in conjunction with [create_question()] to generate a question 
 #'
 #' @param text Text of the choice answer
 #' @param correct Boolean denoting if this `choice` is correct; numeric for `slider` or `numeric`
@@ -381,12 +383,12 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
 }
 
 
-#' @param prompt Text of the question prompt. Preferably wrapped in [htmltools::div()]. 
+#' @param prompt Text of the question prompt. Can also be an HTML element such as [htmltools::div()]. 
 #' @param grader A function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with [purrr::possibly()] and [base::isTRUE()] to catch any errors.
 #' @param correct_answer_pretty A string representing the correct answer that is printed 'pretty'
 #' @param user_answer_prettifier A function with one argument that takes the user's answers and prints it 'pretty'
 #'
-#' @details `create_question_raw()` allows any html in the `prompt`. This must contain a shiny input that is accessible via `input$answers`. The namespace also needs care. The default `inputId` is `shiny::NS('quiz')('answers')`. 
+#' @details `create_question_raw()` allows any HTML in the `prompt`. This must contain a shiny input that is accessible via `input$answers`. The namespace also needs care. The default `inputId` is `shiny::NS('quiz')('answers')`. 
 #'
 #' @return an object of class `quizQuestion`
 #' @export
@@ -423,6 +425,8 @@ create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answ
 }
 
 #' Create a quiz
+#' 
+#' Create a single question comprising of questions generated from [create_question()] and/or [create_question_raw()]. 
 #'
 #' @param ... objects of class 'quizQuestions'. See [create_question()], [create_question_raw()]
 #' @param options a list of options generated from [set_quiz_options()]

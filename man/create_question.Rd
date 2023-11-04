@@ -22,7 +22,7 @@ create_question_raw(
 )
 }
 \arguments{
-\item{prompt}{Text of the question prompt. Preferably wrapped in \code{\link[htmltools:builder]{htmltools::div()}}.}
+\item{prompt}{Text of the question prompt. Can also be an HTML element such as \code{\link[htmltools:builder]{htmltools::div()}}.}
 
 \item{...}{Objects of class 'quizChoice' generated from \code{\link[=add_choice]{add_choice()}}, \code{\link[=add_numeric]{add_numeric()}}, \code{\link[=add_slider]{add_slider()}}, or \code{\link[=add_text]{add_text()}}. Named options to \code{\link[shiny:selectInput]{shiny::selectInput()}} or \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}} can be passed as well.}
 
@@ -51,7 +51,7 @@ Create a single quiz question. Used in conjunction with \code{\link[=create_quiz
 \details{
 \code{create_question} is the default method of creating quiz questions.
 
-\code{create_question_raw()} allows any html in the \code{prompt}. This must contain a shiny input that is accessible via \code{input$answers}. The namespace also needs care. The default \code{inputId} is \code{shiny::NS('quiz')('answers')}.
+\code{create_question_raw()} allows any HTML in the \code{prompt}. This must contain a shiny input that is accessible via \code{input$answers}. The namespace also needs care. The default \code{inputId} is \code{shiny::NS('quiz')('answers')}.
 }
 \section{Functions}{
 \itemize{

@@ -43,7 +43,7 @@ quiz <- create_quiz(
 ui <- shiny::fluidPage(
   htmltools::div(
     style = "max-width: 700px",
-    quiz_ui(id = 'quiz')
+    quiz_ui(quiz)
    )
  )
 server <- function(input, output, session) {

@@ -5,7 +5,7 @@
 \alias{add_numeric}
 \alias{add_slider}
 \alias{add_text}
-\title{Create a choice for a question}
+\title{Add choices to a question}
 \usage{
 add_choice(text, correct = FALSE)
 
@@ -38,7 +38,7 @@ an object of class 'quizChoiceSlider'
 an object of class 'quizChoiceText'
 }
 \description{
-Create a choice for a question
+Add a choice to a quiz question. Used in conjunction with \code{\link[=create_question]{create_question()}} to generate a question
 }
 \section{Functions}{
 \itemize{
