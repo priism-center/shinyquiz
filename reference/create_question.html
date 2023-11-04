@@ -149,22 +149,21 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu">create_question</span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu">create_question</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  prompt <span class="op">=</span> <span class="st">'My prompt explaining what the ATE of this thing should be'</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">"34"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">"59"</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">"98"</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="preview_app.html">preview_question</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in preview_question(q):</span> could not find function "preview_question"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu">create_question</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  prompt <span class="op">=</span> <span class="st">'My prompt explaining what the ATC of this thing should be'</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_choice.html">add_slider</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span>, <span class="fl">15</span>, correct <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="create_quiz.html">create_quiz</a></span><span class="op">(</span><span class="va">q</span>, <span class="va">q2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Some items like `shiny::renderPlot` may not show correctly in the viewer</span>
 <span class="r-in"><span><span class="va">q3</span> <span class="op">&lt;-</span> <span class="fu">create_question_raw</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  prompt <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"my question"</span><span class="op">)</span>,</span></span>
@@ -178,7 +177,7 @@
 <span class="r-in"><span> correct_answer_pretty <span class="op">=</span> <span class="st">'5'</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="create_quiz.html">create_quiz</a></span><span class="op">(</span><span class="va">q3</span>, <span class="va">q2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Some items like `shiny::renderPlot` may not show correctly in the viewer</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
