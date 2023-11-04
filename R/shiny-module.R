@@ -11,7 +11,6 @@
 #' @seealso [create_quiz()] [preview_app()]
 #' 
 #' @examples 
-#' \dontrun{
 #' quiz <- create_quiz(
 #'   create_question(
 #'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -34,6 +33,7 @@
 #' server <- function(input, output, session) {
 #'  quiz_server(quiz)
 #' }
+#' \dontrun{
 #' shinyApp(ui, server)
 #' }
 #' @describeIn quiz_ui UI side function

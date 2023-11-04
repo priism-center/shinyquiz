@@ -26,7 +26,6 @@ A shiny module to implement a quiz. These are the core functions to implement th
 
 }}
 \examples{
-\dontrun{
 quiz <- create_quiz(
   create_question(
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -49,6 +48,7 @@ ui <- shiny::fluidPage(
 server <- function(input, output, session) {
  quiz_server(quiz)
 }
+\dontrun{
 shinyApp(ui, server)
 }
 }

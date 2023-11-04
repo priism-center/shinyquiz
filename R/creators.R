@@ -60,7 +60,7 @@ setClass('quizChoiceText', slots = list(
 
 #' Add choices to a quiz question
 #' 
-#' Add a choice to a quiz question. Used in conjunction with [create_question()] to generate a question 
+#' Add a choice to a quiz question. Used in conjunction with [create_question()] to generate a question. 
 #'
 #' @param text Text of the choice answer
 #' @param correct Boolean denoting if this `choice` is correct; numeric for `slider` or `numeric`
@@ -77,7 +77,7 @@ setClass('quizChoiceText', slots = list(
 #' add_slider(0, 1, 0.5, 0.8)
 #' add_text('Correct answer')
 #' 
-#' create_question(
+#' q <- create_question(
 #'  'My question prompt',
 #'  add_choice('39'),
 #'  add_choice('41', TRUE)
@@ -209,7 +209,7 @@ grader_fn_text_fuzzy <- function(text, correct){
 #'   prompt = 'My prompt explaining what the ATC of this thing should be',
 #'   add_slider(0, 30, 15, correct = 10)
 #'  )
-#' create_quiz(q, q2)
+#' quiz <- create_quiz(q, q2)
 #' @describeIn create_question Create a quiz question
 create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), shuffle = FALSE, ns = shiny::NS('quiz')){
   
@@ -405,7 +405,7 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
 #'  grader = \(user_input) user_input == '5',
 #'  correct_answer_pretty = '5'
 #' )
-#' create_quiz(q3, q2)
+#' quiz2 <- create_quiz(q3, q2)
 #' @describeIn create_question Create a quiz question using custom inputs. This is a more flexible function that allows any html. 
 create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answer_prettifier = \(user_input) paste0(user_input, collapse = ', ')){
   
@@ -495,7 +495,7 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' }
 #' 
 #' # create a quiz with a question bank of 20 randomly generated questions
-#' create_quiz(
+#' quiz <- create_quiz(
 #'   create_question_random(.f = random_question, n = 20)
 #' )
 create_question_random <- function(.f, n = 50){

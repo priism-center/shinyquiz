@@ -37,7 +37,7 @@ random_question <- function() {
 }
 
 # create a quiz with a question bank of 20 randomly generated questions
-create_quiz(
+quiz <- create_quiz(
   create_question_random(.f = random_question, n = 20)
 )
 }

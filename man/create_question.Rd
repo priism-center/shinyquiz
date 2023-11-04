@@ -73,7 +73,7 @@ q2 <- create_question(
   prompt = 'My prompt explaining what the ATC of this thing should be',
   add_slider(0, 30, 15, correct = 10)
  )
-create_quiz(q, q2)
+quiz <- create_quiz(q, q2)
 q3 <- create_question_raw(
   prompt = htmltools::div(
     htmltools::p("my question"),
@@ -86,7 +86,7 @@ q3 <- create_question_raw(
  grader = \(user_input) user_input == '5',
  correct_answer_pretty = '5'
 )
-create_quiz(q3, q2)
+quiz2 <- create_quiz(q3, q2)
 }
 \seealso{
 \code{\link[=add_choice]{add_choice()}}, \code{\link[=add_slider]{add_slider()}}, \code{\link[=add_numeric]{add_numeric()}}, \code{\link[=add_text]{add_text()}}, \code{\link[=create_question_raw]{create_question_raw()}}

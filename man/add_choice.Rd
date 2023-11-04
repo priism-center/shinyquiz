@@ -38,7 +38,7 @@ an object of class 'quizChoiceSlider'
 an object of class 'quizChoiceText'
 }
 \description{
-Add a choice to a quiz question. Used in conjunction with \code{\link[=create_question]{create_question()}} to generate a question
+Add a choice to a quiz question. Used in conjunction with \code{\link[=create_question]{create_question()}} to generate a question.
 }
 \section{Functions}{
 \itemize{
@@ -57,7 +57,7 @@ add_choice('39', TRUE)
 add_slider(0, 1, 0.5, 0.8)
 add_text('Correct answer')
 
-create_question(
+q <- create_question(
  'My question prompt',
  add_choice('39'),
  add_choice('41', TRUE)
