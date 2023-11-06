@@ -233,8 +233,8 @@ sm_ui_quiz_complete <- function(store, ns, messages){
 sm_ui_complete_report <- function(store){
   
   # grade answers and convert into icons
-  icon_right <- fontawesome::fa_i('check') |> as.character()
-  icon_wrong <- fontawesome::fa_i('times') |> as.character()
+  icon_right <- fontawesome::fa_i('check', verify_fa = FALSE) |> as.character()
+  icon_wrong <- fontawesome::fa_i('times', verify_fa = FALSE) |> as.character()
   answers <- sm_check_is_each_correct(store)
   answers_icons <- c(icon_wrong, icon_right)[answers + 1]
   
