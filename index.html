@@ -95,22 +95,22 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">quiz</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_quiz.html">create_quiz</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="reference/create_question.html">create_question</a></span><span class="op">(</span></span>
-<span>    <span class="st">'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ornare augue, fringilla molestie metus. Donec eget tortor tincidunt, sagittis dui volutpat, finibus est. Select nulla.'</span>,</span>
-<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Nulla vel'</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'auctor nulla'</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'nulla'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="st">'What is the capital of Illinois?'</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Chicago'</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Paw Paw'</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Spingfield'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="reference/create_question.html">create_question</a></span><span class="op">(</span></span>
-<span>    <span class="st">'Molestie metus. Maecenas tincidunt maximus viverra. Sed non gravida quam. Phasellus at iaculis leo. Mauris congue aliquet dui, ut dapibus lorem porttitor sed.'</span>,</span>
-<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'ATT'</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'ATE'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'ATC'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">'Select ATE and ATC'</span></span>
+<span>    <span class="st">'Which elements are gases at room temperature? Select all that apply.'</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Hydrogen'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Mercury'</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_choice</a></span><span class="op">(</span><span class="st">'Nitrogen'</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">'Select Hydrogen and Nitrogen'</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="reference/create_question.html">create_question</a></span><span class="op">(</span></span>
-<span>    <span class="st">'Sed non gravida quam. Phasellus at iaculis leo.'</span>,</span>
-<span>    <span class="fu"><a href="reference/add_choice.html">add_slider</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">30</span>, correct <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">'Select 20'</span></span>
+<span>    <span class="st">'At what temperature does water boil at sea level?'</span>,</span>
+<span>    <span class="fu"><a href="reference/add_choice.html">add_slider</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fl">90</span>, max <span class="op">=</span> <span class="fl">150</span>, default_position <span class="op">=</span> <span class="fl">120</span>, correct <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">'Select 100'</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/preview_app.html">preview_app</a></span><span class="op">(</span><span class="va">quiz</span><span class="op">)</span></span></code></pre></div>
