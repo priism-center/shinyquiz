@@ -56,7 +56,7 @@ preview_app <- function(quiz, launch_browser = TRUE){
     output$quizSummary <- shiny::renderPrint(quiz_summary())
   }
   
-  shiny::shinyApp(ui, server, options = list(launch.browser = isTRUE(launch_browser)))
+  shiny::shinyApp(ui, server, options = list(launch.browser = !isFALSE(launch_browser)))
 }
 
 

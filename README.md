@@ -27,22 +27,22 @@ remotes::install_github('priism-center/shinyQuiz')
 ``` r
 quiz <- create_quiz(
   create_question(
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ornare augue, fringilla molestie metus. Donec eget tortor tincidunt, sagittis dui volutpat, finibus est. Select nulla.',
-    add_choice('Nulla vel'),
-    add_choice('auctor nulla'),
-    add_choice('nulla', correct = TRUE)
+    'What is the capital of Illinois?',
+    add_choice('Chicago'),
+    add_choice('Paw Paw'),
+    add_choice('Spingfield', correct = TRUE)
   ),
   create_question(
-    'Molestie metus. Maecenas tincidunt maximus viverra. Sed non gravida quam. Phasellus at iaculis leo. Mauris congue aliquet dui, ut dapibus lorem porttitor sed.',
-    add_choice('ATT'),
-    add_choice('ATE', correct = TRUE),
-    add_choice('ATC', correct = TRUE),
-    label = 'Select ATE and ATC'
+    'Which elements are gases at room temperature? Select all that apply.',
+    add_choice('Hydrogen', correct = TRUE),
+    add_choice('Mercury'),
+    add_choice('Nitrogen', correct = TRUE),
+    label = 'Select Hydrogen and Nitrogen'
   ),
   create_question(
-    'Sed non gravida quam. Phasellus at iaculis leo.',
-    add_slider(10, 50, 30, correct = 20),
-    label = 'Select 20'
+    'At what temperature does water boil at sea level?',
+    add_slider(min = 90, max = 150, default_position = 120, correct = 100),
+    label = 'Select 100'
   )
 )
 preview_app(quiz)
