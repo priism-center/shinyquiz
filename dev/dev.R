@@ -12,7 +12,7 @@ usethis::use_package("R", type = 'depends', min_version = '4.1.0') # b/c lambda 
 # imports
 usethis::use_package("shiny", min_version = '1.7.4')
 usethis::use_package("fontawesome", min_version = '0.5.0')
-usethis::use_package("dplyr", min_version = '1.1.1')
+# usethis::use_package("dplyr", min_version = '1.1.1')
 usethis::use_package("htmltools", min_version = '0.5.5')
 usethis::use_package("reactable", min_version = '0.4.4')
 usethis::use_package("shinyjs", min_version = '2.1.0')

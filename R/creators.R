@@ -127,7 +127,7 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
   args <- c(min = min, max = max, default_position = default_position, correct = correct)
   is_numeric <- purrr::map_lgl(args, \(x) is.numeric(x) && is_truthy(x))
   if (!isTRUE(all(is_numeric))) cli::cli_abort("{names(args)[!is_numeric]} must be coercible to numeric")
-  if(!isTRUE(dplyr::between(correct, min, max))) cli::cli_abort('`correct` must be between `min` and `max`')
+  if(!isTRUE(correct >= min && correct <= max)) cli::cli_abort('`correct` must be between `min` and `max`')
   
   slider <- methods::new('quizChoiceSlider')
   slider@min <- min

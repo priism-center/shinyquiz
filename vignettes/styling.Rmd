@@ -82,7 +82,7 @@ Note that the id's will change if you provide a different namespace value to the
 
 ## Basic CSS Styling
 
-Let's start with some basic styling to enhance the visual appeal of our quiz. We'll add some background colors, padding, and shadows. If you're new to CSS, the guides provided by [Mozilla](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics) and [w3 schools](https://www.w3schools.com/css/) have excellent introductions. CSS is straightforward to learn and, in most cases, only a basic understanding is necessary to effectively style Shiny applications.
+Let's start with some basic styling to enhance the visual appeal of our quiz. We'll add some background colors, padding, and shadows. If you're new to CSS, the guides provided by [Mozilla](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics) and [w3 schools](https://www.w3schools.com/css/) have excellent introductions. CSS is straightforward to learn and, in many cases, only a basic understanding is necessary to effectively style Shiny applications.
 
 ```{css eval=FALSE}
 .quiz-container {

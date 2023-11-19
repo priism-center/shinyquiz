@@ -269,7 +269,7 @@ sm_ui_complete_report <- function(store){
   
   # remove skipped rows if in sandbox mode
   if (sm_quiz_in_sandbox_mode(store)){
-    grade_tbl <- dplyr::filter(grade_tbl, your_answer != skip_label)
+    grade_tbl <- grade_tbl[grade_tbl$your_answer != skip_label,]
   }
   
   # convert to reactable
