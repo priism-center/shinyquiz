@@ -65,9 +65,9 @@ The inner div is rendered by the Shiny server and will have a DOM structure of:
       <div class="progress-bar" ...></div>
     </div>
     <div>
-      <div class="quiz-header">...</div>
+      <div class="quiz-header">...contents of quiz header...</div>
       <div class="quiz-prompt">
-        <div>...the contents of the quiz prmopt...</div>
+        <div>...contents of the quiz prompt...</div>
       </div>
     </div>
     <button id="quiz-submit_button" class='submit-button btn btn-default'>Submit</button>
@@ -82,7 +82,7 @@ Note that the id's will change if you provide a different namespace value to the
 
 ## Basic CSS Styling
 
-Let's start with some basic styling to enhance the visual appeal of our quiz. We'll add some background colors, padding, and fonts.
+Let's start with some basic styling to enhance the visual appeal of our quiz. We'll add some background colors, padding, and shadows.
 
 ```{css eval=FALSE}
 .quiz-container {
