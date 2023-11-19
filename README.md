@@ -5,7 +5,7 @@
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-shinyQuiz is an R package for creating flexible quizzes within R Shiny. Easily create quizzes from various pre-built question and choice types or create your own using `htmltools` and `shiny` as building blocks. Integrates with R Shiny applications. Ideal for non-web-developers such as educators, data scientists, and anyone who wants to assess responses interactively.
+shinyQuiz is an R package for creating simple, flexible quizzes within R Shiny. Easily create quizzes from various pre-built question and choice types or create your own using `htmltools` and `shiny` as building blocks. Integrates with R Shiny applications. Ideal for non-web-developers such as educators, data scientists, and anyone who wants to assess responses interactively.
 
 Learn more with the [Get Started](https://priism-center.github.io/shinyQuiz/articles/get_started.html) article. 
 

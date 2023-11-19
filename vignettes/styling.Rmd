@@ -1,0 +1,154 @@
+---
+title: "Styling a Quiz using CSS"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Styling a Quiz using CSS}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shinyQuiz)
+```
+
+In this vignette, we'll explore how to effectively style a quiz in Shiny using CSS. We'll cover the basic structure of the quiz divs, illustrate with example CSS, and delve into specific aspects like the progress bar and div width adjustments.
+
+## Understanding the Div Structure
+Before diving into CSS, it's important to understand the [DOM](https://en.wikipedia.org/wiki/Document_Object_Model) structure of the quiz. Here, we generate the quiz and its DOM structure using the `quiz_ui()` function.
+
+```{r eval=FALSE}
+quiz <- create_quiz(
+  create_question(
+    'What is the capital of Illinois?',
+    add_choice('Chicago'),
+    add_choice('Paw Paw'),
+    add_choice('Spingfield', correct = TRUE)
+  ),
+  create_question(
+    'Which elements are gases at room temperature? Select all that apply.',
+    add_choice('Hydrogen', correct = TRUE),
+    add_choice('Mercury'),
+    add_choice('Nitrogen', correct = TRUE),
+    label = 'Select Hydrogen and Nitrogen'
+  ),
+  create_question(
+    'At what temperature does water boil at sea level?',
+    add_slider(min = 90, max = 150, default_position = 120, correct = 100),
+    label = 'Select 100'
+  )
+)
+
+quiz_ui(quiz)
+```
+
+The main container quiz-container encapsulates the entire quiz UI. Inside, you'll find various nested divs, each with a specific class or id that can be targeted with CSS for styling.
+
+```{html eval=FALSE}
+<div id="quiz-quiz-container" class="quiz-container">
+  <div id="quiz-UI_quiz" class="shiny-html-output"></div>
+</div>
+```
+
+The inner div is rendered by the Shiny server and will have a DOM structure of:
+
+```{html eval=FALSE}
+<div id="quiz-quiz-container" class="quiz-container">
+  <div id="quiz-UI_quiz" class="shiny-html-output">
+    <div class="progress">
+      <div class="progress-bar" ...></div>
+    </div>
+    <div>
+      <div class="quiz-header">...</div>
+      <div class="quiz-prompt">
+        <div>...the contents of the quiz prmopt...</div>
+      </div>
+    </div>
+    <button id="quiz-submit_button" class='submit-button btn btn-default'>Submit</button>
+    <button id="quiz-skip_button" class='skip-button btn btn-default'>Skip quiz</button>
+  </div>
+</div>
+```
+
+Note that the id's will change if you provide a different namespace value to the quiz options. "quiz-" is the default prefix.
+
+<br>
+
+## Basic CSS Styling
+
+Let's start with some basic styling to enhance the visual appeal of our quiz. We'll add some background colors, padding, and fonts.
+
+```{css eval=FALSE}
+.quiz-container {
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.quiz-header {
+  margin-bottom: 15px;
+}
+
+.quiz-prompt {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+```
+
+<br>
+
+## Styling the Progress Bar
+
+The progress bar is an important element as it provides visual feedback to the user. The fill color can be easily adjusted through `set_quiz_options()` but we can further style it to be more visually appealing and aligned with the quiz theme.
+
+```{css eval=FALSE}
+.progress-bar {
+  height: 10px;
+  border-radius: 5px;
+}
+```
+
+<br>
+
+## Adjusting Div Width
+
+Altering the width of the quiz container or its elements can significantly impact the layout. Below, we adjust the width of the quiz container to ensure the quiz is neither too cramped nor too stretched.
+
+```{css eval=FALSE}
+.quiz-container {
+  max-width: 400px;
+  margin: auto;
+}
+```
+
+<br>
+
+## Interactive Elements
+
+Style buttons, sliders, or choice selectors to make them more interactive and engaging.
+
+```{css eval=FALSE}
+.submit-button, .skip-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+}
+
+.submit-button:hover, .skip-button:hover {
+  background-color: #0056b3;
+}
+```
+
+<br>
+
+CSS is a powerful tool that can transform a basic quiz into a visually appealing and engaging experience. Experiment with different styles and adjustments to find what works best for your quiz.

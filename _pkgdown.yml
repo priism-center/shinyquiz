@@ -33,3 +33,5 @@ navbar:
       href: articles/random_questions.html
     - text: Set Up a Quiz in a Module
       href: articles/nested_modules.html
+    - text: Styling a Quiz with CSS
+      href: articles/styling.html

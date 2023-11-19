@@ -403,8 +403,8 @@ sm_summary <- function(store, quiz){
   
   score <- sm_score_quiz(store)
   list(
-    score = scales::percent_format()(score),
-    score_raw = score,
+    score = score,
+    score_pretty = scales::percent_format()(score),
     which_correct = store$is_correct,
     skipped_quiz = store$skipped,
     quiz_complete = sm_quiz_is_complete(store),

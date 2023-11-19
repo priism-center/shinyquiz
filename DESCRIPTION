@@ -5,7 +5,7 @@ Authors@R: c(
   person("Joseph", "Marlo", email = "jpm770@nyu.edu", role = c("aut", "cre")),
   person("George", "Perrett", email = "gp77@nyu.edu", role = c("aut"))
   )
-Description: Functions for creating gradable, flexible quizzes for R Shiny. Easily create quizzes from various prebuilt question and choice types or create your own using htmltools and shiny as building blocks. Integrates with larger R Shiny applications. Ideal for non-web-developers such as educators, data scientists, and anyone who wants to assess responses interactively.
+Description: Functions for creating simple, flexible quizzes for R Shiny. Easily create quizzes from various prebuilt question and choice types or create your own using htmltools and shiny as building blocks. Integrates with larger R Shiny applications. Ideal for non-web-developers such as educators, data scientists, and anyone who wants to assess responses interactively.
 License: MIT + file LICENSE
 URL: https://priism-center.github.io/shinyQuiz/, https://github.com/priism-center/shinyQuiz
 BugReports: https://github.com/priism-center/shinyQuiz/issues

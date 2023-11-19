@@ -13,7 +13,7 @@ quiz_server(quiz)
 \item{quiz}{an object of class \code{quiz}. See \code{\link[=create_quiz]{create_quiz()}}}
 }
 \value{
-a reactive object showing the results of the quiz
+a reactive object showing the current results of the quiz
 }
 \description{
 A shiny module to implement a quiz. These are the core functions to implement the quiz with a Shiny application.

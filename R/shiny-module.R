@@ -54,7 +54,7 @@ quiz_ui <- function(quiz){
 
 #' @param quiz an object of class `quiz`. See [create_quiz()]
 #' @export
-#' @return a reactive object showing the results of the quiz
+#' @return a reactive object showing the current results of the quiz
 #' 
 #' @describeIn quiz_ui Server side function
 quiz_server <- function(quiz){
