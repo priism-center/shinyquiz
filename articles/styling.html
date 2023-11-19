@@ -152,7 +152,12 @@ value to the quiz options. “quiz-” is the default prefix.</p>
 <h2 id="basic-css-styling">Basic CSS Styling<a class="anchor" aria-label="anchor" href="#basic-css-styling"></a>
 </h2>
 <p>Let’s start with some basic styling to enhance the visual appeal of
-our quiz. We’ll add some background colors, padding, and shadows.</p>
+our quiz. We’ll add some background colors, padding, and shadows. If
+you’re new to CSS, the guides provided by <a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics" class="external-link">Mozilla</a>
+and <a href="https://www.w3schools.com/css/" class="external-link">w3 schools</a> have
+excellent introductions. CSS is straightforward to learn and, in most
+cases, only a basic understanding is necessary to effectively style
+Shiny applications.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.quiz-container</span> {</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span>: <span class="cn">#f7f7f7</span><span class="op">;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span>: <span class="dv">20</span><span class="dt">px</span><span class="op">;</span></span>
@@ -214,6 +219,15 @@ interactive and engaging.</p>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span>: <span class="cn">#0056b3</span><span class="op">;</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><br></p>
+</div>
+<div class="section level2">
+<h2 id="incorporating-css-into-your-quiz">Incorporating CSS into Your Quiz<a class="anchor" aria-label="anchor" href="#incorporating-css-into-your-quiz"></a>
+</h2>
+<p>Shiny supports a number of methods of <a href="https://shiny.posit.co/r/articles/build/css#getting-our-css-into-the-app" class="external-link">incorporating
+CSS into the application</a>. Inline CSS is the easiest but can become
+messy if you have many styles. For larger projects, using the <a href="https://shiny.posit.co/r/articles/build/css#file-based-css" class="external-link">file-based
+method</a> and putting a <code>.css</code> file into the
+<code>/www</code> folder is recommended.</p>
 <p>CSS is a powerful tool that can transform a basic quiz into a
 visually appealing and engaging experience. Experiment with different
 styles and adjustments to find what works best for your quiz.</p>
