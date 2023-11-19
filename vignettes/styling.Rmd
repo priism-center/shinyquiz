@@ -82,7 +82,7 @@ Note that the id's will change if you provide a different namespace value to the
 
 ## Basic CSS Styling
 
-Let's start with some basic styling to enhance the visual appeal of our quiz. We'll add some background colors, padding, and shadows.
+Let's start with some basic styling to enhance the visual appeal of our quiz. We'll add some background colors, padding, and shadows. If you're new to CSS, the guides provided by [Mozilla](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics) and [w3 schools](https://www.w3schools.com/css/) have excellent introductions. CSS is straightforward to learn and, in most cases, only a basic understanding is necessary to effectively style Shiny applications.
 
 ```{css eval=FALSE}
 .quiz-container {
@@ -150,5 +150,9 @@ Style buttons, sliders, or choice selectors to make them more interactive and en
 ```
 
 <br>
+
+## Incorporating CSS into Your Quiz
+
+Shiny supports a number of methods of [incorporating CSS into the application](https://shiny.posit.co/r/articles/build/css#getting-our-css-into-the-app). Inline CSS is the easiest but can become messy if you have many styles. For larger projects, using the [file-based method](https://shiny.posit.co/r/articles/build/css#file-based-css) and putting a `.css` file into the `/www` folder is recommended. 
 
 CSS is a powerful tool that can transform a basic quiz into a visually appealing and engaging experience. Experiment with different styles and adjustments to find what works best for your quiz.
