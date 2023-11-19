@@ -260,13 +260,13 @@ sm_ui_complete_report <- function(store){
   answers_correct_print[q_not_answered] <- skip_label
   
   # put everything in a table
-  grade_tbl <- tibble::tibble(
+  grade_tbl <- data.frame(
     icon = answers_icons,
     label = question_label,
-    your_answer = answers_user_print,
+    your_answer = unlist(answers_user_print),
     correct_answer = answers_correct_print
   )
-  
+
   # remove skipped rows if in sandbox mode
   if (sm_quiz_in_sandbox_mode(store)){
     grade_tbl <- grade_tbl[grade_tbl$your_answer != skip_label,]
