@@ -248,7 +248,7 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   
   # extract extra arguments
   # label <- ifelse(is_truthy(dot_list$label), dot_list$label, 'Select answer')
-  if(is_truthy(dot_list$label)){label <- dot_list$lable} else {lable <- 'Select answer'}
+  if(is_truthy(dot_list$label)){label <- dot_list$label} else {label <- 'Select answer'}
   if(is_truthy(dot_list$selected)){selected <- dot_list$selected} else {selected <- NULL}
   use_slider <- is_truthy(slider_element)
   use_numeric <- is_truthy(numeric_element)
