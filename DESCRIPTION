@@ -5,7 +5,7 @@ Authors@R: c(
   person("Joseph", "Marlo", email = "jpm770@nyu.edu", role = c("aut", "cre")),
   person("George", "Perrett", email = "gp77@nyu.edu", role = c("aut"))
   )
-Description: Functions for creating simple, flexible quizzes in 'Shiny'. Easily create quizzes from various prebuilt question and choice types or create your own using 'htmltools' and 'shiny' packages as building blocks. Integrates with larger 'Shiny' applications. Ideal for non-web-developers such as educators, data scientists, and anyone who wants to assess responses interactively in a small form factor.
+Description: Functions for creating simple, flexible quizzes in 'Shiny'. Easily create quizzes from various pre-built question and choice types or create your own using 'htmltools' and 'shiny' packages as building blocks. Integrates with larger 'Shiny' applications. Ideal for non-web-developers such as educators, data scientists, and anyone who wants to assess responses interactively in a small form factor.
 License: MIT + file LICENSE
 URL: https://priism-center.github.io/shinyquiz/, https://github.com/priism-center/shinyquiz
 BugReports: https://github.com/priism-center/shinyquiz/issues
@@ -33,6 +33,5 @@ Suggests:
     sortable (>= 0.5.0),
     testthat (>= 3.1.7)
 Config/testthat/edition: 3
-VignetteBuilder: knitr
 Depends: 
     R (>= 4.1.0)
