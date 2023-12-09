@@ -247,7 +247,8 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   if (is_truthy(text_element) && (is_truthy(slider_element) || is_truthy(numeric_element) || is_truthy(choices))) cli::cli_abort('Text choices cannot be mixed with other types')
   
   # extract extra arguments
-  label <- ifelse(is_truthy(dot_list$label), dot_list$label, 'Select answer')
+  # label <- ifelse(is_truthy(dot_list$label), dot_list$label, 'Select answer')
+  if(is_truthy(dot_list$label)){label <- dot_list$lable} else {lable <- 'Select answer'}
   if(is_truthy(dot_list$selected)){selected <- dot_list$selected} else {selected <- NULL}
   use_slider <- is_truthy(slider_element)
   use_numeric <- is_truthy(numeric_element)
@@ -256,7 +257,8 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   if (use_slider){
     # extract extra arguments for slider 
     if(is_truthy(dot_list$step)){step <- dot_list$step} else {step <- NULL}
-    round <- ifelse(is_truthy(dot_list$round), dot_list$round, FALSE)
+    # round <- ifelse(is_truthy(dot_list$round), dot_list$round, FALSE)
+    if(is_truthy(dot_list$round)){round <- dot_list$round} else { round <- FALSE}
     slider_element <- slider_element[[1]]
     input <- create_question_slider_(slider_element, label, step, round, ns)
   } else if (use_numeric){
