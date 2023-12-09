@@ -1,114 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/404.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/404.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/LICENSE-text.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/LICENSE.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/articles/custom_questions.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/articles/custom_questions.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/articles/deploying.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/articles/deploying.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/articles/get_started.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/articles/get_started.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/articles/index.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/articles/nested_modules.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/articles/nested_modules.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/articles/random_questions.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/articles/random_questions.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/articles/styling.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/articles/styling.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/authors.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/authors.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/index.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/index.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/add_checkmark.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/reference/add_choice.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/add_choice.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/reference/create_question.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/add_confetti.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/reference/create_question_random.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/add_message_correct.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/reference/create_quiz.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/add_progress_bar.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/add_red_x.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/reference/preview_app.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/construct_quiz.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/reference/quiz_ui.html</loc>
   </url>
   <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/create_question.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/create_question_random.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/create_quiz.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/is_truthy.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/preview_app.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/quiz-class.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/quizChoice-class.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/quizChoiceNumeric-class.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/quizChoiceSlider-class.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/quizChoiceText-class.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/quizMessages-class.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/quizQuestion-class.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/quizQuestionRandom-class.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/quiz_ui.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/scroll_to_div.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/set_quiz_options.html</loc>
-  </url>
-  <url>
-    <loc>https://priism-center.github.io/shinyQuiz/reference/verify_question_structure.html</loc>
+    <loc>https://priism-center.github.io/shinyquiz/reference/set_quiz_options.html</loc>
   </url>
 </urlset>
