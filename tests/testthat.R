@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(shinyQuiz)
+library(shinyquiz)
 
-test_check("shinyQuiz")
+test_check("shinyquiz")

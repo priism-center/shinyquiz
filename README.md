@@ -1,24 +1,24 @@
-# shinyQuiz
+# shinyquiz
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/priism-center/shinyQuiz/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/priism-center/shinyQuiz/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/priism-center/shinyQuiz/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/priism-center/shinyquiz/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-shinyQuiz is an R package for creating simple, flexible quizzes within R Shiny. Easily create quizzes from various pre-built question and choice types or create your own using `htmltools` and `shiny` as building blocks. Integrates with R Shiny applications. Ideal for non-web-developers such as educators, data scientists, and anyone who wants to assess responses interactively.
+shinyquiz is an R package for creating simple, flexible quizzes within R Shiny. Easily create quizzes from various pre-built question and choice types or create your own using `htmltools` and `shiny` packages as building blocks. Integrates with Shiny applications. Ideal for non-web-developers such as educators, data scientists, and anyone who wants to assess responses interactively in a small form factor.
 
-Learn more with the [Get Started](https://priism-center.github.io/shinyQuiz/articles/get_started.html) article. 
+Learn more with the [Get Started](https://priism-center.github.io/shinyquiz/articles/get_started.html) article. 
 
 <br>
 
 ## Installation
 
-shinyQuiz is currently in development and is available to test by installing via:
+shinyquiz is currently in development and is available to test by installing via:
 
 ``` r
 # latest development version
 # install.packages("remotes")
-remotes::install_github('priism-center/shinyQuiz')
+remotes::install_github('priism-center/shinyquiz')
 ```
 <br>
 

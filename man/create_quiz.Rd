@@ -15,7 +15,7 @@ create_quiz(..., options = set_quiz_options())
 an object of class \code{quiz}
 }
 \description{
-Create a single question comprising of questions generated from \code{\link[=create_question]{create_question()}} and/or \code{\link[=create_question_raw]{create_question_raw()}}.
+Create a single quiz comprising of questions generated from \code{\link[=create_question]{create_question()}} and/or \code{\link[=create_question_raw]{create_question_raw()}}.
 }
 \examples{
 quiz <- create_quiz(

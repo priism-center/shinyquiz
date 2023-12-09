@@ -6,6 +6,7 @@
 #' @slot correct logical. 
 #' 
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 #' @return none, sets a class
 setClass('quizChoice', slots = list(
@@ -22,6 +23,7 @@ setClass('quizChoice', slots = list(
 #' @slot correct numeric. 
 #'
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 #' @return none, sets a class
 setClass('quizChoiceSlider', slots = list(
@@ -37,6 +39,7 @@ setClass('quizChoiceSlider', slots = list(
 #' @slot correct numeric. 
 #'
 #' @author George Perrett
+#' @noRd
 #' @keywords internal
 #' @return none, sets a class
 setClass('quizChoiceNumeric', slots = list(
@@ -49,6 +52,7 @@ setClass('quizChoiceNumeric', slots = list(
 #' @slot correct character 
 #'
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 #' @return none, sets a class
 setClass('quizChoiceText', slots = list(
@@ -161,6 +165,7 @@ add_text <- function(correct, exact = FALSE){
   return(choice)
 }
 
+#' @noRd
 #' @keywords internal
 grader_fn_text_fuzzy <- function(text, correct){
   normalize_text <- function(x){
@@ -422,7 +427,7 @@ create_question_raw <- function(prompt, grader, correct_answer_pretty, user_answ
 
 #' Create a quiz
 #' 
-#' Create a single question comprising of questions generated from [create_question()] and/or [create_question_raw()]. 
+#' Create a single quiz comprising of questions generated from [create_question()] and/or [create_question_raw()]. 
 #'
 #' @param ... objects of class 'quizQuestions'. See [create_question()], [create_question_raw()]
 #' @param options a list of options generated from [set_quiz_options()]

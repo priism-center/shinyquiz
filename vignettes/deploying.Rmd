@@ -18,17 +18,17 @@ knitr::opts_chunk$set(
 pkgload::load_all()
 ```
 
-This vignette will walk you through how to deploy your quiz created with shinyQuiz to shinyapps.io. We'll start by creating a simple quiz, and then we'll go through the steps to deploy it online.
+This vignette will walk you through how to deploy your quiz created with shinyquiz to shinyapps.io. We'll start by creating a simple quiz, and then we'll go through the steps to deploy it online.
 
 ## Creating a Quiz
-First, let's create a quiz using shinyQuiz. Here's an example:
+First, let's create a quiz using shinyquiz. Here's an example:
 
 ```{r eval=FALSE}
 library(shiny)
-library(shinyQuiz)
+library(shinyquiz)
 
 # Create the quiz
-quiz <- shinyQuiz::create_quiz(
+quiz <- shinyquiz::create_quiz(
   # ... (your example code here)
 )
 ```
@@ -50,13 +50,13 @@ Now that we have our quiz, let's build the Shiny app that will host it. Here's h
 ui <- shiny::fluidPage(
   htmltools::div(
     style = "max-width: 700px",
-    shinyQuiz::quiz_ui(quiz)
+    shinyquiz::quiz_ui(quiz)
   )
 )
 
 # Build the server
 server <- function(input, output, session) {
-  shinyQuiz::quiz_server(quiz)
+  shinyquiz::quiz_server(quiz)
 }
 
 # Run the app
@@ -77,7 +77,7 @@ Here is a full, example version of the `app.R` file:
 
 ```{r eval=FALSE}
 library(shiny)
-library(shinyQuiz)
+library(shinyquiz)
 
 # create the quiz 
 quiz <- create_quiz(

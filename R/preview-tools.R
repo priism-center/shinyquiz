@@ -15,7 +15,6 @@
 #' @author Joseph Marlo
 #'
 #' @examples
-#' \dontrun{
 #' quiz <- create_quiz(
 #'   create_question(
 #'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -28,6 +27,7 @@
 #'     add_choice('800')
 #'   )
 #' )
+#' \dontrun{
 #' preview_app(quiz)
 #' }
 #' @describeIn preview_app Preview a quiz with full operability
@@ -64,6 +64,7 @@ preview_app <- function(quiz, launch_browser = TRUE){
 
 # these are used the print methods
 
+#' @noRd
 #' @keywords internal
 #' @describeIn preview_app Quick preview a quiz 
 preview_quiz <- function(quiz, launch_browser = FALSE){
@@ -93,6 +94,7 @@ preview_quiz <- function(quiz, launch_browser = FALSE){
 }
 
 #' @param question an object of class 'quizQuestion' to preview
+#' @noRd
 #' @keywords internal
 #' @describeIn preview_app Quick preview a single question
 preview_question <- function(question, launch_browser = FALSE){

@@ -1,26 +1,26 @@
-quiz <- shinyQuiz::create_quiz(
-  shinyQuiz::create_question(
+quiz <- shinyquiz::create_quiz(
+  shinyquiz::create_question(
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
-    shinyQuiz::add_choice('auctor'),
-    shinyQuiz::add_choice('nulla', correct = TRUE)
+    shinyquiz::add_choice('auctor'),
+    shinyquiz::add_choice('nulla', correct = TRUE)
   ),
-  shinyQuiz::create_question(
+  shinyquiz::create_question(
     'Mauris congue aliquet dui, ut dapibus lorem porttitor sed. Select 600.',
-    shinyQuiz::add_choice('600', correct = TRUE),
-    shinyQuiz::add_choice('800')
+    shinyquiz::add_choice('600', correct = TRUE),
+    shinyquiz::add_choice('800')
   )
 )
-store <- shinyQuiz:::sm_create_reactive_store(quiz)
-state1 <- shinyQuiz:::sm_get_state(store)
-state2 <- shinyQuiz:::sm_get_state(store, 'next-state')
-state3 <- shinyQuiz:::sm_get_state(store, 'current-question')
-correct <- shinyQuiz:::sm_check_is_each_correct(store)
-score <- shinyQuiz:::sm_score_quiz(store)
+store <- shinyquiz:::sm_create_reactive_store(quiz)
+state1 <- shinyquiz:::sm_get_state(store)
+state2 <- shinyquiz:::sm_get_state(store, 'next-state')
+state3 <- shinyquiz:::sm_get_state(store, 'current-question')
+correct <- shinyquiz:::sm_check_is_each_correct(store)
+score <- shinyquiz:::sm_score_quiz(store)
 
-quiz_complete <- shinyQuiz:::sm_quiz_is_complete(store)
-store2 <- shinyQuiz:::sm_set_state(store, 'current-state', 'quiz-complete')
-state21 <- shinyQuiz:::sm_get_state(store2)
-quiz_complete2 <- shinyQuiz:::sm_quiz_is_complete(store2)
+quiz_complete <- shinyquiz:::sm_quiz_is_complete(store)
+store2 <- shinyquiz:::sm_set_state(store, 'current-state', 'quiz-complete')
+state21 <- shinyquiz:::sm_get_state(store2)
+quiz_complete2 <- shinyquiz:::sm_quiz_is_complete(store2)
 
 test_that('state machine works', {
   expect_type(store, 'list')

@@ -18,18 +18,18 @@ knitr::opts_chunk$set(
 pkgload::load_all()
 ```
 
-`shinyQuiz` provides versatile functions customizing your questions beyond the predefined question types. By using `create_question()` and `create_question_raw()` functions, you can tailor your quizzes to suit a wide array of educational scenarios and learning styles.
+`shinyquiz` provides versatile functions customizing your questions beyond the predefined question types. By using `create_question()` and `create_question_raw()` functions, you can tailor your quizzes to suit a wide array of educational scenarios and learning styles.
 In this guide, we will delve into the power of these two functions, demonstrating how to craft custom questions and incorporate raw HTML for enhanced question formatting.
 
 ```{r setup}
-library(shinyQuiz)
+library(shinyquiz)
 ```
 
 ## Maximizing `create_question()`
 
 `create_question()` automatically generates the necessary HTML to create the question prompt. However, it can also take display custom HTML. `htmltools` and `shiny` include many functions to convert R code into HTML.
 
-For example, a custom plot can be included in the question by passing a plot to `shiny::renderPlot()` and wrapping the entire prompt using `htmltools::tagList()`. Note that some HTML functions will not print correctly so using `shinyQuiz::preview_app()` is recommended.
+For example, a custom plot can be included in the question by passing a plot to `shiny::renderPlot()` and wrapping the entire prompt using `htmltools::tagList()`. Note that some HTML functions will not print correctly so using `shinyquiz::preview_app()` is recommended.
 
 ```{r eval=FALSE}
 create_question(
@@ -77,7 +77,7 @@ Three elements are required for `create_question_raw()`:
   - `correct_answer_pretty`: Text representing the correct answer. Useful for displaying a "pretty" version in the quiz's summary table.  
   - `user_answer_prettifier`: An optional function that takes the user input as a argument and returns back a "pretty" version of it. Useful for displaying cleaner answers in the quiz's summary table. The default is `paste0(user_input, collapse = ", ")`.  
 
-For example, you could use `shiny::dateInput()` to specify a date input. Note the use of `shiny::NS('quiz')('answers')` to define the `inputId`. This is required for `shinyQuiz` to find the user's answer. 
+For example, you could use `shiny::dateInput()` to specify a date input. Note the use of `shiny::NS('quiz')('answers')` to define the `inputId`. This is required for `shinyquiz` to find the user's answer. 
 
 ```{r eval=FALSE}
 create_question_raw(

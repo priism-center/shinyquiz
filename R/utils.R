@@ -12,17 +12,18 @@
 #'
 #' @author Joseph Marlo
 #' @seealso [shiny::isTruthy()]
+#' @noRd
 #' @keywords internal
 #'
 #' @examples
-#' shinyQuiz:::is_truthy(TRUE)
-#' shinyQuiz:::is_truthy(FALSE)
-#' shinyQuiz:::is_truthy(1)
-#' shinyQuiz:::is_truthy(0)
-#' shinyQuiz:::is_truthy(NULL)
-#' shinyQuiz:::is_truthy(NA)
-#' shinyQuiz:::is_truthy(data.frame())
-#' shinyQuiz:::is_truthy(data.frame(x = 1))
+#' shinyquiz:::is_truthy(TRUE)
+#' shinyquiz:::is_truthy(FALSE)
+#' shinyquiz:::is_truthy(1)
+#' shinyquiz:::is_truthy(0)
+#' shinyquiz:::is_truthy(NULL)
+#' shinyquiz:::is_truthy(NA)
+#' shinyquiz:::is_truthy(data.frame())
+#' shinyquiz:::is_truthy(data.frame(x = 1))
 is_truthy <- function(x){
   
   ##### additions

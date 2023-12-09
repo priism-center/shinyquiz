@@ -9,6 +9,7 @@
 #' @param ... objects of class 'quizQuestions'. See [construct_question()]
 #' @param options a list of options generated from [set_quiz_options()]
 #' 
+#' @noRd
 #' @keywords internal
 #' @seealso [create_question()], [construct_question()], [set_quiz_options()], [construct_messages()]
 #'
@@ -43,8 +44,6 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' @param progress_bar boolean. Show the progress bar UI at the top of the quiz
 #' @param progress_bar_color Color code for the progress bar background
 #' @param ... other named options to pass to `quiz`
-#' 
-#' @seealso [construct_quiz()], [construct_messages()]
 #'
 #' @return a list
 #' @export
@@ -144,6 +143,7 @@ create_messages <- function(message_correct, message_wrong, message_skipped){
 #' @param grader a function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with [purrr::possibly()] and [base::isTRUE()] to catch any errors.
 #' @param ns namespace generated from [shiny::NS()]
 #' 
+#' @noRd
 #' @keywords internal
 #' @return an object of class `quizQuestion`
 #' @describeIn construct_quiz Construct a question object
@@ -172,6 +172,7 @@ construct_question <- function(prompt, answerUserPrettifier, answerCorrectPretty
 #' @param message_wrong a string to be shown at the end of the quiz when the user gets at least one question wrong
 #' @param message_skipped a string to be shown at the end of the quiz when the user skips the quiz or ends it early
 #' 
+#' @noRd
 #' @keywords internal
 #' @return an object of class `quizMessages`
 #' @describeIn construct_quiz Construct a messages object
@@ -194,6 +195,7 @@ construct_messages <- function(message_correct, message_wrong, message_skipped){
 #'
 #' @param question An object of class `quizQuestion`
 #' 
+#' @noRd
 #' @keywords internal
 #' @return invisible TRUE if all tests passed
 #' @author Joseph Marlo
@@ -272,6 +274,7 @@ setClass('shiny.tag')
 #'
 #' @return none, sets a class
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 #'
 #' @seealso [construct_question()]
@@ -295,6 +298,7 @@ setClass('quizQuestion', slots = list(
 #'
 #' @return none, sets a class
 #' @author George Perrett, Joseph Marlo
+#' @noRd
 #' @keywords internal
 #'
 #' @seealso [construct_question()]
@@ -308,6 +312,7 @@ setClass('quizQuestionRandom', contains = 'quizQuestion')
 #'
 #' @return none, sets a class
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 #'
 #' @seealso [construct_messages()]
@@ -325,6 +330,7 @@ setClass('quizMessages', slots = list(
 #'
 #' @return none, sets a class
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 #' 
 #' @seealso [construct_quiz()]

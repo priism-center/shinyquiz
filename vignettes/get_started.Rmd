@@ -19,18 +19,18 @@ pkgload::load_all()
 ```
 
 
-`shinyQuiz` is a powerful R package that allows users to create interactive quizzes within R Shiny applications. This guide provides a step-by-step introduction to creating a quiz, integrating it into your Shiny app, and adjusting the options.
+`shinyquiz` is a powerful R package that allows users to create interactive quizzes within R Shiny applications. This guide provides a step-by-step introduction to creating a quiz, integrating it into your Shiny app, and adjusting the options.
 
 ## Installation
 
-`shinyQuiz` is currently in development and is available to test by installing via:
+`shinyquiz` is currently in development and is available to test by installing via:
 
 <!-- TODO: update with CRAN when ready -->
 
 ``` r
 # latest development version
 # install.packages("remotes")
-remotes::install_github('priism-center/shinyQuiz')
+remotes::install_github('priism-center/shinyquiz')
 ```
 
 ## Creating questions
@@ -39,7 +39,7 @@ To start creating a quiz, first load the package.
 
 
 ```{r setup}
-library(shinyQuiz)
+library(shinyquiz)
 ```
 
 A quiz is composed of individual questions created via the `create_question()` function. These objects are then integrated into a quiz using the `create_quiz()` function.
@@ -169,4 +169,4 @@ shinyApp(ui = ui, server = server)
 </p>
 <br>
 
-That's the basic idea! With the `shinyQuiz` package, you can easily create interactive quizzes and add them to your Shiny applications. If you want to share your app with others, be sure to check out the [Deploying to shinyapps.io article](deploying). Enjoy quiz making! 
+That's the basic idea! With the `shinyquiz` package, you can easily create interactive quizzes and add them to your Shiny applications. If you want to share your app with others, be sure to check out the [Deploying to shinyapps.io article](deploying). Enjoy quiz making! 

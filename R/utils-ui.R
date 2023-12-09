@@ -7,6 +7,7 @@
 #'
 #' @return called for side effect
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 scroll_to_div <- function(ns = NULL, id = 'quiz-container'){
   if (!is.null(ns)) id <- ns(id)
@@ -22,6 +23,7 @@ scroll_to_div <- function(ns = NULL, id = 'quiz-container'){
 #'
 #' @return called for side effect
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 add_checkmark <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
   
@@ -51,6 +53,7 @@ add_checkmark <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
 #'
 #' @return called for side effect
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 add_red_x <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
   
@@ -78,6 +81,7 @@ add_red_x <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
 #'
 #' @return called for side effect
 #' @author Joseph Marlo
+#' @noRd
 #' @keywords internal
 #' @describeIn add_message_correct Message to display when user is correct
 add_message_correct <- function(text){
@@ -116,6 +120,7 @@ add_message_skipped <- function(text){
 #' @return div containing divs of class "confetti-piece"
 #' @author Joseph Marlo
 #' @seealso \url{https://codepen.io/zer0kool/pen/KjZWRW}
+#' @noRd
 #' @keywords internal
 add_confetti <- function(){
 
@@ -150,6 +155,7 @@ add_confetti <- function(){
 #' @return html
 #' @author Joseph Marlo
 #' @seealso \url{https://getbootstrap.com/docs/4.0/components/progress/}
+#' @noRd
 #' @keywords internal
 add_progress_bar <- function(percent, bg_color) {
   if (percent < 0 | percent > 1) cli::cli_abort('`percent` must be [0, 1]')

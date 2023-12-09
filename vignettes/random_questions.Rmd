@@ -18,14 +18,14 @@ knitr::opts_chunk$set(
 pkgload::load_all()
 ```
 
-Creating a dynamic quiz can make it more engaging and challenging for users. The `create_question_random()` function in `shinyQuiz` allows you to generate random questions. This vignette will guide you through how to use this function effectively.
+Creating a dynamic quiz can make it more engaging and challenging for users. The `create_question_random()` function in `shinyquiz` allows you to generate random questions. This vignette will guide you through how to use this function effectively.
 
 The `create_question_random()` function takes two main arguments:  
 - .f: A function that generates a single random question.  
 - n: The number of random questions to generate for the quiz.
 
 ```{r setup}
-library(shinyQuiz)
+library(shinyquiz)
 ```
 
 <br>

@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(shinyQuiz)
+library(shinyquiz)
 ```
 
 In this vignette, we'll explore how to effectively style a quiz in Shiny using CSS. We'll cover the basic structure of the quiz divs, illustrate with example CSS, and delve into specific aspects like the progress bar and div width adjustments.

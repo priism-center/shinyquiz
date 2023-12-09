@@ -83,6 +83,3 @@ messages <- create_messages(
  )
 quiz@options <- set_quiz_options(messages = messages)
 }
-\seealso{
-\code{\link[=construct_quiz]{construct_quiz()}}, \code{\link[=construct_messages]{construct_messages()}}
-}

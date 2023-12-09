@@ -19,11 +19,11 @@ knitr::opts_chunk$set(
 pkgload::load_all()
 ```
 
-[Shiny modules](https://mastering-shiny.org/scaling-modules.html) are an effective way to reuse code across different Shiny applications, providing a modular and clean approach to app development. By combining the capabilities of `shinyQuiz` with Shiny modules, you can create reusable, customizable quiz components that can be effortlessly integrated into any of your Shiny applications.
+[Shiny modules](https://mastering-shiny.org/scaling-modules.html) are an effective way to reuse code across different Shiny applications, providing a modular and clean approach to app development. By combining the capabilities of `shinyquiz` with Shiny modules, you can create reusable, customizable quiz components that can be effortlessly integrated into any of your Shiny applications.
 We will walk you through the process of modifying the namespace of a quiz to correctly work within a Shiny module.
 
 ```{r setup}
-library(shinyQuiz)
+library(shinyquiz)
 ```
 
 We're creating two quizzes that will be embeded within a single module to demonstrate the complexity of the namespace argument. If you only have one quiz for a given module then you can skip the second quiz.
