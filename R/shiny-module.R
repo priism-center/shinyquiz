@@ -1,8 +1,8 @@
 ### shiny module that implements the state machine ###
 
-#' Run a quiz in R Shiny
+#' Run a quiz in 'shiny'
 #'
-#' @description A shiny module to implement a quiz. These are the core functions to implement the quiz with a Shiny application.
+#' @description A 'shiny' module to implement a quiz. These are the core functions to implement the quiz with a 'shiny' application.
 #'
 #' @param quiz an object of class `quiz`. See [create_quiz()]
 #' @author Joseph Marlo

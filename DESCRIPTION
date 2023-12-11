@@ -1,5 +1,5 @@
 Package: shinyquiz
-Title: Create Interactive Quizzes in 'Shiny'
+Title: Create Interactive Quizzes in 'shiny'
 Version: 0.0.1
 Authors@R: c(
   person("Joseph", "Marlo", email = "jpm770@nyu.edu", role = c("aut", "cre")),

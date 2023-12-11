@@ -3,7 +3,7 @@
 \name{quiz_ui}
 \alias{quiz_ui}
 \alias{quiz_server}
-\title{Run a quiz in R Shiny}
+\title{Run a quiz in 'shiny'}
 \usage{
 quiz_ui(quiz)
 
@@ -16,7 +16,7 @@ quiz_server(quiz)
 a reactive object showing the current results of the quiz
 }
 \description{
-A shiny module to implement a quiz. These are the core functions to implement the quiz with a Shiny application.
+A 'shiny' module to implement a quiz. These are the core functions to implement the quiz with a 'shiny' application.
 }
 \section{Functions}{
 \itemize{

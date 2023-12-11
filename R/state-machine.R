@@ -4,7 +4,7 @@
 #'
 #' The quiz is implemented via a state machine framework. It has states for each question and a final state for once the quiz ends. Only one state can be active at a time. The question text and answers shown depend on which state is active.
 #'
-#' These are `get` and `set` functions for retrieving state values and setting values. The states are originally created via a `reactiveValues` call within Shiny server (or `list` outside of Shiny; see example below).
+#' These are `get` and `set` functions for retrieving state values and setting values. The states are originally created via a `reactiveValues` call within a Shiny server (or `list` outside of Shiny; see example below).
 #'
 #' @param store a list formatted like in the example
 #' @param variable one of c('current-question', 'current-correct-answer', 'next-state', 'current-response')
