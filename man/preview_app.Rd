@@ -23,6 +23,7 @@ Launch a viewer to preview the structure of the questions in a quiz.
 
 }}
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 quiz <- create_quiz(
   create_question(
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -35,9 +36,8 @@ quiz <- create_quiz(
     add_choice('800')
   )
 )
-\dontrun{
 preview_app(quiz)
-}
+\dontshow{\}) # examplesIf}
 }
 \author{
 Joseph Marlo

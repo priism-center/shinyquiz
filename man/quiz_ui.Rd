@@ -26,6 +26,7 @@ A shiny module to implement a quiz. These are the core functions to implement th
 
 }}
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 quiz <- create_quiz(
   create_question(
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -48,9 +49,8 @@ ui <- shiny::fluidPage(
 server <- function(input, output, session) {
  quiz_server(quiz)
 }
-\dontrun{
 shinyApp(ui, server)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=create_quiz]{create_quiz()}} \code{\link[=preview_app]{preview_app()}}

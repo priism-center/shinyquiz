@@ -14,7 +14,7 @@
 #' @export
 #' @author Joseph Marlo
 #'
-#' @examples
+#' @examplesIf interactive()
 #' quiz <- create_quiz(
 #'   create_question(
 #'     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Select nulla.',
@@ -27,9 +27,7 @@
 #'     add_choice('800')
 #'   )
 #' )
-#' \dontrun{
 #' preview_app(quiz)
-#' }
 #' @describeIn preview_app Preview a quiz with full operability
 preview_app <- function(quiz, launch_browser = TRUE){
   
