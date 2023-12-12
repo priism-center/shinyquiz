@@ -22,6 +22,9 @@ Learn more with the [Get Started](https://priism-center.github.io/shinyquiz/arti
 shinyquiz is currently in development and is available to test by installing via:
 
 ``` r
+# install latest release from cran
+install.packages('shinyquiz')
+
 # latest development version
 # install.packages("remotes")
 remotes::install_github('priism-center/shinyquiz')
@@ -31,6 +34,8 @@ remotes::install_github('priism-center/shinyquiz')
 ## Usage
 
 ``` r
+library(shinyquiz)
+
 quiz <- create_quiz(
   create_question(
     'What is the capital of Illinois?',
