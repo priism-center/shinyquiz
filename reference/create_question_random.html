@@ -33,6 +33,9 @@
     <a class="dropdown-item" href="../articles/styling.html">Styling a Quiz with CSS</a>
   </div>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -60,7 +63,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_question_random</span><span class="op">(</span><span class="va">.f</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_question_random</span><span class="op">(</span><span class="va">.f</span>, n <span class="op">=</span> <span class="fl">50</span>, verify_randomness <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,6 +74,10 @@
 
 <dt>n</dt>
 <dd><p>a numeric value indicating how many draws of function .f to include in the random question bank.</p></dd>
+
+
+<dt>verify_randomness</dt>
+<dd><p>a boolean to denote if <code>.f</code> has inherit randomness. Defaults to TRUE.</p></dd>
 
 </dl></div>
     <div class="section level2">
