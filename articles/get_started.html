@@ -160,8 +160,33 @@ choices via <code><a href="../reference/add_choice.html">add_numeric()</a></code
 <p><br></p>
 <p>The <code><a href="../reference/preview_app.html">preview_app()</a></code> launches the quiz in a Shiny instance
 to quickly check the quiz design. You can also print the quiz via the R
-console to preview it without a Shiny runtime.</p>
+console to quickly preview it without a Shiny runtime. The latter is
+quick but lacks interactivity and some elements do not render well.</p>
 <p><br></p>
+</div>
+<div class="section level2">
+<h2 id="validating-grading">Validating grading<a class="anchor" aria-label="anchor" href="#validating-grading"></a>
+</h2>
+<p>Accurate grading is essential for the effectiveness of your shinyquiz
+quizzes. Automated grading is convenient, but it’s important to verify
+its correctness.</p>
+<div class="section level3">
+<h3 id="understanding-automated-grading">Understanding Automated Grading<a class="anchor" aria-label="anchor" href="#understanding-automated-grading"></a>
+</h3>
+<ul>
+<li>Default function: The <code><a href="https://rdrr.io/r/base/sets.html" class="external-link">setequal()</a></code> function is used by
+default to test if the user’s response is correct.</li>
+<li>Text input: With <code><a href="../reference/add_choice.html">add_text()</a></code>, user input is, by default,
+cleaned before checking for equality, which may affect the outcome.</li>
+<li>Varied inputs: Shiny elements might return values as lists or
+vectors, and users may enter rounded values instead of precise ones,
+leading to unexpected grading results.</li>
+</ul>
+<p>If you find that the grading is giving unexpected results, you may
+want to consider using <code><a href="../reference/create_question.html">create_question_raw()</a></code>. This function
+gives you finer control over how the grading is handled.</p>
+<p><br></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="integrating-into-your-shiny-application">Integrating into your Shiny application<a class="anchor" aria-label="anchor" href="#integrating-into-your-shiny-application"></a>
