@@ -19,7 +19,7 @@ Learn more with the [Get Started](https://priism-center.github.io/shinyquiz/arti
 
 ## Installation
 
-shinyquiz is currently in development and is available to test by installing via:
+shinyquiz is now on CRAN. You can also install the latest development version from GitHub:
 
 ``` r
 # install latest release from cran

@@ -23,11 +23,12 @@ pkgload::load_all()
 
 ## Installation
 
-`shinyquiz` is currently in development and is available to test by installing via:
-
-<!-- TODO: update with CRAN when ready -->
+`shinyquiz` is now on CRAN. You can also install the latest development version from GitHub:
 
 ``` r
+# install latest release from cran
+install.packages('shinyquiz')
+
 # latest development version
 # install.packages("remotes")
 remotes::install_github('priism-center/shinyquiz')

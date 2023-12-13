@@ -13,11 +13,16 @@ quiz <- shinyquiz::create_quiz(
 )
 
 p_app <- shinyquiz:::preview_app(quiz)
-# p_quiz <- suppressMessages(shinyquiz:::preview_quiz(quiz))
-# p_question <- suppressMessages(shinyquiz:::preview_question(question))
 
-test_that("preview_ functions work", {
+test_that("preview_app function work", {
   expect_s3_class(p_app, 'shiny.appobj')
-  # expect_s3_class(p_quiz, 'shiny.tag.list')
-  # expect_s3_class(p_question, 'shiny.tag')
 })
+
+if (interactive()){
+  p_quiz <- suppressMessages(shinyquiz:::preview_quiz(quiz))
+  p_question <- suppressMessages(shinyquiz:::preview_question(question))
+  test_that("preview_quiz and question functions work", {
+    expect_s3_class(p_quiz, 'shiny.tag.list')
+    expect_s3_class(p_question, 'shiny.tag')
+  })
+}
