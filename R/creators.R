@@ -472,7 +472,7 @@ create_quiz <- function(..., options = set_quiz_options()){
 # random questions ------------------------------------------------------
 
 #' Create a random question
-#' @param .f a function that outputs an object of class `quizQuestion`. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a `create_question` or `create_question_raw` call inside your function (see example). 
+#' @param .f a function that outputs an object of class `quizQuestion`. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a [create_question()] or [create_question_raw()] call inside your function (see example). 
 #' @param n a numeric value indicating how many draws of function .f to include in the random question bank. 
 #'
 #' @description Create questions with inherit randomness. Allows one function to generate many different questions. 

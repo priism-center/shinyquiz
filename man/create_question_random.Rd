@@ -7,7 +7,7 @@
 create_question_random(.f, n = 50)
 }
 \arguments{
-\item{.f}{a function that outputs an object of class \code{quizQuestion}. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a \code{create_question} or \code{create_question_raw} call inside your function (see example).}
+\item{.f}{a function that outputs an object of class \code{quizQuestion}. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a \code{\link[=create_question]{create_question()}} or \code{\link[=create_question_raw]{create_question_raw()}} call inside your function (see example).}
 
 \item{n}{a numeric value indicating how many draws of function .f to include in the random question bank.}
 }
