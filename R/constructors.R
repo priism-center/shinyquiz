@@ -138,9 +138,9 @@ create_messages <- function(message_correct, message_wrong, message_skipped){
 }
 
 #' @param prompt an [htmltools::div] that represents a quiz question
-#' @param answerUserPrettifier a function that takes the user answer and prints it neatly. This is wrapped with [purrr::possibly()] to catch any errors.
+#' @param answerUserPrettifier a function that takes the user answer and prints it neatly. Note that this is wrapped with [purrr::possibly()] to catch any errors.
 #' @param answerCorrectPretty a character that prints the correct answer neatly
-#' @param grader a function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with [purrr::possibly()] and [base::isTRUE()] to catch any errors.
+#' @param grader a function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. Note that this is wrapped with [purrr::possibly()] and [base::isTRUE()] to catch any errors.
 #' @param ns namespace generated from [shiny::NS()]
 #' 
 #' @noRd

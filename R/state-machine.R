@@ -113,9 +113,9 @@ sm_is_current_correct <- function(store){
   current_grader <- purrr::possibly(current_grader, otherwise = FALSE)
   
   # grade it
-  is_correct <- current_grader(current_response)
+  is_correct <- isTRUE(current_grader(current_response))
   
-  return(isTRUE(is_correct))
+  return(is_correct)
 }
 
 #' @keywords internal

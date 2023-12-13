@@ -386,7 +386,7 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
 
 
 #' @param prompt Text of the question prompt. Can also be an HTML element such as [htmltools::div()]. 
-#' @param grader A function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with [purrr::possibly()] and [base::isTRUE()] to catch any errors.
+#' @param grader A function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. Note that this is wrapped with [purrr::possibly()] and [base::isTRUE()] to catch any errors.
 #' @param correct_answer_pretty A string representing the correct answer that is printed 'pretty'
 #' @param user_answer_prettifier A function with one argument that takes the user's answers and prints it 'pretty'
 #'

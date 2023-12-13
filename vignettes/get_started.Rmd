@@ -100,7 +100,21 @@ preview_app(quiz)
 </p>
 <br>
 
-The `preview_app()` launches the quiz in a Shiny instance to quickly check the quiz design. You can also print the quiz via the R console to preview it without a Shiny runtime.
+The `preview_app()` launches the quiz in a Shiny instance to quickly check the quiz design. You can also print the quiz via the R console to quickly preview it without a Shiny runtime. The latter is quick but lacks interactivity and some elements do not render well.
+
+<br>
+
+## Validating grading
+
+Accurate grading is essential for the effectiveness of your shinyquiz quizzes. Automated grading is convenient, but it's important to verify its correctness.
+
+### Understanding Automated Grading
+
+- Default function: The `setequal()` function is used by default to test if the user's response is correct. 
+- Text input: With `add_text()`, user input is, by default, cleaned before checking for equality, which may affect the outcome. 
+- Varied inputs: Shiny elements might return values as lists or vectors, and users may enter rounded values instead of precise ones, leading to unexpected grading results.
+
+If you find that the grading is giving unexpected results, you may want to consider using `create_question_raw()`. This function gives you finer control over how the grading is handled. 
 
 <br>
 

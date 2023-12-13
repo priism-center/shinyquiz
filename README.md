@@ -13,7 +13,7 @@ The quiz can be a standalone application or integrated into a larger Shiny appli
 
 There is no built-in method for permanently recording users' answers in shinyquiz. By default, the package adheres to R Shiny's session data management. This means that user inputs and responses are held temporarily for the duration of the active session. Once the session ends – typically when the user closes the browser or the app is stopped – these inputs are not retained. If persistent data storage is required, such as for later analysis or record-keeping, users will need to implement their own data persistence logic. This might involve capturing the output of `quiz_server()` and saving responses to a database or writing them to a file.
 
-Learn more with the [Get Started](https://priism-center.github.io/shinyquiz/articles/get_started.html) article. 
+Learn more about using shinyquiz with the [Get Started](https://priism-center.github.io/shinyquiz/articles/get_started.html) article. 
 
 <br>
 

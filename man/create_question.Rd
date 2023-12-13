@@ -34,7 +34,7 @@ create_question_raw(
 
 \item{ns}{Namespace function generated from \code{\link[shiny:NS]{shiny::NS()}}}
 
-\item{grader}{A function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. This is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} and \code{\link[base:Logic]{base::isTRUE()}} to catch any errors.}
+\item{grader}{A function that takes the user answer and determines if it is correct. Must take one argument and return TRUE or FALSE. Note that this is wrapped with \code{\link[purrr:possibly]{purrr::possibly()}} and \code{\link[base:Logic]{base::isTRUE()}} to catch any errors.}
 
 \item{correct_answer_pretty}{A string representing the correct answer that is printed 'pretty'}
 
