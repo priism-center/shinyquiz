@@ -53,6 +53,32 @@ is_truthy <- function(x){
 }
 
 
+#' Check to see if all objects are equal
+#'
+#' [all.equal()] for arbitrary amount of objects
+#'
+#' @param objs a list of objects to test 
+#'
+#' @return boolean
+#' @noRd
+#' @keywords internal
+#'
+#' @examples
+#' is_set_all_equal(1, 1, 1)
+#' is_set_all_equal(1, 1, 2)
+#' is_set_all_equal(mtcars, mtcars)
+is_set_all_equal <- function(...){
+  dot_list <- list(...)
+  reference <- dot_list[[1]]
+  
+  for (obj in dot_list[-1]) {
+    if (!isTRUE(all.equal(reference, obj))) {
+      return(FALSE)
+    }
+  }
+  return(TRUE)
+}
+
 # to satisfy CMD CHECK when using pipe variables
 if(getRversion() >= "2.15.1") {
   utils::globalVariables(

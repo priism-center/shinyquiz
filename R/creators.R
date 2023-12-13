@@ -541,7 +541,7 @@ verify_question_random <- function(.f, verify_randomness = TRUE){
       msg_done = 'Randomness detected',
       msg_failed = 'No randomness detected. Function output from multiple calls is identical.'
     )
-    if (isTRUE(all.equal(.f(), .f()))) cli::cli_abort('Randomness not detected. Two function calls produced the same output.') 
+    if (is_set_all_equal(.f(), .f(), .f(), .f())) cli::cli_abort('Randomness not detected. Four function calls produced the same output.') 
   }
   
   cli::cli_progress_step('All clear! Your random question is looking good!')

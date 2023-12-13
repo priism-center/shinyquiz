@@ -34,7 +34,7 @@ install.packages('shinyquiz')
 remotes::install_github('priism-center/shinyquiz')
 ```
 
-## Creating questions
+## Creating Questions
 
 To start creating a quiz, first load the package.
 
@@ -83,7 +83,7 @@ q4 <- create_question(
 
 <br>
 
-## Forming a quiz
+## Forming a Quiz
 
 Create the quiz from the questions and preview it.
 
@@ -104,7 +104,7 @@ The `preview_app()` launches the quiz in a Shiny instance to quickly check the q
 
 <br>
 
-## Validating grading
+## Validating Grading
 
 Accurate grading is essential for the effectiveness of your shinyquiz quizzes. Automated grading is convenient, but it's important to verify its correctness.
 
@@ -118,7 +118,7 @@ If you find that the grading is giving unexpected results, you may want to consi
 
 <br>
 
-## Integrating into your Shiny application
+## Integrating into Your Shiny Application
 
 You can integrate the quiz into your Shiny app by adding it to the server and UI functions. Here's an example:
 
@@ -139,7 +139,7 @@ shinyApp(ui = ui, server = server)
 
 <br>
 
-## Adjusting options
+## Adjusting Options
 
 There are several options you can adjust to customize the behavior of your quizzes. Here are some examples:
 
@@ -157,7 +157,7 @@ create_quiz(q1, q2, q3, q4, options = set_quiz_options(sandbox = TRUE))
 
 <br>
 
-## Consuming the quiz output
+## Consuming the Quiz Output
 
 The `quiz_server()` outputs a reactive summary of the quiz that can be consumed by your Shiny application. Here, we run the `quiz_server()` and capture it's output. We then print it using `verbatimTextOutput` and `renderPrint`. You can pass the summary to any other functions as you wish.
 
