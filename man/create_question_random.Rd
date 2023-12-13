@@ -4,12 +4,14 @@
 \alias{create_question_random}
 \title{Create a random question}
 \usage{
-create_question_random(.f, n = 50)
+create_question_random(.f, n = 50, verify_randomness = TRUE)
 }
 \arguments{
 \item{.f}{a function that outputs an object of class \code{quizQuestion}. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a \code{\link[=create_question]{create_question()}} or \code{\link[=create_question_raw]{create_question_raw()}} call inside your function (see example).}
 
 \item{n}{a numeric value indicating how many draws of function .f to include in the random question bank.}
+
+\item{verify_randomness}{a boolean to denote if \code{.f} has inherit randomness. Defaults to TRUE.}
 }
 \value{
 a list of length n that includes objects of class \code{quizQuestionRandom}
@@ -18,7 +20,7 @@ a list of length n that includes objects of class \code{quizQuestionRandom}
 Create questions with inherit randomness. Allows one function to generate many different questions.
 }
 \details{
-\code{create_question_random()} takes any user generated function \code{.f}. The function passed to  the .\code{f} argument creates a random prompt along with an updated answer, the function passed to the \code{.f} argument must return an object of class \code{quizQuestion}. \code{create_question_random()} will automatically check to ensure the function passed to \code{.f} is in the appropriate format. The \code{n} argument controls how many random draws from  the function passed to \code{.f} are included in the question bank for the quiz. Higher values of \code{n} allow more unique questions but extreme values of \code{n} may also lead to slower performance. To create a quiz with \code{n} randomly generated questions, \code{create_question_random()} can be passed as an argument to \code{create_quiz()}.
+\code{create_question_random()} takes any user generated function \code{.f}. The function passed to  the .\code{f} argument creates a random prompt along with an updated answer, the function passed to the \code{.f} argument must return an object of class \code{quizQuestion}. \code{create_question_random()} will automatically check to ensure the function passed to \code{.f} is in the appropriate format. The \code{n} argument controls how many random draws from  the function passed to \code{.f} are included in the question bank for the quiz. Higher values of \code{n} allow more unique questions but extreme values of \code{n} may also lead to slower performance. To create a quiz with \code{n} randomly generated questions, \code{create_question_random()} can be passed as an argument to \code{\link[=create_quiz]{create_quiz()}}.
 }
 \examples{
 # a function that generates a random question

@@ -474,9 +474,10 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' Create a random question
 #' @param .f a function that outputs an object of class `quizQuestion`. This function can not have any arguments and must be able to produce random permutations of questions. The easiest way to ensure this is by including a [create_question()] or [create_question_raw()] call inside your function (see example). 
 #' @param n a numeric value indicating how many draws of function .f to include in the random question bank. 
+#' @param verify_randomness a boolean to denote if `.f` has inherit randomness. Defaults to TRUE.
 #'
 #' @description Create questions with inherit randomness. Allows one function to generate many different questions. 
-#' @details `create_question_random()` takes any user generated function `.f`. The function passed to  the .`f` argument creates a random prompt along with an updated answer, the function passed to the `.f` argument must return an object of class `quizQuestion`. `create_question_random()` will automatically check to ensure the function passed to `.f` is in the appropriate format. The `n` argument controls how many random draws from  the function passed to `.f` are included in the question bank for the quiz. Higher values of `n` allow more unique questions but extreme values of `n` may also lead to slower performance. To create a quiz with `n` randomly generated questions, `create_question_random()` can be passed as an argument to `create_quiz()`.   
+#' @details `create_question_random()` takes any user generated function `.f`. The function passed to  the .`f` argument creates a random prompt along with an updated answer, the function passed to the `.f` argument must return an object of class `quizQuestion`. `create_question_random()` will automatically check to ensure the function passed to `.f` is in the appropriate format. The `n` argument controls how many random draws from  the function passed to `.f` are included in the question bank for the quiz. Higher values of `n` allow more unique questions but extreme values of `n` may also lead to slower performance. To create a quiz with `n` randomly generated questions, `create_question_random()` can be passed as an argument to [create_quiz()].   
 #'
 #' @return a list of length n that includes objects of class `quizQuestionRandom`
 #' @export
@@ -502,9 +503,9 @@ create_quiz <- function(..., options = set_quiz_options()){
 #' quiz <- create_quiz(
 #'   create_question_random(.f = random_question, n = 20)
 #' )
-create_question_random <- function(.f, n = 50){
+create_question_random <- function(.f, n = 50, verify_randomness = TRUE){
   if (!((n %% 1 == 0) & n > 0)) cli::cli_abort('`n` must be a positive integer')
-  verify_question_random(.f)
+  verify_question_random(.f, verify_randomness = verify_randomness)
   
   # draw random realizations
   q_bank <- replicate(n, .f(), simplify = 'list')
@@ -517,7 +518,7 @@ create_question_random <- function(.f, n = 50){
 
 #' @describeIn verify_question_structure Verify the input function is the correct structure
 #' @keywords internal
-verify_question_random <- function(.f){
+verify_question_random <- function(.f, verify_randomness = TRUE){
   
   cli::cli_progress_step(
     'Checking function input',
@@ -534,12 +535,14 @@ verify_question_random <- function(.f){
   )
   verify_question_structure(.f())
   
-  cli::cli_progress_step(
-    'Checking randomness',
-    msg_done = 'Randomness detected',
-    msg_failed = 'No randomness detected. Function output from multiple calls is identical.'
-  )
-  if (isTRUE(all.equal(.f(), .f()))) cli::cli_abort('Randomness not detected. Two function calls produced the same output.')
+  if (isTRUE(verify_randomness)){
+    cli::cli_progress_step(
+      'Checking randomness',
+      msg_done = 'Randomness detected',
+      msg_failed = 'No randomness detected. Function output from multiple calls is identical.'
+    )
+    if (isTRUE(all.equal(.f(), .f()))) cli::cli_abort('Randomness not detected. Two function calls produced the same output.') 
+  }
   
   cli::cli_progress_step('All clear! Your random question is looking good!')
   cli::cli_status_clear()
