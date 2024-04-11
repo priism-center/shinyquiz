@@ -41,7 +41,7 @@ quiz <- create_quiz(
     'What is the capital of Illinois?',
     add_choice('Chicago'),
     add_choice('Paw Paw'),
-    add_choice('Spingfield', correct = TRUE)
+    add_choice('Springfield', correct = TRUE)
   ),
   create_question(
     'Which elements are gases at room temperature? Select all that apply.',

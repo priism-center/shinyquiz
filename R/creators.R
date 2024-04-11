@@ -189,7 +189,7 @@ grader_fn_text_fuzzy <- function(text, correct){
 #' @param prompt Text of the question prompt
 #' @param ... Objects of class 'quizChoice' generated from [add_choice()], [add_numeric()], [add_slider()], or [add_text()]. Named options to [shiny::selectInput()] or [shiny::checkboxGroupInput()] can be passed as well.
 #' @param type One of c('auto', 'single', 'multiple'). Can the user select only one answer or multiple?
-#' @param input One of c('auto', 'select', 'checkbox'). Should the UI for a select object created by [shiny::selectInput()] or checkbox by [shiny::checkboxGroupInput()]?
+#' @param input One of c('auto', 'select', 'checkbox'). Should the UI for a select input ([shiny::selectInput()]), checkbox ([shiny::checkboxGroupInput()]), or radio buttons ([shiny::radioButtons()])?
 #' @param shuffle TRUE or FALSE. If TRUE order of choices will be randomly shuffled.
 #' @param ns Namespace function generated from [`shiny::NS()`]
 #' 
@@ -215,12 +215,12 @@ grader_fn_text_fuzzy <- function(text, correct){
 #'  )
 #' quiz <- create_quiz(q, q2)
 #' @describeIn create_question Create a quiz question
-create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox'), shuffle = FALSE, ns = shiny::NS('quiz')){
+create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'), input = c('auto', 'select', 'checkbox', 'radio'), shuffle = FALSE, ns = shiny::NS('quiz')){
   
   if (!isTRUE(is.function(ns))) cli::cli_abort('`ns` must be a function. Preferably generated from `shiny::NS()`')
   
   type <- match.arg(type, c('auto', 'single', 'multiple'))
-  input <- match.arg(input, c('auto', 'select', 'checkbox'))
+  input <- match.arg(input, c('auto', 'select', 'checkbox', 'radio'))
   dot_list <- list(...)
   
   # extract sliders
@@ -359,7 +359,7 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
     type <- ifelse(sum(is_correct) == 1, 'single', 'multiple')
   }
   if (input == 'auto'){
-    input <- ifelse(type == 'single', 'select', 'checkbox')
+    input <- ifelse(type == 'single', 'radio', 'checkbox')
   }
   
   if (sum(is_correct) != 1 && type == 'single') cli::cli_abort('When `type` == "single", choices must contain exactly one correct answer')
@@ -372,13 +372,22 @@ create_question_input_ <- function(dot_list, choices, type, input, label, select
       selected = selected,
       multiple = isTRUE(type == 'multiple')
     )
-  }else {
+  } else if (input == 'radio'){
+    input_html <- shiny::radioButtons(
+      inputId = ns('answers'),
+      label = label,
+      choices = stats::setNames(texts, texts),
+      selected = selected
+    )
+  } else if (input == 'checkbox') {
     input_html <- shiny::checkboxGroupInput(
       inputId = ns('answers'), 
       label = label,
-      choices = texts,
+      choices = stats::setNames(texts, texts),
       selected = selected
     )
+  } else {
+    cli::cli_abort("Unsupported input type. Must be one of `select`, `radio`, `checkbox`")
   }
   
   return(list(input_html = input_html, text_correct = text_correct))

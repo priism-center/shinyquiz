@@ -9,7 +9,7 @@ create_question(
   prompt,
   ...,
   type = c("auto", "single", "multiple"),
-  input = c("auto", "select", "checkbox"),
+  input = c("auto", "select", "checkbox", "radio"),
   shuffle = FALSE,
   ns = shiny::NS("quiz")
 )
@@ -28,7 +28,7 @@ create_question_raw(
 
 \item{type}{One of c('auto', 'single', 'multiple'). Can the user select only one answer or multiple?}
 
-\item{input}{One of c('auto', 'select', 'checkbox'). Should the UI for a select object created by \code{\link[shiny:selectInput]{shiny::selectInput()}} or checkbox by \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}}?}
+\item{input}{One of c('auto', 'select', 'checkbox'). Should the UI for a select input (\code{\link[shiny:selectInput]{shiny::selectInput()}}), checkbox (\code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}}), or radio buttons (\code{\link[shiny:radioButtons]{shiny::radioButtons()}})?}
 
 \item{shuffle}{TRUE or FALSE. If TRUE order of choices will be randomly shuffled.}
 
