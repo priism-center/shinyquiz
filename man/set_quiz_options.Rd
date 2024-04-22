@@ -13,6 +13,8 @@ set_quiz_options(
   class = NULL,
   progress_bar = !sandbox,
   progress_bar_color = "#609963",
+  question_heading = "Practice what you've learned",
+  include_question_title = TRUE,
   ...
 )
 
@@ -32,6 +34,10 @@ create_messages(message_correct, message_wrong, message_skipped)
 \item{progress_bar}{boolean. Show the progress bar UI at the top of the quiz}
 
 \item{progress_bar_color}{Color code for the progress bar background}
+
+\item{question_heading}{Default text to show above the question prompt.}
+
+\item{include_question_title}{boolean. Should the text "Question #" be included above the prompt? If not included, the green check / red X will not be shown either.}
 
 \item{...}{other named options to pass to \code{quiz}}
 

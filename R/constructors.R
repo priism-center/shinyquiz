@@ -43,6 +43,8 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' @param class string. A custom CSS class to add to the quiz div
 #' @param progress_bar boolean. Show the progress bar UI at the top of the quiz
 #' @param progress_bar_color Color code for the progress bar background
+#' @param question_heading Default text to show above the question prompt.
+#' @param include_question_title boolean. Should the text "Question #" be included above the prompt? If not included, the green check / red X will not be shown either.
 #' @param ... other named options to pass to `quiz`
 #'
 #' @return a list
@@ -68,7 +70,7 @@ construct_quiz <- function(..., options = set_quiz_options()){
 #' quiz@options <- set_quiz_options(sandbox = FALSE)
 #' 
 #' @describeIn set_quiz_options Sets the options for a `quiz`
-set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, end_on_first_wrong = !sandbox, class = NULL, progress_bar = !sandbox, progress_bar_color = '#609963', ...){
+set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, end_on_first_wrong = !sandbox, class = NULL, progress_bar = !sandbox, progress_bar_color = '#609963', question_heading = "Practice what you've learned", include_question_title = TRUE, ...){
   # if(is.null(sandbox)) sandbox <- TRUE
   
   # set the default messages
@@ -89,6 +91,8 @@ set_quiz_options <- function(ns = shiny::NS('quiz'), messages, sandbox = FALSE, 
     class = class,
     progress_bar = isTRUE(progress_bar),
     progress_bar_color = progress_bar_color,
+    question_heading = question_heading,
+    include_question_title = include_question_title,
     ...
   )
   
@@ -280,7 +284,7 @@ setClass('shiny.tag')
 #' @seealso [construct_question()]
 setClass('quizQuestion', slots = list(
   prompt = 'shiny.tag', 
-  answerUser = 'list', # initially empty slot that will hold user answerss
+  answerUser = 'list', # initially empty slot that will hold user answers
   answerUserPrettifier = 'function', # how to print the user answer in the report
   answerCorrectPretty = 'character', # how to print the correct answer in the report
   grader = 'function', # function that compares user answer to the correct answer

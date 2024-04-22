@@ -156,7 +156,12 @@ sm_ui_format_prompts <- function(quiz){
   verify_quiz_structure(quiz)
   
   for (i in seq_along(quiz@questions)){
-    quiz@questions[[i]]@prompt <- sm_ui_format_prompt(quiz@questions[[i]]@prompt, i)
+    quiz@questions[[i]]@prompt <- sm_ui_format_prompt(
+      quiz@questions[[i]]@prompt, 
+      i, 
+      quiz@options$question_heading,
+      quiz@options$include_question_title
+    )
   }
   
   return(quiz)
@@ -164,13 +169,13 @@ sm_ui_format_prompts <- function(quiz){
 
 #' @keywords internal
 #' @describeIn sm_get_state Add a header denoting the question number
-sm_ui_format_prompt <- function(prompt, i){
+sm_ui_format_prompt <- function(prompt, i, question_heading, include_question_title){
   htmltools::div(
     htmltools::div(
       class = 'quiz-header',
-      htmltools::h4("Practice what you've learned"),
+      htmltools::h4(question_heading),
       htmltools::hr(),
-      htmltools::h3(glue::glue("Question {i}")) # h3 required for checkmark/red x placement
+      {if (isTRUE(include_question_title)) htmltools::h3(glue::glue("Question {i}"))} # h3 required for checkmark/red x placement
     ),
     htmltools::div(
         class = 'quiz-prompt',
