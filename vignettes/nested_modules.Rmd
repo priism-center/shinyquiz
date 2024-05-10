@@ -26,7 +26,7 @@ We will walk you through the process of modifying the namespace of a quiz to cor
 library(shinyquiz)
 ```
 
-We're creating two quizzes that will be embeded within a single module to demonstrate the complexity of the namespace argument. If you only have one quiz for a given module then you can skip the second quiz.
+We're creating two quizzes that will be embedded within a single module to demonstrate the complexity of the namespace argument. If you only have one quiz for a given module then you can skip the second quiz.
 
 Each of these quizzes will have a namespace that corresponds to the namespace of the module and a unique id for the quiz.
 
