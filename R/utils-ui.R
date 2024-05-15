@@ -15,37 +15,7 @@ scroll_to_div <- function(ns = NULL, id = 'quiz-container'){
   shinyjs::runjs(js)
 }
 
-#' Add a green checkmark to a div
-#'
-#' @param ns namespace of the Shiny module
-#' @param id id of the div to add the checkmark to
-#' @param element element within the div to place the checkmark
-#'
-#' @return called for side effect
-#' @author Joseph Marlo
-#' @noRd
-#' @keywords internal
-add_checkmark <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
-  
-  # construct selector
-  if (!missing(ns)) id <- paste0("#", ns(id))
-  if (!missing(element)) selector <- paste(id, element)
-  div_selector <- paste0('$("', selector, '")')
-  
-  # construct javascript
-  js <- paste0(
-    'if (',
-    div_selector,
-    '.children().length===0){',
-    div_selector,
-    '.append("\t" + \'<span class="glyphicon glyphicon-ok" style="color:green; font-size: 0.9em;"></span>\')}'
-  )
-  
-  # run js
-  shinyjs::runjs(js)
-}
-
-#' Add a red X to a div
+#' Add an icon to a div
 #'
 #' @param ns namespace of the Shiny module
 #' @param id id of the div to add the X to
@@ -55,24 +25,41 @@ add_checkmark <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
 #' @author Joseph Marlo
 #' @noRd
 #' @keywords internal
-add_red_x <- function(ns = NULL, id = 'quiz-container', element = 'h3'){
+add_grade_icon <- function(ns, id, icon, color){
   
-  # construct selector
-  if (!missing(ns)) id <- paste0("#", ns(id))
-  if (!missing(element)) selector <- paste(id, element)
-  div_selector <- paste0('$("', selector, '")')
+  # construct the base selector
+  if (!missing(ns)) {
+    id <- paste0("#", ns(id))
+  } else {
+    id <- paste0("#", id)
+  }
   
-  # construct javascript
-  js <- paste0(
-    'if (',
-    div_selector,
-    '.children().length===0){',
-    div_selector,
-    '.append("\t" + \'<span class="glyphicon glyphicon-remove" style="color:red; font-size: 0.9em;"></span>\')}'
+  # add the icon to the h3 element (question title) if it exists, otherwise h4 (question heading)
+  js <- glue::glue(
+    .open = "{{",
+    .close = '}}',
+    "var element = $('{{id}} h3').length > 0 ? 'h3' : 'h4'; 
+     var selector = '{{id}} ' + element;
+     var div_selector = $(selector);
+     if (div_selector.children().length === 0) {
+       div_selector.append('\\t' + '<span class=\\\"glyphicon glyphicon-{{icon}}\\\" style=\\\"color:{{color}}; font-size: 0.9em;\\\"></span>');
+     }"
   )
   
   # run js
   shinyjs::runjs(js)
+}
+
+#' @describeIn add_grade_icon
+#' @keywords internal
+add_checkmark <- function(ns = NULL, id = 'quiz-container'){
+  add_grade_icon(ns = ns, id = id, icon = 'ok', color = 'green')
+}
+
+#' @describeIn add_grade_icon
+#' @keywords internal
+add_red_x <- function(ns = NULL, id = 'quiz-container'){
+  add_grade_icon(ns = ns, id = id, icon = 'remove', color = 'red')
 }
 
 #' Add ending messages to the quiz

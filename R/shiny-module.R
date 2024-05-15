@@ -133,7 +133,7 @@ quiz_server <- function(quiz){
       delay_in_ms <- 2000
       if (is_correct){
         # add UI indicator
-        add_checkmark(ns = ns, id = 'quiz-container', element = 'h3')
+        add_checkmark(ns = ns, id = 'quiz-container')
         
         # change the state
         shinyjs::delay(delay_in_ms, {
@@ -143,7 +143,7 @@ quiz_server <- function(quiz){
         
       } else {
         # add UI indicator
-        add_red_x(ns = ns, id = 'quiz-container', element = 'h3')
+        add_red_x(ns = ns, id = 'quiz-container')
         
         # change the state
         # depending on options, go to next question otherwise end here
