@@ -70,6 +70,10 @@ sm_get_state <- function(store, variable = NULL, state = NULL){
   if (variable == 'sandbox-mode'){
     return(store$sandbox_mode)
   }
+  # TODO: is this tested?
+  if (variable == 'current-feedback'){
+    return(store$questions[store$states == state][[1]]@answerFeedback)
+  }
   
   cli::cli_abort('Variable or state not found')
 }
@@ -96,6 +100,11 @@ sm_set_state <- function(store, variable, value, state = NULL){
   if (variable == 'current-correct'){
     state_index <- store$states[store$states != 'quiz-complete']
     store$is_correct[state_index == state] <- value
+  }
+  
+  # TODO: adjusted here
+  if (variable == 'current-feedback'){
+    store$questions[[which(store$states == state)]]@answerFeedback[[1]] <- value
   }
   
   return(store)
@@ -130,6 +139,15 @@ sm_check_is_each_correct <- function(store){
 #' @describeIn sm_get_state Check that all recorded answers are correct
 sm_is_all_correct <- function(store) {
   return(isTRUE(all(sm_check_is_each_correct(store))))
+}
+
+sm_get_current_feedback <- function(store){
+  quiz@questions[[1]]@choices[[1]]@feedback
+  
+}
+
+sm_get_all_feedback <- function(store){
+  
 }
 
 #' @keywords internal
@@ -264,12 +282,18 @@ sm_ui_complete_report <- function(store){
   answers_correct_print <- purrr::map_chr(store$questions, ~.x@answerCorrectPretty)
   answers_correct_print[q_not_answered] <- skip_label
   
+  # TODO: get feedback
+  # browser()
+  user_feedback <- purrr::map_chr(store$questions, ~.x@answerFeedback)
+  user_feedback[q_not_answered] <- skip_label
+  
   # put everything in a table
   grade_tbl <- data.frame(
     icon = answers_icons,
     label = question_label,
     your_answer = unlist(answers_user_print),
-    correct_answer = answers_correct_print
+    correct_answer = answers_correct_print,
+    feedback = user_feedback
   )
 
   # remove skipped rows if in sandbox mode
@@ -284,7 +308,8 @@ sm_ui_complete_report <- function(store){
       icon = reactable::colDef(name = '', html = TRUE, width = 40),
       label = reactable::colDef(name = '', width = 115),
       your_answer = reactable::colDef(name = 'Your Answer', align = 'right'),
-      correct_answer = reactable::colDef(name = 'Correct Answer', align = 'right')
+      correct_answer = reactable::colDef(name = 'Correct Answer', align = 'right'),
+      feedback = reactable::colDef(name = 'Feedback', align = 'left')
     )
     # details = function(index) {
     #   htmltools::div(

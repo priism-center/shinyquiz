@@ -151,7 +151,7 @@ create_messages <- function(message_correct, message_wrong, message_skipped){
 #' @keywords internal
 #' @return an object of class `quizQuestion`
 #' @describeIn construct_quiz Construct a question object
-construct_question <- function(prompt, answerUserPrettifier, answerCorrectPretty, grader, ns){
+construct_question <- function(prompt, answerUserPrettifier, answerCorrectPretty, grader, ns, choices){
 
   if (!isTRUE(inherits(prompt, 'shiny.tag'))) cli::cli_abort("`prompt` must be of class 'shiny.tag'. Preferably generated from `htmltools::div()`")
   if (!isTRUE(is.function(answerUserPrettifier))) cli::cli_abort('`answerUserPrettifier` must be a function with one argument')
@@ -164,8 +164,10 @@ construct_question <- function(prompt, answerUserPrettifier, answerCorrectPretty
   question@answerUser = list(NA)
   question@answerUserPrettifier <- answerUserPrettifier
   question@answerCorrectPretty <- answerCorrectPretty
+  question@answerFeedback <- ''
   question@grader <- grader
   question@ns <- ns
+  question@choices <- choices
   
   verify_question_structure(question)
   
@@ -287,8 +289,10 @@ setClass('quizQuestion', slots = list(
   answerUser = 'list', # initially empty slot that will hold user answers
   answerUserPrettifier = 'function', # how to print the user answer in the report
   answerCorrectPretty = 'character', # how to print the correct answer in the report
+  answerFeedback = 'character', # initially empty slot that will hold the feedback after the question is graded
   grader = 'function', # function that compares user answer to the correct answer
-  ns = 'function'
+  ns = 'function',
+  choices = 'list' # list of the choices used to construct the question
   )
 )
 

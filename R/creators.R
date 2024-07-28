@@ -11,7 +11,8 @@
 #' @return none, sets a class
 setClass('quizChoice', slots = list(
   text = 'character',
-  correct = 'logical'
+  correct = 'logical',
+  feedback = 'character'
   )
 )
 
@@ -30,7 +31,8 @@ setClass('quizChoiceSlider', slots = list(
   min = 'numeric',
   max = 'numeric',
   default = 'numeric',
-  correct = 'numeric'
+  correct = 'numeric',
+  feedback = 'character' # TODO: is this feedback for correct or wrong answer??
   )
 )
 
@@ -43,8 +45,9 @@ setClass('quizChoiceSlider', slots = list(
 #' @keywords internal
 #' @return none, sets a class
 setClass('quizChoiceNumeric', slots = list(
-  correct = 'numeric'
- )
+  correct = 'numeric',
+  feedback = 'character'
+  )
 )
 
 #' S4 class for a quiz free form text response
@@ -57,8 +60,9 @@ setClass('quizChoiceNumeric', slots = list(
 #' @return none, sets a class
 setClass('quizChoiceText', slots = list(
   correct = 'character',
-  exact = 'logical'
-)
+  exact = 'logical',
+  feedback = 'character'
+  )
 )
 
 
@@ -87,13 +91,14 @@ setClass('quizChoiceText', slots = list(
 #'  add_choice('41', TRUE)
 #' )
 #' @describeIn add_choice Create a discrete choice
-add_choice <- function(text, correct = FALSE){
+add_choice <- function(text, correct = FALSE, feedback){
   if(!isTRUE(is.character(as.character(text)))) cli::cli_abort('`text` must be coercible to a character')
   if(!isTRUE(is.logical(correct))) cli::cli_abort('`correct` must be a logical')
   
   choice <- methods::new('quizChoice')
   choice@text <- as.character(text)
   choice@correct <- correct
+  choice@feedback <- if (missing(feedback)) '' else feedback
   
   return(choice)
 }
@@ -103,13 +108,15 @@ add_choice <- function(text, correct = FALSE){
 #' @return an object of class 'quizChoiceNumeric'
 #' @export
 #' @describeIn add_choice Create a numeric choice
-add_numeric <- function(correct){
+add_numeric <- function(correct, feedback){
   if (is.logical(correct)) cli::cli_abort('`correct` should be a numeric, not logical')
   correct <- as.numeric(correct)
   if (!is_truthy(correct)) cli::cli_abort("`correct` must be coercible to numeric")
   
   numeric <- methods::new('quizChoiceNumeric')
   numeric@correct <- correct
+  numeric@feedback <- if (missing(feedback)) '' else feedback
+  
   return(numeric)
 }
 
@@ -119,7 +126,7 @@ add_numeric <- function(correct){
 #' @return an object of class 'quizChoiceSlider'
 #' @export
 #' @describeIn add_choice Create a slider choice
-add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
+add_slider <- function(min = 0, max = 1, default_position = 0.5, correct, feedback){
   
   if (is.logical(correct)) cli::cli_abort('`correct` should be a numeric, not logical')
 
@@ -138,6 +145,7 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
   slider@max <- max
   slider@default <- default_position
   slider@correct <- correct
+  slider@feedback <- if (missing(feedback)) '' else feedback
   
   return(slider)
 }
@@ -154,13 +162,14 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct){
 #' q1_fuzzy@grader('Héllo ')
 #' q1_exact <- create_question('My Label', add_text(correct = 'hEllo', exact = TRUE))
 #' q1_exact@grader('Héllo ')
-add_text <- function(correct, exact = FALSE){
+add_text <- function(correct, exact = FALSE, feedback){
   if(!isTRUE(is.character(as.character(correct)))) cli::cli_abort('`correct` must be coercible to a character')
   if(!isTRUE(is.logical(exact))) cli::cli_abort('`exact` must be a logical')
   
   choice <- methods::new('quizChoiceText')
   choice@exact <- as.logical(exact)
   choice@correct <- correct
+  choice@feedback <- if (missing(feedback)) '' else feedback
   
   return(choice)
 }
@@ -222,6 +231,12 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
   type <- match.arg(type, c('auto', 'single', 'multiple'))
   input <- match.arg(input, c('auto', 'select', 'checkbox', 'radio'))
   dot_list <- list(...)
+  
+  # extract the choices
+  is_question <- function(x){
+    inherits(x, c('quizChoiceSlider', 'quizChoiceNumeric', 'quizChoiceText', 'quizChoice'))
+  } 
+  dot_list_choices <- dot_list[purrr::map_lgl(dot_list, is_question)]
   
   # extract sliders
   slider_element <- dot_list[purrr::map_lgl(dot_list, \(x) inherits(x, 'quizChoiceSlider'))]
@@ -291,7 +306,8 @@ create_question <- function(prompt, ..., type = c('auto', 'single', 'multiple'),
     answerUserPrettifier = \(x) paste0(x, collapse = ', '),
     answerCorrectPretty = paste0(input$text_correct, collapse = ', '),
     grader = grader_fn,
-    ns = ns
+    ns = ns,
+    choices = dot_list_choices
   )
   
   return(q)

@@ -129,6 +129,18 @@ quiz_server <- function(quiz){
       is_correct <- sm_is_current_correct(store)
       store <- sm_set_state(store, 'current-correct', is_correct)
       
+      # TODO: resume here
+      # set feedback for the question
+      # current_feedback <- sm_get_current_feedback(store)
+      # browser()
+      this_choices <- store$questions[store$states == store$state][[1]]@choices
+      # TODO: this only works with quizChoice because of text slot
+      this_choices_text <- unlist(purrr::map(this_choices, \(x) x@text))
+      user_response <- sm_get_state(store, variable = 'current-response')
+      selected_choice <- this_choices[this_choices_text == user_response]
+      current_feedback <- selected_choice[[1]]@feedback
+      store <- sm_set_state(store, 'current-feedback', current_feedback)
+      
       # grade it
       delay_in_ms <- 2000
       if (is_correct){
