@@ -31,6 +31,8 @@ is_truthy <- function(x){
     return(FALSE)
   if (inherits(x, "list") && length(x) == 0)
     return(FALSE)
+  if (is.null(x))
+    return(FALSE)
   
   ##### shiny::isTruthy
   if (inherits(x, "try-error"))

@@ -129,16 +129,26 @@ quiz_server <- function(quiz){
       is_correct <- sm_is_current_correct(store)
       store <- sm_set_state(store, 'current-correct', is_correct)
       
-      # TODO: resume here
       # set feedback for the question
-      # current_feedback <- sm_get_current_feedback(store)
-      # browser()
+      # TODO: turn this chunk into a function
       this_choices <- store$questions[store$states == store$state][[1]]@choices
-      # TODO: this only works with quizChoice because of text slot
-      this_choices_text <- unlist(purrr::map(this_choices, \(x) x@text))
       user_response <- sm_get_state(store, variable = 'current-response')
-      selected_choice <- this_choices[this_choices_text == user_response]
-      current_feedback <- selected_choice[[1]]@feedback
+      # if the feedback is a function then use the function
+      # otherwise compare the answer to the feedback value
+      # NOTE: this only works because the choices that use functions are unique
+      # i.e. there cannot be two sliders in a question
+      current_feedback <- NA_character_
+      if (is.function(this_choices[[1]]@feedback)){
+        # browser()
+        choice_obj <- this_choices[[1]]
+        feedback_fn <- choice_obj@feedback
+        correct_val <- choice_obj@correct
+        current_feedback <- feedback_fn(user_response, correct_val)
+      } else {
+        this_choices_text <- unlist(purrr::map(this_choices, \(x) x@text))
+        selected_choice <- this_choices[this_choices_text == user_response]
+        current_feedback <- selected_choice[[1]]@feedback
+      }
       store <- sm_set_state(store, 'current-feedback', current_feedback)
       
       # grade it

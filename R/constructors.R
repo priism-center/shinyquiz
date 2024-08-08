@@ -164,7 +164,7 @@ construct_question <- function(prompt, answerUserPrettifier, answerCorrectPretty
   question@answerUser = list(NA)
   question@answerUserPrettifier <- answerUserPrettifier
   question@answerCorrectPretty <- answerCorrectPretty
-  question@answerFeedback <- ''
+  question@answerFeedback <- NA_character_
   question@grader <- grader
   question@ns <- ns
   question@choices <- choices
@@ -238,6 +238,7 @@ verify_input_id <- function(prompt){
 #' @keywords internal
 #' @describeIn verify_question_structure Verify a function has n arguments
 verify_n_args <- function(fn, n) {
+  if (!is.function(fn)) cli::cli_abort("Error in verifying feedback or grader. Provided argument must be a function.")
   is_true <- isTRUE(length(formals(fn)) == n)
   if (!is_true) cli::cli_abort('{deparse(substitute(fn))} must have {n} arguments')
   return(invisible(TRUE))

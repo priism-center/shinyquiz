@@ -32,7 +32,7 @@ setClass('quizChoiceSlider', slots = list(
   max = 'numeric',
   default = 'numeric',
   correct = 'numeric',
-  feedback = 'character' # TODO: is this feedback for correct or wrong answer??
+  feedback = 'function'
   )
 )
 
@@ -46,7 +46,7 @@ setClass('quizChoiceSlider', slots = list(
 #' @return none, sets a class
 setClass('quizChoiceNumeric', slots = list(
   correct = 'numeric',
-  feedback = 'character'
+  feedback = 'function'
   )
 )
 
@@ -61,7 +61,7 @@ setClass('quizChoiceNumeric', slots = list(
 setClass('quizChoiceText', slots = list(
   correct = 'character',
   exact = 'logical',
-  feedback = 'character'
+  feedback = 'function'
   )
 )
 
@@ -72,6 +72,7 @@ setClass('quizChoiceText', slots = list(
 #'
 #' @param text Text of the choice answer
 #' @param correct Boolean denoting if this `choice` is correct; numeric for `slider` or `numeric`
+#' @param feedback Optional. Feedback to provide to the user. For `add_choice()`, this should be a character string For `add_numeric()`, `add_slider()`, and `add_text()`, a function that takes two arguments `x` and `correct` and returns a character string.
 #'
 #' @return an object of class 'quizChoice'
 #' @export
@@ -98,7 +99,7 @@ add_choice <- function(text, correct = FALSE, feedback){
   choice <- methods::new('quizChoice')
   choice@text <- as.character(text)
   choice@correct <- correct
-  choice@feedback <- if (missing(feedback)) '' else feedback
+  choice@feedback <- if (missing(feedback)) NA_character_ else verify_feedback_char(feedback)
   
   return(choice)
 }
@@ -115,7 +116,7 @@ add_numeric <- function(correct, feedback){
   
   numeric <- methods::new('quizChoiceNumeric')
   numeric@correct <- correct
-  numeric@feedback <- if (missing(feedback)) '' else feedback
+  numeric@feedback <- if (missing(feedback)) function(x, correct) NA_character_ else verify_feedback_fn(feedback)
   
   return(numeric)
 }
@@ -126,6 +127,14 @@ add_numeric <- function(correct, feedback){
 #' @return an object of class 'quizChoiceSlider'
 #' @export
 #' @describeIn add_choice Create a slider choice
+#' @examples 
+#' 
+#' feedback_fn <- function(x, correct) {
+#'   if (setequal(x, correct)) return("Great job!")
+#'   if (x < correct) return("Too low!")
+#'   return("Too high!")
+#' }
+#' q_with_feedback <- create_question('My Label', add_slider(correct = 20, min = 0, max = 100, feedback = feedback_fn))
 add_slider <- function(min = 0, max = 1, default_position = 0.5, correct, feedback){
   
   if (is.logical(correct)) cli::cli_abort('`correct` should be a numeric, not logical')
@@ -145,7 +154,7 @@ add_slider <- function(min = 0, max = 1, default_position = 0.5, correct, feedba
   slider@max <- max
   slider@default <- default_position
   slider@correct <- correct
-  slider@feedback <- if (missing(feedback)) '' else feedback
+  slider@feedback <- if (missing(feedback)) function(x, correct) NA_character_ else verify_feedback_fn(feedback)
   
   return(slider)
 }
@@ -169,7 +178,7 @@ add_text <- function(correct, exact = FALSE, feedback){
   choice <- methods::new('quizChoiceText')
   choice@exact <- as.logical(exact)
   choice@correct <- correct
-  choice@feedback <- if (missing(feedback)) '' else feedback
+  choice@feedback <- if (missing(feedback)) function(x, correct) NA_character_ else verify_feedback_fn(feedback)
   
   return(choice)
 }
@@ -189,6 +198,24 @@ grader_fn_text_fuzzy <- function(text, correct){
     normalize_text(correct)
   )
   return(is_equal)
+}
+
+#' @noRd
+#' @keywords internal
+verify_feedback_char <- function(feedback_txt){
+  if (!is.character(feedback_txt)) cli::cli_abort('feedback must be text')
+  if (!length(feedback_txt)==1) cli::cli_abort('feedback must be text of length 1')
+  return(as.character(feedback_txt))
+}
+
+#' @noRd
+#' @keywords internal
+verify_feedback_fn <- function(feedback_fn){
+  if (!is.function(feedback_fn)) cli::cli_abort("feedback must be a function")
+  verify_n_args(feedback_fn, n = 2)
+  feedback_fn_text <- function(x, correct) as.character(feedback_fn(x, correct))
+  feedback_fn_safe <- purrr::possibly(feedback_fn_text, otherwise = NA_character_)
+  return(feedback_fn_safe)
 }
 
 #' Create a quiz question

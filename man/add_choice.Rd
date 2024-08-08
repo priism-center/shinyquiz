@@ -7,18 +7,20 @@
 \alias{add_text}
 \title{Add choices to a quiz question}
 \usage{
-add_choice(text, correct = FALSE)
+add_choice(text, correct = FALSE, feedback)
 
-add_numeric(correct)
+add_numeric(correct, feedback)
 
-add_slider(min = 0, max = 1, default_position = 0.5, correct)
+add_slider(min = 0, max = 1, default_position = 0.5, correct, feedback)
 
-add_text(correct, exact = FALSE)
+add_text(correct, exact = FALSE, feedback)
 }
 \arguments{
 \item{text}{Text of the choice answer}
 
 \item{correct}{Boolean denoting if this \code{choice} is correct; numeric for \code{slider} or \code{numeric}}
+
+\item{feedback}{Optional. Feedback to provide to the user. For \code{add_choice()}, this should be a character string For \code{add_numeric()}, \code{add_slider()}, and \code{add_text()}, a function that takes two arguments \code{x} and \code{correct} and returns a character string.}
 
 \item{min}{the minimum value of the slider range}
 
@@ -62,6 +64,13 @@ q <- create_question(
  add_choice('39'),
  add_choice('41', TRUE)
 )
+
+feedback_fn <- function(x, correct) {
+  if (setequal(x, correct)) return("Great job!")
+  if (x < correct) return("Too low!")
+  return("Too high!")
+}
+q_with_feedback <- create_question('My Label', add_slider(correct = 20, min = 0, max = 100, feedback = feedback_fn))
 
 q1_fuzzy <- create_question('My Label', add_text(correct = ' hEllo'))
 q1_fuzzy@grader('Héllo ')
