@@ -33,12 +33,12 @@ is_truthy <- function(x){
     return(FALSE)
   
   ##### shiny::isTruthy
+  if (is.null(x))
+    return(FALSE)
   if (inherits(x, "try-error"))
     return(FALSE)
   if (!is.atomic(x))
     return(TRUE)
-  if (is.null(x))
-    return(FALSE)
   if (length(x) == 0)
     return(FALSE)
   if (all(is.na(x)))
